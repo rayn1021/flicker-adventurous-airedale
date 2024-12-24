@@ -89,7 +89,7 @@
   </div>
   <div class="form-group">
     <label for="rimuru">リムル%</label>
-    <input type="number" id="rimuru" placeholder="数値を入力してください">
+    <input type="number" id="rimuru" value="0" placeholder="数値を入力してください">
   </div>
   <div class="form-group">
     <button id="calculateButton">計算する</button>
@@ -136,7 +136,7 @@
 
 		// 入力が正しいか確認
 		if (isNaN(inRimuru)) {
-			alert("バッテリーに正しい数値を入力してください。");
+			alert("リムル%に正しい数値を入力してください。");
 			return;
 		}
 
