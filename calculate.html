@@ -98,8 +98,14 @@
     <button id="calculateButton">計算する</button>
   </div>
   <div class="form-group">
+    <label>ベースSTP</label>
+    <input type="text" id="outputA1" readonly>
+    <label>カテゴリSTP</label>
+    <input type="text" id="outputA2" readonly>
+  </div>
+  <div class="form-group">
     <label>獲得STP</label>
-    <input type="text" id="outputA" readonly>
+    <input type="text" id="outputA3" readonly>
   </div>
   <div class="form-group">
     <label>バッテリー消費</label>
@@ -151,11 +157,6 @@
 
 		var rimuruFlg = false;
 		var shunaFlg = false;
-
-		var magnification = 0.15;
-		if(inType == '2'){
-			magnification = 0.0925;
-		}
 
 		switch (inStrap1) {
 			case "1":
@@ -225,22 +226,65 @@
 				shunaFlg = true;
 				break;
 		}
+		
+		/*
+		var magnification = 0.15;
+		if(inType == '2'){
+			magnification = 0.0925;
+		}
 
 		var stp = inEff * magnification;
 		if (rimuruFlg == true){
 			stp = stp + stp * 0.2 * inRimuru / 100;
 		}
 		document.getElementById("outputA").value = stp;
+		*/
 		
+		var maxStp = inEff * 0.15;
+		var minStp = inEff * 0.15;
+		var maxCatStp = 0;
+		var minCatStp = 0;
+		if (inType == '2') {
+			maxStp = inEff * 0.1;
+			minStp = inEff * 0.08;
+			maxCatStp = inEff * 0.05;
+			minCatStp = inEff * 0.01;
+		}
+		
+		if (rimuruFlg == true){
+			maxStp = maxStp + maxStp * 0.2 * inRimuru / 100;
+			minStp = minStp + minStp * 0.2 * inRimuru / 100;
+			maxCatStp = maxCatStp + maxCatStp * 0.2 * inRimuru / 100;
+			minCatStp = minCatStp + minCatStp * 0.2 * inRimuru / 100;
+		}
+		
+		maxStp = Math.floor(maxStp * 100) / 100;
+		minStp = Math.floor(minStp * 100) / 100;
+		maxCatStp = Math.floor(maxCatStp * 100) / 100;
+		minCatStp = Math.floor(minCatStp * 100) / 100;
+		
+		var minTotalStp = Math.floor((minStp + minCatStp) * 100) / 100;
+		var maxTotalStp = Math.floor((maxStp + maxCatStp) * 100) / 100;
+		
+		
+		if (inType == '1') {
+			document.getElementById("outputA1").value = maxStp;
+			document.getElementById("outputA2").value = maxCatStp;
+			document.getElementById("outputA3").value = maxTotalStp;
+		} else {
+			document.getElementById("outputA1").value = minStp + "～" + maxStp;
+			document.getElementById("outputA2").value = minCatStp + "～" + maxCatStp;
+			document.getElementById("outputA3").value = minTotalStp + "～" + maxTotalStp;
+		}
 		var bat = (inEff - inBat) * 0.04;
-    bat = Math.floor(bat * 100) / 100
+		bat = Math.floor(bat * 100) / 100;
 		document.getElementById("outputB").value = bat;
 		
 		var cost = bat;
 		if (shunaFlg == true){
 			cost = cost * 0.8;
 		}
-    cost = Math.floor(cost * 100) / 100
+		cost = Math.floor(cost * 100) / 100
     
 		document.getElementById("outputC").value = cost;
 		
