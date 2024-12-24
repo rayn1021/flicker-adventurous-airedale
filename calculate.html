@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>計算フォーム</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    label {
+      width: 150px; /* ラベルの固定幅 */
+      margin-right: 10px;
+      text-align: right;
+    }
+    input[type="text"], select, input[type="number"] {
+      flex: 1;
+      padding: 8px;
+    }
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    input[readonly] {
+      background-color: #f0f0f0;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <image src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/logo_blk_h.png?v=1735034578090' style='width:100%'></image>
+  <h1>計算フォーム</h1>
+  <div class="form-group">
+    <label for="TYPE">タイプ</label>
+    <select id="TYPE">
+      <option value="1">ジェネシス</option>
+      <option value="2">非ジェネシス</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="eff">効率</label>
+    <input type="number" id="eff" placeholder="数値を入力してください">
+  </div>
+  <div class="form-group">
+    <label for="bat">バッテリー</label>
+    <input type="number" id="bat" placeholder="数値を入力してください">
+  </div>
+  <div class="form-group">
+    <label for="strap1">ストラップ1</label>
+    <select id="strap1">
+      <option value="1">なし</option>
+      <option value="2">ブルール(効率+5)</option>
+      <option value="3">レッド（効率+3)</option>
+      <option value="4">マーレ(バッテリー+5)</option>
+      <option value="5">パープル(バッテリー+3)</option>
+      <option value="6">リムル(まれに1.2倍)</option>
+      <option value="7">シュナ(回復20%減)</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="strap2">ストラップ2</label>
+    <select id="strap2">
+      <option value="1">なし</option>
+      <option value="2">ブルール(効率+5)</option>
+      <option value="3">レッド（効率+3)</option>
+      <option value="4">マーレ(バッテリー+5)</option>
+      <option value="5">パープル(バッテリー+3)</option>
+      <option value="6">リムル(まれに1.2倍)</option>
+      <option value="7">シュナ(回復20%減)</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="strap3">ストラップ3</label>
+    <select id="strap3">
+      <option value="1">なし</option>
+      <option value="2">ブルール(効率+5)</option>
+      <option value="3">レッド（効率+3)</option>
+      <option value="4">マーレ(バッテリー+5)</option>
+      <option value="5">パープル(バッテリー+3)</option>
+      <option value="6">リムル(まれに1.2倍)</option>
+      <option value="7">シュナ(回復20%減)</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="rimuru">リムル%</label>
+    <input type="number" id="rimuru" placeholder="数値を入力してください">
+  </div>
+  <div class="form-group">
+    <button id="calculateButton">計算する</button>
+  </div>
+  <div class="form-group">
+    <label>獲得STP</label>
+    <input type="text" id="outputA" readonly>
+  </div>
+  <div class="form-group">
+    <label>バッテリー消費</label>
+    <input type="text" id="outputB" readonly>
+  </div>
+  <div class="form-group">
+    <label>回復コスト</label>
+    <input type="text" id="outputC" readonly>
+  </div>
+  <div class="form-group">
+    <label>獲得期待値</label>
+    <input type="text" id="outputD" readonly>
+  </div>
+
+  <script>
+	document.getElementById("calculateButton").addEventListener("click", function() {
+		// 入力項目の値を取得
+		var inType = document.getElementById("TYPE").value;
+		var inEff = parseFloat(document.getElementById("eff").value);
+		var inBat = parseFloat(document.getElementById("bat").value);
+		var inStrap1 = document.getElementById("strap1").value;
+		var inStrap2 = document.getElementById("strap2").value;
+		var inStrap3 = document.getElementById("strap3").value;
+		var inRimuru = parseFloat(document.getElementById("rimuru").value);
+		
+		// 入力が正しいか確認
+		if (isNaN(inEff)) {
+			alert("効率に正しい数値を入力してください。");
+			return;
+		}
+
+		// 入力が正しいか確認
+		if (isNaN(inBat)) {
+			alert("バッテリーに正しい数値を入力してください。");
+			return;
+		}
+
+		// 入力が正しいか確認
+		if (isNaN(inRimuru)) {
+			alert("バッテリーに正しい数値を入力してください。");
+			return;
+		}
+
+		var rimuruFlg = false;
+		var shunaFlg = false;
+
+		var magnification = 0.15;
+		if(inType == '2'){
+			magnification = 0.0925;
+		}
+
+		switch (inStrap1) {
+			case "1":
+				break;
+			case "2":
+				inEff += 5;
+				break;
+			case "3":
+				inEff += 3;
+				break;
+			case "4":
+				inBat += 5;
+				break;
+			case "5":
+				inBat += 3;
+				break;
+			case "6":
+				rimuruFlg = true;
+				break;
+			case "7":
+				shunaFlg = true;
+				break;
+		}
+
+		switch (inStrap2) {
+			case "1":
+				break;
+			case "2":
+				inEff += 5;
+				break;
+			case "3":
+				inEff += 3;
+				break;
+			case "4":
+				inBat += 5;
+				break;
+			case "5":
+				inBat += 3;
+				break;
+			case "6":
+				rimuruFlg = true;
+				break;
+			case "7":
+				shunaFlg = true;
+				break;
+		}
+
+		switch (inStrap3) {
+			case "1":
+				break;
+			case "2":
+				inEff += 5;
+				break;
+			case "3":
+				inEff += 3;
+				break;
+			case "4":
+				inBat += 5;
+				break;
+			case "5":
+				inBat += 3;
+				break;
+			case "6":
+				rimuruFlg = true;
+				break;
+			case "7":
+				shunaFlg = true;
+				break;
+		}
+
+		var stp = inEff * magnification;
+		if (rimuruFlg == true){
+			stp = stp + stp * 0.2 * inRimuru / 100;
+		}
+		document.getElementById("outputA").value = stp;
+		
+		var bat = (inEff - inBat) * 0.04;
+		document.getElementById("outputB").value = bat;
+		
+		var cost = bat;
+		if (shunaFlg == true){
+			cost = cost * 0.8;
+		}
+		document.getElementById("outputC").value = cost;
+		
+		var getStp = stp - cost;
+		document.getElementById("outputD").value = getStp;
+
+    });
+  </script>
+</body>
+</html>
