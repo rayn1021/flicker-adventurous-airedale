@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>計算フォーム</title>
   <style>
     body {
@@ -32,6 +33,8 @@
       cursor: not-allowed;
     }
   </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
+     crossorigin="anonymous"></script>
 </head>
 <body>
   <image src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/logo_blk_h.png?v=1735034578090' style='width:100%'></image>
@@ -48,7 +51,7 @@
     <input type="number" id="eff" placeholder="数値を入力してください">
   </div>
   <div class="form-group">
-    <label for="bat">バッテリー</label>
+    <label for="bat">電池</label>
     <input type="number" id="bat" placeholder="数値を入力してください">
   </div>
   <div class="form-group">
@@ -109,6 +112,12 @@
   <div class="form-group">
     <label>獲得期待値</label>
     <input type="text" id="outputD" readonly>
+  </div>
+  </br>
+  <div>
+    ※現在β版です。</br>
+    計算内容に誤りがある可能性がありますので、お気づきの方は以下までご連絡ください。</br>
+    <a hrefhttps://x.com/Rayn73747887
   </div>
 
   <script>
@@ -224,12 +233,15 @@
 		document.getElementById("outputA").value = stp;
 		
 		var bat = (inEff - inBat) * 0.04;
+    bat = Math.floor(bat * 100) / 100
 		document.getElementById("outputB").value = bat;
 		
 		var cost = bat;
 		if (shunaFlg == true){
 			cost = cost * 0.8;
 		}
+    cost = Math.floor(cost * 100) / 100
+    
 		document.getElementById("outputC").value = cost;
 		
 		var getStp = stp - cost;
