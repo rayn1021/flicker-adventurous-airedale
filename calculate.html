@@ -37,7 +37,7 @@
      crossorigin="anonymous"></script>
 </head>
 <body>
-  <image src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/logo_blk_h.png?v=1735034578090' style='width:100%'></image>
+  <image src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/logo_blk_h.png?v=1735034578090' style='width:100%; max-width:800px'></image>
   <h1>計算フォーム</h1>
   <div class="form-group">
     <label for="TYPE">タイプ</label>
@@ -48,11 +48,11 @@
   </div>
   <div class="form-group">
     <label for="eff">効率</label>
-    <input type="number" id="eff" placeholder="数値を入力してください">
+    <input type="number" id="eff" value="0" placeholder="数値を入力してください">
   </div>
   <div class="form-group">
     <label for="bat">電池</label>
-    <input type="number" id="bat" placeholder="数値を入力してください">
+    <input type="number" id="bat" value="0" placeholder="数値を入力してください">
   </div>
   <div class="form-group">
     <label for="strap1">ストラップ1</label>
@@ -95,8 +95,13 @@
     <input type="number" id="rimuru" value="0" placeholder="数値を入力してください">
   </div>
   <div class="form-group">
+    <label for="bat">レンタル</label>
+    <input type="number" id="rent" value="0" placeholder="数値を入力してください">
+  </div>
+  <div class="form-group">
     <button id="calculateButton">計算する</button>
   </div>
+  <h3>計算結果</h3>
   <div class="form-group">
     <label>ベースSTP</label>
     <input type="text" id="outputA1" readonly>
@@ -120,6 +125,25 @@
     <input type="text" id="outputD" readonly>
   </div>
   </br>
+  
+  <h3>計算結果(レンタル)</h3>
+  <div class="form-group">
+    <label>獲得STP</label>
+    <input type="text" id="outputA3-1" readonly>
+  </div>
+  <div class="form-group">
+    <label>バッテリー消費</label>
+    <input type="text" id="outputB-1" readonly>
+  </div>
+  <div class="form-group">
+    <label>回復コスト</label>
+    <input type="text" id="outputC-1" readonly>
+  </div>
+  <div class="form-group">
+    <label>獲得期待値</label>
+    <input type="text" id="outputD-1" readonly>
+  </div>
+  </br>
   <div>
     ※現在β版です。</br>
     計算内容に誤りがある可能性がありますので、お気づきの方は以下までご連絡ください。</br>
@@ -136,6 +160,7 @@
 		var inStrap2 = document.getElementById("strap2").value;
 		var inStrap3 = document.getElementById("strap3").value;
 		var inRimuru = parseFloat(document.getElementById("rimuru").value);
+		var inRent = parseFloat(document.getElementById("rent").value);
 		
 		// 入力が正しいか確認
 		if (isNaN(inEff)) {
@@ -152,6 +177,18 @@
 		// 入力が正しいか確認
 		if (isNaN(inRimuru)) {
 			alert("リムル%に正しい数値を入力してください。");
+			return;
+		}
+
+		// 入力が正しいか確認
+		if (isNaN(inRent)) {
+			alert("レンタルに正しい数値を入力してください。");
+			return;
+		}
+
+		// 入力が正しいか確認
+		if (inType == '2' && inRent > 0) {
+			alert("非ジェネシスでレンタルすることはできません。");
 			return;
 		}
 
@@ -267,18 +304,8 @@
 		var maxTotalStp = Math.floor((maxStp + maxCatStp) * 100) / 100;
 		
 		
-		if (inType == '1') {
-			document.getElementById("outputA1").value = maxStp;
-			document.getElementById("outputA2").value = maxCatStp;
-			document.getElementById("outputA3").value = maxTotalStp;
-		} else {
-			document.getElementById("outputA1").value = minStp + "～" + maxStp;
-			document.getElementById("outputA2").value = minCatStp + "～" + maxCatStp;
-			document.getElementById("outputA3").value = minTotalStp + "～" + maxTotalStp;
-		}
 		var bat = (inEff - inBat) * 0.04;
 		bat = Math.floor(bat * 100) / 100;
-		document.getElementById("outputB").value = bat;
 		
 		var cost = bat;
 		if (shunaFlg == true){
@@ -286,11 +313,36 @@
 		}
 		cost = Math.floor(cost * 100) / 100
     
-		document.getElementById("outputC").value = cost;
+		if(inRent > 0){
 		
-		var getStp = stp - cost;
-		document.getElementById("outputD").value = getStp;
+				wkStp = Math.floor((maxStp - (maxStp * inRent / 100)) * 100) / 100;
+		
+				document.getElementById("outputA1").value = wkStp;
+				document.getElementById("outputA2").value = 0;
+				document.getElementById("outputA3").value = wkStp;
+				document.getElementById("outputB").value = 0;
+				document.getElementById("outputC").value = 0;
+				document.getElementById("outputD").value = wkStp;
 
+				document.getElementById("outputA3-1").value = Math.floor((maxStp - wkStp) * 100) / 100;
+				document.getElementById("outputB-1").value = Math.floor(bat * 100) / 100;
+				document.getElementById("outputC-1").value = Math.floor(cost * 100) / 100;
+				document.getElementById("outputD-1").value = Math.floor((maxStp - wkStp - cost) * 100) / 100;
+		} else {
+			if (inType == '1') {
+				document.getElementById("outputA1").value = Math.floor(maxStp * 100) / 100;
+				document.getElementById("outputA2").value = Math.floor(maxCatStp * 100) / 100;
+				document.getElementById("outputA3").value = Math.floor(maxTotalStp * 100) / 100;
+			} else {
+				document.getElementById("outputA1").value = minStp + "～" + maxStp;
+				document.getElementById("outputA2").value = minCatStp + "～" + maxCatStp;
+				document.getElementById("outputA3").value = minTotalStp + "～" + maxTotalStp;
+			}
+
+			document.getElementById("outputB").value = bat;
+			document.getElementById("outputC").value = cost;
+			document.getElementById("outputD").value = Math.floor((maxTotalStp - cost) * 100) / 100;
+		}
     });
   </script>
 </body>
