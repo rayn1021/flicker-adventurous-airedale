@@ -94,10 +94,22 @@
     <label for="rimuru">リムル%</label>
     <input type="number" id="rimuru" value="0" placeholder="数値を入力してください">
   </div>
-  <div class="form-group">
-    <label for="bat">レンタル</label>
-    <input type="number" id="rent" value="0" placeholder="数値を入力してください">
-  </div>
+  <details>
+    <summary>レンタル機能はこちら</summary>
+      <div class="form-group">
+        <label for="rentalDetail">借手割合</label>
+        <input type="number" id="rentalDetail" value="0" placeholder="数値を入力してください">
+      </div>
+      <div class="form-group">
+        <label for="LenderSubsc">貸手サブスク加入</label>
+        <input type="checkbox" id="LenderSubsc" value="0">
+      </div>
+      <div class="form-group">
+        <label for="renderSubsc">借手サブスク加入</label>
+        <input type="checkbox" id="renderSubsc" value="0">
+      </div>
+  </details>
+  <br>
   <div class="form-group">
     <button id="calculateButton">計算する</button>
   </div>
@@ -121,11 +133,15 @@
     <input type="text" id="outputC" readonly>
   </div>
   <div class="form-group">
+    <label id="labelMarginA" style="display:none">運営手数料</label>
+    <input type="text" id="marginA" readonly style="display:none">
+  </div>
+  <div class="form-group">
     <label>獲得期待値</label>
     <input type="text" id="outputD" readonly>
   </div>
   </br>
-  <div id="rental">
+  <div id="rental" style="display:none">
     <h3>計算結果(レンタル)</h3>
     <div class="form-group">
       <label>獲得STP</label>
@@ -140,14 +156,26 @@
       <input type="text" id="outputC-1" readonly>
     </div>
     <div class="form-group">
+      <label>運営手数料</label>
+      <input type="text" id="marginB" readonly>
+    </div>
+    <div class="form-group">
       <label>獲得期待値</label>
       <input type="text" id="outputD-1" readonly>
     </div>
   </div>
   </br>
+  <h3>更新履歴</h3>
+  <textarea id="story" name="story" rows="5" cols="33" style="width: 100%;">
+  2024/12/30 レンタル時の計算に手数料を追加
+  2024/12/28 レンタル時の計算を追加
+  </textarea>
+  </br>
+  </br>
+
   <div>
     ※現在β版です。</br>
-    計算内容に誤りがある可能性がありますので、お気づきの方は以下までご連絡ください。</br>
+    端数処理等、計算内容に誤りがある可能性がありますので、お気づきの方は以下までご連絡ください。</br>
     <a href="https://x.com/Rayn73747887" target="_blank">https://x.com/Rayn73747887</a>
   </div>
 
@@ -161,7 +189,7 @@
 		var inStrap2 = document.getElementById("strap2").value;
 		var inStrap3 = document.getElementById("strap3").value;
 		var inRimuru = parseFloat(document.getElementById("rimuru").value);
-		var inRent = parseFloat(document.getElementById("rent").value);
+		var inRent = parseFloat(document.getElementById("rentalDetail").value);
 		
 		// 入力が正しいか確認
 		if (isNaN(inEff)) {
@@ -315,21 +343,45 @@
 		cost = Math.floor(cost * 100) / 100
     
 		if(inRent > 0){
-		
-				wkStp = Math.floor((maxStp - (maxStp * inRent / 100)) * 100) / 100;
-		
-				document.getElementById("outputA1").value = wkStp;
-				document.getElementById("outputA2").value = 0;
-				document.getElementById("outputA3").value = wkStp;
-				document.getElementById("outputB").value = 0;
-				document.getElementById("outputC").value = 0;
-				document.getElementById("outputD").value = wkStp;
+			document.getElementById("rental").style.display="block";
+			document.getElementById("marginA").style.display="block";
+			document.getElementById("labelMarginA").style.display="block";
+			
+			var marginA = 0.1;
+			var marginB = 0.1;
+			
+			if (document.getElementById('LenderSubsc').checked) {
+				marginA = 0.03;
+			} 
+			
+			if (document.getElementById('renderSubsc').checked) {
+				marginB = 0.03;
+			} 
+			
+			//金額の計算
+			var wkStpA = Math.floor((maxStp - (maxStp * inRent / 100)) * 100) / 100;	// 貸手ベース
+			var marginA = Math.floor(wkStpA * marginA * 100) / 100;	// 貸手手数料
+			var wkStpB = Math.floor((maxStp - wkStpA) * 100) / 100;	// 貸手ベース
+			var marginB = Math.floor(wkStpB * marginB * 100) / 100;	// 貸手手数料
 
-				document.getElementById("outputA3-1").value = Math.floor((maxStp - wkStp) * 100) / 100;
-				document.getElementById("outputB-1").value = Math.floor(bat * 100) / 100;
-				document.getElementById("outputC-1").value = Math.floor(cost * 100) / 100;
-				document.getElementById("outputD-1").value = Math.floor((maxStp - wkStp - cost) * 100) / 100;
+			document.getElementById("outputA1").value = wkStpA;
+			document.getElementById("outputA2").value = 0;
+			document.getElementById("outputA3").value = wkStpA;
+			document.getElementById("outputB").value = 0;
+			document.getElementById("outputC").value = 0;
+			document.getElementById("marginA").value = marginA;
+			document.getElementById("outputD").value = Math.floor((wkStpA - marginA) * 100) / 100;
+
+			document.getElementById("outputA3-1").value = wkStpB;
+			document.getElementById("outputB-1").value = Math.floor(bat * 100) / 100;
+			document.getElementById("outputC-1").value = Math.floor(cost * 100) / 100;
+			document.getElementById("marginB").value = marginB;
+			document.getElementById("outputD-1").value = Math.floor((wkStpB - cost - marginB) * 100) / 100;
 		} else {
+			document.getElementById("rental").style.display="none";
+			document.getElementById("marginA").style.display="none";
+			document.getElementById("labelMarginA").style.display="none";
+
 			if (inType == '1') {
 				document.getElementById("outputA1").value = Math.floor(maxStp * 100) / 100;
 				document.getElementById("outputA2").value = Math.floor(maxCatStp * 100) / 100;
