@@ -87,7 +87,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
         document.getElementById("outputB-1").value = bat;
         document.getElementById("outputC-1").value = cost;
         document.getElementById("marginB").value = marginB;
-        document.getElementById("outputD-1").value = roundToDecimal(wkStpB - batCost - marginB);
+        document.getElementById("outputD-1").value = roundToDecimal(wkStpB - cost - marginB);
     } else {
         rentalSection.style.display = "none";
 
@@ -103,7 +103,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
 
         document.getElementById("outputB").value = bat;
         document.getElementById("outputC").value = cost;
-        document.getElementById("outputD").value = roundToDecimal(maxTotalStp - batCost);
+        document.getElementById("outputD").value = roundToDecimal(maxTotalStp - cost);
     }
 });
 
