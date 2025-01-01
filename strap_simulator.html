@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>合成シミュレーター</title>
+  <link rel="stylesheet" href="style_user.css" type="text/css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+  <image src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/logo_blk_h.png?v=1735034578090' style='width:100%; max-width:800px'></image>
+
+  <h1>合成シミュレーター</h1>
+  
+  <div class="form-group">
+    <label for="STRAP">ストラップ</label>
+    <select id="STRAP">
+      <option value="2">★2 イチカ(Q+5)</option>
+      <option value="2">★2 ブルール(E+5)</option>
+      <option value="2">★2 ナッチ(L+5)</option>
+      <option value="2">★2 マーレ(B+5)</option>
+      <option value="2">★2 SNPIT黄(Q+3/Q+5)</option>
+      <option value="2">★2 SNPIT赤(E+3/E+5)</option>
+      <option value="2">★2 SNPIT緑(L+3/L+5)</option>
+      <option value="2">★2 SNPIT紫(B+3/B+5)</option>
+      <option value="2">★2 リムル(稀に撮影STP1.2倍)</option>
+      <option value="2">★2 ミリム(2倍ズーム)</option>
+      <option value="2">★2 ヴェルドラ(稀にバトルSTP1.2倍)</option>
+      <option value="2">★2 ソウエイ(全ステータス+1)</option>
+      <option value="2">★2 シュナ(バッテリーチャージ20%オフ)</option>
+      <option value="3">★3 SNPIT茶(L+20)</option>
+      <option value="3">★3 Tシャツリタロウ(フォーカス)</option>
+      <option value="3">★3 リタロウ(L+20)</option>
+      <option value="4">★4 リムルスキン(アクセ枠+1)</option>
+      <option value="4">★4 ミリムスキン(MB獲得2倍)</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="eff">グレード</label>
+    <input type="number" id="GradeStart" value="0">&nbsp;⇒&nbsp;<input type="number" id="GradeEnd" value="1">
+  </div>
+  <br>
+  <div class="form-group">
+    <button id="calculateButton">シミュレーション開始</button>
+  </div>
+  <div id="result"></div>
+  <h3>結果</h3>
+  <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+    <thead class="tableHedder">
+      <tr>
+        <th>ランク</th>
+        <th>試行回数</th>
+        <th>使用STP</th>
+      </tr>
+    </thead>
+    <tbody id="resultTableBody">
+    </tbody>
+  </table>
+  </br>
+
+  <h3>更新履歴</h3>
+  <textarea id="story" name="story" rows="5" cols="33" style="width: 100%;">
+  2024/12/30 レンタル時の計算に手数料を追加
+  2024/12/28 レンタル時の計算を追加
+  </textarea>
+  </br>
+  </br>
+
+  <div>
+    ※現在β版です。</br>
+    端数処理等、計算内容に誤りがある可能性がありますので、お気づきの方は以下までご連絡ください。</br>
+    <a href="https://x.com/Rayn73747887" target="_blank">https://x.com/Rayn73747887</a>
+  </div>
+
+  <script>
+	document.getElementById("calculateButton").addEventListener("click", function() {
+	
+		const list1 = 
+			[[0.5, 0.2, 0.1, 0.03],
+			 [0.5, 0.2, 0.1, 0.03],
+			 [0.1, 0.03]];
+		const list2 = [30, 40, 100];
+		
+		
+		// 入力項目の値を取得
+		var inStrap = document.getElementById("STRAP").value;
+		var inStart = parseFloat(document.getElementById("GradeStart").value);
+		var inEnd = parseFloat(document.getElementById("GradeEnd").value);
+		
+		// 入力が正しいか確認
+		if (isNaN(inStart)) {
+			alert("グレード(開始)に正しい数値を入力してください。");
+			return;
+		}
+
+		// 入力が正しいか確認
+		if (isNaN(inStart)) {
+			alert("グレード(終了)に正しい数値を入力してください。");
+			return;
+		}
+		
+		if (inStart >= inEnd) {
+			alert("グレード(終了)には、開始より大きい値を入力してください。");
+			return;
+		}
+		
+		if (inStrap == "2" && inEnd > 4) {
+			alert("★2ストラップは、グレード4まで強化可能です。");
+			return;
+		}
+		
+		if (inStrap == "3" && inEnd > 4) {
+			alert("★3ストラップは、グレード4まで強化可能です。");
+			return;
+		}
+		
+		if (inStrap == "4" && inEnd > 2) {
+			alert("★4ストラップは、グレード2まで強化可能です。");
+			return;
+		}
+		
+		
+		// 出力エリアの取得
+		document.getElementById('resultTableBody').innerHTML="";
+		const tableBody = document.getElementById('resultTableBody');
+		
+		var nowGrade = inStart;
+		var endFlg = true;
+		var totalCost = 0;
+		var totalCount = 0;
+		var count = 0;
+		var cost = 0;
+		while (endFlg) {
+			successRate = list1[inStrap - 2][nowGrade];
+			cost += list2[inStrap - 2];
+			count++;
+
+			
+			if (Math.random() < successRate){
+				
+				totalCount += count;
+				totalCost += cost;
+				
+				const row = document.createElement('tr');
+				row.innerHTML = "<td>" + nowGrade + " → " + (nowGrade + 1) +"</td>" +
+				"<td>" + count + "回</td>" +
+				"<td>" + cost + "STP</td>"
+				tableBody.appendChild(row);
+				
+				count = 0;
+				cost = 0;
+				nowGrade++;
+			}
+			
+			if (count > 100){
+				endFlg = false;
+			}
+			if (nowGrade == inEnd){
+				endFlg = false;
+			}
+		}
+			
+		const row = document.createElement('tr');
+		row.classList.add("trTotal");
+		row.innerHTML = "<td>合計</td>" +
+		"<td>" + totalCount + "回</td>" +
+		"<td>" + totalCost + "STP</td>"
+		tableBody.appendChild(row);
+
+		document.getElementById("COUNT").value = count;
+		document.getElementById("UseSTP").value = totalCost;
+		
+
+    });
+  </script>
+</body>
+</html>
