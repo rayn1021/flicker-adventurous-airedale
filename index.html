@@ -22,10 +22,12 @@
 
     <!-- The website JavaScript file -->
     <script src="/script.js" defer></script>
+    <script src="script/global.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
      crossorigin="anonymous"></script>
   </head>
   <body>
+  <div id="header"></div>
     <!--
       The body includes the content you see in the page
       Each element is defined using tags, like this <div></div>
@@ -38,16 +40,17 @@
     <br><hr>
     <br>
     <div>
-      <button onclick="location.href='instructions.html'" style="width:340px">SNPIT 説明書</button>
+      <button onclick="window.location.href='instructions.html'" style="width:340px">SNPIT 説明書</button>
     </div>
     <div>
-      <button onclick="location.href='calculate.html'" style="width:340px">壁撮り計算機</button>
+      <button onclick="window.location.href='calculate.html'" style="width:340px">壁撮り計算機</button>
     </div>
     <div>
-      <button onclick="location.href='strap_simulator.html'" style="width:340px">ストラップ合成シミュレーター</button>
+      <button onclick="window.location.href='strap_simulator.html'" style="width:340px">ストラップ合成シミュレーター</button>
     </div>
       
     <br><br><br><br><br><br><br><br><br><br><br>
+    <div id="history"></div>
     <!-- The footer holds our remix button — you can keep or delete it ✂ -->
     <footer class="footer">
     </footer>
