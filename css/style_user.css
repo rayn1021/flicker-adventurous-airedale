@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+	body {
+	  font-family: Arial, sans-serif;
+	  margin: 20px;
+	}
+	
+	label {
+	  width: 150px; /* ラベルの固定幅 */
+	  margin-right: 10px;
+	  text-align: right;
+    white-space: nowrap;
+	}
+	
+	input[type="text"], select, input[type="number"] {
+	  flex: 1;
+	  padding: 8px;
+	}
+	
+	button {
+	  margin: 15px 15px 15px 15px;
+	  padding: 10px 15px 10px 15px;
+	  cursor: pointer;
+      background-color: #EEEEff;
+	  border-radius: 15px;
+	}
+	
+	input[readonly] {
+	  background-color: #f0f0f0;
+	  cursor: not-allowed;
+	}
+
+	.form-group {
+	  display: flex;
+	  align-items: center;
+	  margin-bottom: 15px;
+    max-width: 100%;
+	}
+
+	.tableHedder{
+	  background-color: #aaddaa;
+	}
+
+	.trTotal{
+	  font-weight: bold;
+	}
+
+	.titleLavel{
+	  font-weight: bold;
+	}
+
