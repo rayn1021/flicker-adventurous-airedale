@@ -9,7 +9,7 @@
 	  width: 150px; /* ラベルの固定幅 */
 	  margin-right: 10px;
 	  text-align: right;
-    white-space: nowrap;
+      white-space: nowrap;
 	}
 	
 	input[type="text"], select, input[type="number"] {
