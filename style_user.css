@@ -17,8 +17,10 @@
 	}
 	
 	button {
+	  margin: 15px 15px 15px 15px;
 	  padding: 10px 15px 10px 15px;
 	  cursor: pointer;
+    background-color: #EEEEff;
 	}
 	
 	input[readonly] {
