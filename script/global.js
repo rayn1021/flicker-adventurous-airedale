@@ -5,3 +5,7 @@ fetch("page/header.html")
 fetch("page/history.html")
   .then((response) => response.text())
   .then((data) => document.querySelector("#history").innerHTML = data);
+
+  fetch("page/footer.html")
+  .then((response) => response.text())
+  .then((data) => document.querySelector("#footer").innerHTML = data);
