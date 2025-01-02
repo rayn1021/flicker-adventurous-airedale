@@ -15,22 +15,24 @@
   <h1>壁撮り計算機</h1>
   <div class="form-group">
     <label for="TYPE">タイプ</label>
-    <select id="TYPE">
+    <select id="TYPE" style="max-width: 120px;">
       <option value="1">ジェネシス</option>
       <option value="2">非ジェネシス</option>
     </select>
   </div>
   <div class="form-group">
     <label for="eff">効率</label>
-    <input type="number" id="eff" value="0" placeholder="数値を入力してください">
+	<input type="range" id="eff-slider" value="0" min="0" max="300" step="1">
+    <input type="number" id="eff" value="0" style="max-width: 32px;">
   </div>
   <div class="form-group">
     <label for="bat">電池</label>
-    <input type="number" id="bat" value="0" placeholder="数値を入力してください">
+	<input type="range" id="bat-slider" value="0" min="0" max="300" step="1">
+    <input type="number" id="bat" value="0" style="max-width: 32px;">
   </div>
   <div class="form-group">
     <label for="strap1">ストラップ1</label>
-    <select id="strap1">
+    <select id="strap1" style="max-width: 140px;">
       <option value="1">なし</option>
       <option value="2">ブルール(効率+5)</option>
       <option value="3">レッド（効率+3)</option>
@@ -39,7 +41,7 @@
       <option value="6">リムル(まれに1.2倍)</option>
       <option value="7">シュナ(回復20%減)</option>
     </select>
-    <select id="grade1" style="margin-left: 15px;">
+    <select id="grade1" style="margin-left: 15px; max-width: 52px;">
 		<option value="0"></option>
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -50,7 +52,7 @@
 </div>
   <div class="form-group">
     <label for="strap2">ストラップ2</label>
-    <select id="strap2">
+    <select id="strap2" style="max-width: 140px;">
       <option value="1">なし</option>
       <option value="2">ブルール(効率+5)</option>
       <option value="3">レッド（効率+3)</option>
@@ -59,7 +61,7 @@
       <option value="6">リムル(まれに1.2倍)</option>
       <option value="7">シュナ(回復20%減)</option>
     </select>
-    <select id="grade2" style="margin-left: 15px;">
+    <select id="grade2" style="margin-left: 15px; max-width: 52px;">
 		<option value="0"></option>
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -69,7 +71,7 @@
 	</div>
   <div class="form-group">
     <label for="strap3">ストラップ3</label>
-    <select id="strap3">
+    <select id="strap3" style="max-width: 140px;">
       <option value="1">なし</option>
       <option value="2">ブルール(効率+5)</option>
       <option value="3">レッド（効率+3)</option>
@@ -78,7 +80,7 @@
       <option value="6">リムル(まれに1.2倍)</option>
       <option value="7">シュナ(回復20%減)</option>
     </select>
-    <select id="grade3" style="margin-left: 15px;">
+    <select id="grade3" style="margin-left: 15px; max-width: 52px;">
 		<option value="0"></option>
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -88,20 +90,18 @@
   </div>
   <div class="form-group">
     <label for="rimuru">リムル%</label>
-    <input type="number" id="rimuru" value="0" placeholder="数値を入力してください">
+    <input type="number" id="rimuru" value="0" style="max-width: 120px;">
   </div>
   <details>
     <summary>レンタル機能はこちら</summary>
       <div class="form-group">
         <label for="rentalDetail">借手割合</label>
-        <input type="number" id="rentalDetail" value="0" placeholder="数値を入力してください">
+        <input type="number" id="rentalDetail" value="0" style="max-width: 120px;">
       </div>
       <div class="form-group">
         <label for="LenderSubsc">貸手サブスク加入</label>
         <input type="checkbox" id="LenderSubsc" value="0">
-      </div>
-      <div class="form-group">
-        <label for="renderSubsc">借手サブスク加入</label>
+        <label for="renderSubsc"style="margin-left: 15px;">借手サブスク加入</label>
         <input type="checkbox" id="renderSubsc" value="0">
       </div>
   </details>
@@ -112,23 +112,17 @@
   <h3>計算結果</h3>
   <div class="form-group">
     <label>ベースSTP</label>
-    <input type="text" id="outputA1" readonly>
-  </div>
-  <div class="form-group">
+    <input type="text" id="outputA1" readonly style="max-width: 40px; margin-right: 10px;">
     <label>カテゴリSTP</label>
-    <input type="text" id="outputA2" readonly>
-  </div>
-  <div class="form-group">
+    <input type="text" id="outputA2" readonly style="max-width: 40px; margin-right: 10px;">
     <label>獲得STP</label>
-    <input type="text" id="outputA3" readonly>
+    <input type="text" id="outputA3" readonly style="max-width: 40px;">
   </div>
   <div class="form-group">
     <label>バッテリー消費</label>
-    <input type="text" id="outputB" readonly>
-  </div>
-  <div class="form-group">
+    <input type="text" id="outputB" readonly style="max-width: 40px; margin-right: 10px;">
     <label>回復コスト</label>
-    <input type="text" id="outputC" readonly>
+    <input type="text" id="outputC" readonly style="max-width: 40px;">
   </div>
   <div class="form-group">
     <label id="labelMarginA" style="display:none">運営手数料</label>
@@ -136,30 +130,28 @@
   </div>
   <div class="form-group">
     <label>獲得期待値</label>
-    <input type="text" id="outputD" readonly>
+    <input type="text" id="outputD" readonly style="max-width: 40px;">
   </div>
   </br>
   <div id="rental" style="display:none">
     <h3>計算結果(レンタル)</h3>
     <div class="form-group">
       <label>獲得STP</label>
-      <input type="text" id="outputA3-1" readonly>
+      <input type="text" id="outputA3-1" readonly style="max-width: 40px;">
     </div>
     <div class="form-group">
       <label>バッテリー消費</label>
-      <input type="text" id="outputB-1" readonly>
+      <input type="text" id="outputB-1" readonly style="max-width: 40px; margin-right: 10px;">
     </div>
     <div class="form-group">
       <label>回復コスト</label>
-      <input type="text" id="outputC-1" readonly>
-    </div>
-    <div class="form-group">
+      <input type="text" id="outputC-1" readonly style="max-width: 40px; margin-right: 10px;">
       <label>運営手数料</label>
-      <input type="text" id="marginB" readonly>
+      <input type="text" id="marginB" readonly style="max-width: 40px;">
     </div>
     <div class="form-group">
       <label>獲得期待値</label>
-      <input type="text" id="outputD-1" readonly>
+      <input type="text" id="outputD-1" readonly style="max-width: 40px;">
     </div>
   </div>
   </br>

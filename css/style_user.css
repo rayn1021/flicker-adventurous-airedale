@@ -1,29 +1,32 @@
 @charset "utf-8";
-
 	body {
 	  font-family: Arial, sans-serif;
 	  margin: 20px;
+	  font-size: 8px;
 	}
 	
 	label {
-	  width: 150px; /* ラベルの固定幅 */
-	  margin-right: 10px;
+	  width: 60px; /* ラベルの固定幅 */
+	  margin-right: 6px;
 	  text-align: right;
       white-space: nowrap;
+	  font-size: 8px;
 	}
 	
 	input[type="text"], select, input[type="number"] {
 	  flex: 1;
-	  padding: 8px;
+	  padding: 2px;
+	  font-size: 8px;
 	}
 	
 	button {
-	  margin: 15px 15px 15px 15px;
-	  padding: 10px 15px 10px 15px;
+	  margin: 10px 10px 10px 10px;
+	  padding: 5px 10px 5px 10px;
 	  cursor: pointer;
       background-color: #EEEEff;
 	  border-radius: 15px;
-   }
+	  font-size: 8px;
+	}
 	
 	input[readonly] {
 	  background-color: #f0f0f0;
@@ -33,7 +36,7 @@
 	.form-group {
 	  display: flex;
 	  align-items: center;
-	  margin-bottom: 15px;
+	  margin-bottom: 3px;
     max-width: 100%;
 	}
 

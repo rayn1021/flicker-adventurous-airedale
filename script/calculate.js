@@ -87,7 +87,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
         document.getElementById("outputB-1").value = bat;
         document.getElementById("outputC-1").value = cost;
         document.getElementById("marginB").value = marginB;
-        document.getElementById("outputD-1").value = roundToDecimal(wkStpB - cost - marginB);
+        document.getElementById("outputD-1").value = roundToDecimal(wkStpB - batCost - marginB);
     } else {
         rentalSection.style.display = "none";
 
@@ -103,7 +103,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
 
         document.getElementById("outputB").value = bat;
         document.getElementById("outputC").value = cost;
-        document.getElementById("outputD").value = roundToDecimal(maxTotalStp - cost);
+        document.getElementById("outputD").value = roundToDecimal(maxTotalStp - batCost);
     }
 });
 
@@ -117,10 +117,6 @@ function inputCheck(value, name) {
     }
     return true;
 };
-
-function calucRimuru(){
-
-}
 
 
 /* 
@@ -138,3 +134,32 @@ function calucRimuru(){
     return { maxStp, minStp, maxCatStp, minCatStp };
 };
 
+  // 入力フィールドが変更されたとき、スライダーを更新
+const effInput = document.getElementById("eff");
+const effSlider = document.getElementById("eff-slider");
+effInput.addEventListener("input", () => {
+    let value = parseFloat(effInput.value) || 0; // 無効な入力を防ぐ
+    value = Math.max(Math.min(value, effSlider.max), effSlider.min); // 範囲を制限
+    effInput.value = value; // 修正した値を再設定
+    effSlider.value = value;
+});
+
+// スライダーが変更されたとき、入力フィールドを更新
+effSlider.addEventListener("input", () => {
+    effInput.value = effSlider.value;
+});
+
+  // 入力フィールドが変更されたとき、スライダーを更新
+const batInput = document.getElementById("bat");
+const batSlider = document.getElementById("bat-slider");
+batInput.addEventListener("input", () => {
+    let value = parseFloat(batInput.value) || 0; // 無効な入力を防ぐ
+    value = Math.max(Math.min(value, batSlider.max), batSlider.min); // 範囲を制限
+    batInput.value = value; // 修正した値を再設定
+    batSlider.value = value;
+});
+
+// スライダーが変更されたとき、入力フィールドを更新
+batSlider.addEventListener("input", () => {
+batInput.value = batSlider.value;
+});
