@@ -69,8 +69,13 @@ document.getElementById("calculateButton").addEventListener("click", function() 
 
     // レンタル関連処理
     const rentalSection = document.getElementById("rental");
+    const labelMarginA = document.getElementById("labelMarginA");
+    const valueMarginA = document.getElementById("marginA");
     if (inRent > 0) {
         rentalSection.style.display = "block";
+        labelMarginA.style.display = "block";
+        valueMarginA.style.display = "block";
+     
 
         const lenderSubscription = document.getElementById('LenderSubsc').checked ? 0.03 : 0.1;
         const renderSubscription = document.getElementById('renderSubsc').checked ? 0.03 : 0.1;
@@ -81,7 +86,11 @@ document.getElementById("calculateButton").addEventListener("click", function() 
         const marginB = roundToDecimal(wkStpB * renderSubscription);
 
         document.getElementById("outputA1").value = wkStpA;
+        document.getElementById("outputA2").value = 0;
+        document.getElementById("outputA3").value = wkStpA;
         document.getElementById("marginA").value = marginA;
+        document.getElementById("outputB").value = 0;
+        document.getElementById("outputC").value = 0;
         document.getElementById("outputD").value = roundToDecimal(wkStpA - marginA);
         document.getElementById("outputA3-1").value = wkStpB;
         document.getElementById("outputB-1").value = bat;
@@ -90,20 +99,23 @@ document.getElementById("calculateButton").addEventListener("click", function() 
         document.getElementById("outputD-1").value = roundToDecimal(wkStpB - cost - marginB);
     } else {
         rentalSection.style.display = "none";
+        labelMarginA.style.display = "none";
+        valueMarginA.style.display = "none";
 
         if (inType === '1') {
             document.getElementById("outputA1").value = maxStp;
             document.getElementById("outputA2").value = maxCatStp;
             document.getElementById("outputA3").value = maxTotalStp;
+            document.getElementById("outputD").value = roundToDecimal(maxTotalStp - cost);
         } else {
             document.getElementById("outputA1").value = `${minStp}～${maxStp}`;
             document.getElementById("outputA2").value = `${minCatStp}～${maxCatStp}`;
             document.getElementById("outputA3").value = `${minTotalStp}～${maxTotalStp}`;
+            document.getElementById("outputD").value = `${roundToDecimal(minTotalStp - cost)}～${roundToDecimal(maxTotalStp - cost)}`;
         }
 
         document.getElementById("outputB").value = bat;
         document.getElementById("outputC").value = cost;
-        document.getElementById("outputD").value = roundToDecimal(maxTotalStp - cost);
     }
 });
 
