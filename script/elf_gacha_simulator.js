@@ -12,9 +12,31 @@ document.getElementById("StartButton").addEventListener("click", function() {
         ];
     
     const list3 = 
-        [["001.png","002.png","003.png","004.png","005.png","006.png","008.png","009.png","010.png"],
-         ["001.png","002.png","003.png","004.png","005.png","006.png","007.png","008.png","009.png"],
-         ["999.png", "999.png", "999.png", "999.png", "999.png", "999.png", "999.png"]
+        [["001.png?v=1735924727347",
+            "002.png?v=1735924776466",
+            "003.png?v=1735924780977",
+            "004.png?v=1735924784188",
+            "005.png?v=1735924786400",
+            "006.png?v=1735924788132",
+            "008.png?v=1735924791741",
+            "009.png?v=1735924793899",
+            "010.png?v=1735924795724"],
+           ["001.png?v=1735924727347",
+            "002.png?v=1735924776466",
+            "003.png?v=1735924780977",
+            "004.png?v=1735924784188",
+            "005.png?v=1735924786400",
+            "006.png?v=1735924788132",
+            "007.png?v=1735924791333",
+            "008.png?v=1735924791741",
+            "009.png?v=1735924793899"],
+           ["999.png?v=1735924960465",
+            "999.png?v=1735924960465",
+            "999.png?v=1735924960465",
+            "999.png?v=1735924960465",
+            "999.png?v=1735924960465",
+            "999.png?v=1735924960465",
+            "999.png?v=1735924960465"]
         ]   
   
 
@@ -61,7 +83,7 @@ document.getElementById("StartButton").addEventListener("click", function() {
     for (let key in result) {
         const row = document.createElement('tr');
         row.innerHTML = 
-            "<td style='width: 0%;'><img border='0' src='image/" + resultImage[key] + "' style='display:inline;margin:0px;padding:0px;border:none;width:32px'></td>" +
+            "<td style='width: 0%;'><img border='0' src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/" + resultImage[key] + "' style='display:inline;margin:0px;padding:0px;border:none;width:32px'></td>" +
             "<td>" + key +"</td>" +
             "<td>" + result[key] + "個</td>";
         tableBody.appendChild(row);
