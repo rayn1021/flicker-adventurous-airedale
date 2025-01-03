@@ -1,4 +1,3 @@
-
 document.getElementById("StartButton").addEventListener("click", async function() {
 	
 //    const raffleList = 

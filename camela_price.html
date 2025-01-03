@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>カメラ価格計算機</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
+     crossorigin="anonymous"></script>
+     <script src="script/global.js"></script>
+    </head>
+<body>
+  <div id="header"></div>
+
+  <h1>カメラ価格計算機</h1>
+  
+  <table style="width: 100%; max-width: 640px;">
+    <tr>
+      <td><label for="STRAP">ストラップ</label></td>
+      <td>
+        <select id="STRAP">
+          <option value="2">★2 イチカ(Q+5)</option>
+          <option value="2">★2 ブルール(E+5)</option>
+          <option value="2">★2 ナッチ(L+5)</option>
+          <option value="2">★2 マーレ(B+5)</option>
+          <option value="2">★2 SNPIT黄(Q+3/Q+5)</option>
+          <option value="2">★2 SNPIT赤(E+3/E+5)</option>
+          <option value="2">★2 SNPIT緑(L+3/L+5)</option>
+          <option value="2">★2 SNPIT紫(B+3/B+5)</option>
+          <option value="2">★2 リムル(稀に撮影STP1.2倍)</option>
+          <option value="2">★2 ミリム(2倍ズーム)</option>
+          <option value="2">★2 ヴェルドラ(稀にバトルSTP1.2倍)</option>
+          <option value="2">★2 ソウエイ(全ステータス+1)</option>
+          <option value="2">★2 シュナ(バッテリーチャージ20%オフ)</option>
+          <option value="3">★3 SNPIT茶(L+20)</option>
+          <option value="3">★3 Tシャツリタロウ(フォーカス)</option>
+          <option value="3">★3 リタロウ(L+20)</option>
+          <option value="4">★4 リムルスキン(アクセ枠+1)</option>
+          <option value="4">★4 ミリムスキン(MB獲得2倍)</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="eff">グレード</label></td>
+      <td>
+        <input type="number" id="GradeStart" value="0">
+        <DIV>&nbsp;↓&nbsp;</DIV>
+        <input type="number" id="GradeEnd" value="1">
+      </td>
+    </tr>
+  </table>
+  <br>
+  <div class="form-group">
+    <button id="calculateButton">シミュレーション開始</button>
+  </div>
+  <div id="result"></div>
+  <h3>結果</h3>
+  <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+    <thead class="tableHedder">
+      <tr>
+        <th>ランク</th>
+        <th>試行回数</th>
+        <th>使用STP</th>
+      </tr>
+    </thead>
+    <tbody id="resultTableBody">
+    </tbody>
+  </table>
+  </br>
+
+  <div id="history"></div>
+
+  <div>
+    ※現在β版です。</br>
+    端数処理等、計算内容に誤りがある可能性がありますので、お気づきの方は以下までご連絡ください。</br>
+    <a href="https://x.com/Rayn73747887" target="_blank">https://x.com/Rayn73747887</a>
+  </div>
+  <br><br>
+  <div id="footer"></div>
+
+
+  <script src="script/strap_simulator.js"></script>
+  </body>
+</html>
