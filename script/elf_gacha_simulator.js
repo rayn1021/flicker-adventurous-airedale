@@ -1,17 +1,23 @@
 document.getElementById("StartButton").addEventListener("click", function() {
 	
-    const list1 = 
+    const raffleList = 
         [[0.1,0.2,0.7,0.71395,0.72790, 0.99789, 0.99989, 0.99999, 1],
          [0.1,0.2,0.7,0.71395,0.72790, 0.97790, 0.99790, 0.9999,1],
          [0.3, 0.5, 0.55, 0.75, 0.95, 0.97, 1]];
     
-    const list2 = 
+    const itemList = 
         [["ブラック怪獣スーツ(欠片3)", "ブラック怪獣ヘッド(欠片3)", "ガチャチケット", "ブラック怪獣スーツ", "ブラック怪獣ヘッド", "銅の作物×6", "銀の作物×1", "金の作物×1", "ダイヤモンドの作物×1"],
          ["ブラック怪獣スーツ(欠片3)", "ブラック怪獣ヘッド(欠片3)", "ガチャチケット", "ブラック怪獣スーツ", "ブラック怪獣ヘッド", "銅の作物×6", "銅の作物×10", "銀の作物×1", "金の作物×1"],
          ["衣装(欠片1)", "衣装(欠片3)", "衣装(欠片10)", "レンタルチケット", "拡張素材(低位)", "衣装", "拡張素材(上位)"]
         ];
     
-    const list3 = 
+    const prizeList = 
+        [[0, 0, 0, 0, 0, 600, 10000, 100000, 600000],
+         [0, 0, 0, 0, 0, 600, 1000, 10000, 100000],
+         [0, 0, 0, 0, 0, 0, 0]
+        ];
+
+    const imageList = 
         [["001.png?v=1735924727347",
             "002.png?v=1735924776466",
             "003.png?v=1735924780977",
@@ -38,27 +44,29 @@ document.getElementById("StartButton").addEventListener("click", function() {
             "999.png?v=1735924960465",
             "999.png?v=1735924960465"]
         ]   
-  
-
-
 
     // 入力項目の値を取得
     var times = parseFloat(document.getElementById("TIMES").value);
     var type = parseFloat(document.getElementById("TYPE").value);
-    let list1Val = list1[type];
-    let list2Val = list2[type];
-    let list3Val = list3[type];
 
-    // 結果の作成
+    // 入力から配列を決定
+    let raffle = raffleList[type];
+    let item = itemList[type];
+    let img = imageList[type];
+    let prize = prizeList[type];
+
+    // 作業エリアの定義
     var result = {};
     var resultImage = {};
-    for (let i = 0; i < list2Val.length; i++) {
-        result[list2Val[i]] = 0;
-        resultImage[list2Val[i]] = list3Val[i];
+    var totalPrize = 0;
+    var totalBill = 300 * times;
+
+    for (let i = 0; i < item.length; i++) {
+        result[item[i]] = 0;
+        resultImage[item[i]] = img[i];
     };
 
-    // 出力用の連想配列を定義
-
+    // 抽選処理
     for (i = 0; i < times; i++) {
         let ransu = Math.random();
         let itemName = "";
@@ -67,21 +75,42 @@ document.getElementById("StartButton").addEventListener("click", function() {
         let j = 0;
         var endFlg = true;
         while (endFlg) {
-            if (list1Val[j] >= ransu) {
-                // キーの存在チェック
-                count = result[list2Val[j]];
-                result[list2Val[j]] = count + 1;
+            if (raffle[j] >= ransu) {
+                // 抽選会数の加算
+                count = result[item[j]];
+                result[item[j]] = count + 1;
+
+                // 獲得金額の加算
+                totalPrize = totalPrize + prize[j];
+
                 endFlg=false;
             }
             j++;
         }
     }
     
-    // 実行結果の書き込み
+    // 実行結果の書き込み(収支計算)
+    
+    document.getElementById('priceResult').innerHTML="";
+    const prizeTable = document.getElementById('priceResult');
+    prizeTable.innerHTML = 
+        "<tr>" +
+            "<td style='background-color: #aaddaa; width:0px; white-space:nowrap; padding:5px 5px 5px 5px;'>支出</td>" +
+            "<td style='padding:5px;'>" + totalBill.toLocaleString() +"円</td>" +
+            "<td style='background-color: #aaddaa; width:0px; white-space:nowrap; padding:5px 5px 5px 5px;;'>収入</td>" +
+            "<td style='padding:5px;'>" + totalPrize.toLocaleString() + "円</td>"+
+            "<td style='background-color: #aaddaa; width:0px; white-space:nowrap; padding:5px 5px 5px 5px;;'>収支</td>" +
+            "<td style='padding:5px ;'>" + (totalPrize - totalBill).toLocaleString() + "円</td>" +
+            "<td style='background-color: #aaddaa; width:0px; white-space:nowrap; padding:5px 5px 5px 5px;;'>回収率</td>" +
+            "<td style='padding:5px ;'>" + (Math.floor(totalPrize / totalBill * 100)).toLocaleString() + "%</td>" +
+       "</tr>";
+
+
+    // 実行結果の書き込み(抽選結果)
     document.getElementById('resultTableBody').innerHTML="";
     const tableBody = document.getElementById('resultTableBody');
     for (let key in result) {
-        const row = document.createElement('tr');
+        row = document.createElement('tr');
         row.innerHTML = 
             "<td style='width: 0%;'><img border='0' src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/" + resultImage[key] + "' style='display:inline;margin:0px;padding:0px;border:none;width:32px'></td>" +
             "<td>" + key +"</td>" +

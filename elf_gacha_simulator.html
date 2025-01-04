@@ -16,7 +16,7 @@
   
     <div class="form-group">
         <label for="TIMES">回数</label></td>
-        <input type="number" id="TIMES" value="10" style="max-width: 120px;"">
+        <input type="number" id="TIMES" value="10" style="max-width: 120px;">
     </div>
     <div class="form-group">
         <label for="TYPE">種類</label></td>
@@ -31,15 +31,24 @@
     <button id="StartButton">シミュレーション開始</button>
   </div>
   <div id="result"></div>
-  <h3>結果</h3>
-  <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+  <h2>結果</h2>
+  <div>※ダイヤモンドの作物は、600,000円(ELF2.0円)で換算</div>
+
+  <table border="1" style="border-collapse: collapse">
     <thead class="tableHedder">
     </thead>
-    <tbody id="resultTableBody">
+      <tbody id="priceResult">
     </tbody>
   </table>
   </br>
-
+  
+  <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+    <thead class="tableHedder">
+    </thead>
+      <tbody id="resultTableBody">
+    </tbody>
+  </table>
+  </br>
   <div id="history"></div>
 
   <div>
