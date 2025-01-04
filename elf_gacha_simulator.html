@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+ 
   <title>スタールーレットシミュレーター</title>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
-     crossorigin="anonymous"></script>
-     <script src="script/global.js"></script>
-    </head>
+     crossorigin="anonymous">
+  </script>
+  <script src="script/global.js"></script>
+  <link rel="stylesheet" href="css/effect.css" type="text/css">
+  </head>
 <body>
   <div id="header"></div>
 
@@ -26,6 +28,11 @@
             <option value="2">星の種</option>
         </select>
     </div>
+    <div class="form-group">
+      <label for="EffectFlg">演出有無</label>
+      <input type="checkbox" id="EffectFlg" checked>
+    </div>
+
     <br>
   <div class="form-group">
     <button id="StartButton">シミュレーション開始</button>
@@ -63,6 +70,10 @@
     <script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=36989980&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=36989980&main=1" /></noscript>
     <!-- FC2カウンター ここまで -->
   </div>
+  <dialog  id="dialog" name="dialog">
+    <image id="raffleImage" src="https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/999.png?v=1735924960465" style='width:100%; max-width:640px'></image>
+  </dialog >  <div id="raffleWindow" style="width:80%;">
   <script src="script/elf_gacha_simulator.js"></script>
+  <script src="script/effect.js"></script>
   </body>
 </html>

@@ -52,3 +52,13 @@
 	  font-weight: bold;
 	}
 
+    #dialog {
+		width: 250px;
+		padding: 30px 20px;
+		text-align: center;
+		border: 1px solid #aaa;
+		box-shadow: 2px 2px 4px #888;
+		position: absolute;
+		top: 20%;
+	}
+  

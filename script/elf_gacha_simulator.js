@@ -1,4 +1,4 @@
-document.getElementById("StartButton").addEventListener("click", function() {
+document.getElementById("StartButton").addEventListener("click", async function() {
 	
     const raffleList = 
         [[0.1,0.2,0.7,0.71395,0.72790, 0.99789, 0.99989, 0.99999, 1],
@@ -48,6 +48,8 @@ document.getElementById("StartButton").addEventListener("click", function() {
     // 入力項目の値を取得
     var times = parseFloat(document.getElementById("TIMES").value);
     var type = parseFloat(document.getElementById("TYPE").value);
+    var raffleImg = document.getElementById("raffleImage");
+    var effectFlg = document.getElementById("EffectFlg").checked;
 
     // 入力から配列を決定
     let raffle = raffleList[type];
@@ -66,12 +68,16 @@ document.getElementById("StartButton").addEventListener("click", function() {
         resultImage[item[i]] = img[i];
     };
 
+    // sleep時間の算出
+    var sleepTime = 5000 / times;
+
     // 抽選処理
     for (i = 0; i < times; i++) {
         let ransu = Math.random();
         let itemName = "";
         let itemCount = "";
 
+        dialog.show();
         let j = 0;
         var endFlg = true;
         while (endFlg) {
@@ -83,14 +89,21 @@ document.getElementById("StartButton").addEventListener("click", function() {
                 // 獲得金額の加算
                 totalPrize = totalPrize + prize[j];
 
+                
                 endFlg=false;
+                if (effectFlg){
+                    raffleImg.src = "https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/" + img[j];
+                    await sleep(sleepTime);
+                }
             }
             j++;
         }
     }
     
-    // 実行結果の書き込み(収支計算)
     
+    dialog.close();
+
+    // 実行結果の書き込み(収支計算)
     document.getElementById('priceResult').innerHTML="";
     const prizeTable = document.getElementById('priceResult');
     prizeTable.innerHTML = 
@@ -118,3 +131,7 @@ document.getElementById("StartButton").addEventListener("click", function() {
         tableBody.appendChild(row);
     }
 });
+
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
