@@ -45,63 +45,10 @@ document.getElementById("StartButton").addEventListener("click", async function(
             "999.png?v=1735924960465"]
         ]   
 
-    // 入力項目の値を取得
-    var times = parseFloat(document.getElementById("TIMES").value);
-    var type = parseFloat(document.getElementById("TYPE").value);
-    var raffleImg = document.getElementById("raffleImage");
-    var effectFlg = document.getElementById("EffectFlg").checked;
-
-    // 入力から配列を決定
-    let raffle = raffleList[type];
-    let item = itemList[type];
-    let img = imageList[type];
-    let prize = prizeList[type];
-
-    // 作業エリアの定義
-    var result = {};
-    var resultImage = {};
-    var totalPrize = 0;
-    var totalBill = 300 * times;
-
-    for (let i = 0; i < item.length; i++) {
-        result[item[i]] = 0;
-        resultImage[item[i]] = img[i];
-    };
-
-    // sleep時間の算出
-    var sleepTime = 5000 / times;
-
+    var bill = 300;
+    
     // 抽選処理
-    for (i = 0; i < times; i++) {
-        let ransu = Math.random();
-        let itemName = "";
-        let itemCount = "";
-
-        dialog.show();
-        let j = 0;
-        var endFlg = true;
-        while (endFlg) {
-            if (raffle[j] >= ransu) {
-                // 抽選会数の加算
-                count = result[item[j]];
-                result[item[j]] = count + 1;
-
-                // 獲得金額の加算
-                totalPrize = totalPrize + prize[j];
-
-                
-                endFlg=false;
-                if (effectFlg){
-                    raffleImg.src = "https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/" + img[j];
-                    await sleep(sleepTime);
-                }
-            }
-            j++;
-        }
-    }
-    
-    
-    dialog.close();
+    await raffle(raffleList, itemList, prizeList, imageList, bill, "1");
 
     // 実行結果の書き込み(収支計算)
     document.getElementById('priceResult').innerHTML="";
@@ -116,7 +63,7 @@ document.getElementById("StartButton").addEventListener("click", async function(
             "<td style='padding:5px ;'>" + (totalPrize - totalBill).toLocaleString() + "円</td>" +
             "<td style='background-color: #aaddaa; width:0px; white-space:nowrap; padding:5px 5px 5px 5px;;'>回収率</td>" +
             "<td style='padding:5px ;'>" + (Math.floor(totalPrize / totalBill * 100)).toLocaleString() + "%</td>" +
-       "</tr>";
+        "</tr>";
 
 
     // 実行結果の書き込み(抽選結果)
@@ -130,8 +77,6 @@ document.getElementById("StartButton").addEventListener("click", async function(
             "<td>" + result[key] + "個</td>";
         tableBody.appendChild(row);
     }
+
 });
 
-async function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
