@@ -2,18 +2,26 @@ document.getElementById("StartButton").addEventListener("click", async function(
 	
     const raffleList = 
         [[0.04, 0.16, 0.28, 0.4, 0.52, 0.88, 1],
-         [0.01, 0.04, 0.21, 0.56, 0.67, 0.78, 0.89, 1],
-         ];
+        [0.01, 0.04, 0.21, 0.56, 0.67, 0.78, 0.89, 1],
+        [0.7, 0.9, 0.95, 0.99, 0.995, 0.997, 1],
+    ];
     
     const itemList = 
         [["ストラップ(ブラウン)", "ストラップ(イエロー)", "ストラップ(レッド)", "ストラップ(グリーン)", "ストラップ(パープル)", "効率ポーション", "スペアフィルム"],
          ["アンコミンスク", "コモンミンスク", "スペアフィルム", "効率ポーション", "ストラップ(イエロー)", "ストラップ(レッド)", "ストラップ(グリーン)", "ストラップ(パープル)"],
+         ["SNPITメダル", "コモンミンスク", "リセットポーション", "アンコミンスク", "非ジェネカメラBOX", "ジェネカメラBOX", "レアアイテム交換チケ", ],
         ];
     
     const prizeList = 
         [[0, 0, 0, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 0]
+        ];
+
+    const costList = 
+        [240,
+         300,
+         330
         ];
 
     const imageList = 
@@ -41,10 +49,17 @@ document.getElementById("StartButton").addEventListener("click", async function(
             "999.png?v=1735924960465",
             "999.png?v=1735924960465",
             "999.png?v=1735924960465",
+            "999.png?v=1735924960465"],
+           ["999.png?v=1735924960465",
+            "999.png?v=1735924960465",
+            "999.png?v=1735924960465",
+            "999.png?v=1735924960465",
+            "999.png?v=1735924960465",
+            "999.png?v=1735924960465",
             "999.png?v=1735924960465"]
-        ]   
+       ]   
 
-    var bill = 300;
+    var bill = costList[parseInt(document.getElementById("TYPE").value)];
     
     // 抽選処理
     await raffle(raffleList, itemList, prizeList, imageList, bill, "1");
