@@ -71,3 +71,62 @@
 		top: 20%;
 	}
   
+	input[type="radio"] {
+		display: none;
+	  }
+
+/* ラベルをボタン風にスタイリング */
+	.select-button {
+		display: inline-block;
+		padding: 2px 0%;
+		margin: 2px;
+		border: 2px solid #000000;
+		border-radius: 15px;
+		background-color: #EEEEff;
+		text-align: center;
+		cursor: pointer;
+		transition: background-color 0.3s, color 0.3s;
+		font-size: 6px;
+		width: 50px;
+	  }
+  
+  /* ホバー時のスタイル */
+  .select-button:hover {
+	background-color: #AAAAFF;
+	color: #fff;
+  }
+  
+  /* 選択されたボタンのスタイル */
+  input[type="radio"]:checked + .select-button {
+	background-color: #AAAAFF;
+	color: #fff;
+  }
+
+  input[type="checkbox"] {
+	display: none;
+  }
+
+/* ラベルをボタン風にスタイリング */
+.select-button2 {
+	display: inline-block;
+	padding: 2px 0%;
+	margin: 2px;
+	border: 2px solid #000000;
+	border-radius: 15px;
+	background-color: #EEEEff;
+	text-align: center;
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+	font-size: 6px;  }
+
+/* ホバー時のスタイル */
+.select-button2:hover {
+background-color: #AAAAFF;
+color: #fff;
+}
+
+/* 選択されたボタンのスタイル */
+input[type="checkbox"]:checked + .select-button2 {
+background-color: #AAAAFF;
+color: #fff;
+}

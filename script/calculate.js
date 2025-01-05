@@ -1,6 +1,6 @@
 document.getElementById("calculateButton").addEventListener("click", function() {
     // 入力項目の値を取得
-    const  inType = document.getElementById("TYPE").value;
+    const  inType = document.querySelector('input[name="typeButton"]:checked').value;
     let   inEff = parseFloat(document.getElementById("eff").value);
     let   inBat = parseFloat(document.getElementById("bat").value);
     const inStraps = [
@@ -99,6 +99,8 @@ document.getElementById("calculateButton").addEventListener("click", function() 
         document.getElementById("outputC-1").value = cost;
         document.getElementById("marginB").value = marginB;
         document.getElementById("outputD-1").value = roundToDecimal(wkStpB - cost - marginB);
+
+        outList(inEff, inBat, roundToDecimal(wkStpB - cost - marginB));
     } else {
         rentalSection.style.display = "none";
         labelMarginA.style.display = "none";
@@ -110,17 +112,42 @@ document.getElementById("calculateButton").addEventListener("click", function() 
             document.getElementById("outputA2").value = maxCatStp;
             document.getElementById("outputA3").value = maxTotalStp;
             document.getElementById("outputD").value = roundToDecimal(maxTotalStp - cost);
+            outList(inEff, inBat, roundToDecimal(maxTotalStp - cost));
         } else {
             document.getElementById("outputA1").value = `${minStp}～${maxStp}`;
             document.getElementById("outputA2").value = `${minCatStp}～${maxCatStp}`;
             document.getElementById("outputA3").value = `${minTotalStp}～${maxTotalStp}`;
             document.getElementById("outputD").value = `${roundToDecimal(minTotalStp - cost)}～${roundToDecimal(maxTotalStp - cost)}`;
+            outList(inEff, inBat, `${roundToDecimal(minTotalStp - cost)}～${roundToDecimal(maxTotalStp - cost)}`);
         }
 
         document.getElementById("outputB").value = bat;
         document.getElementById("outputC").value = cost;
     }
+
+
 });
+
+function outList(inEff, inBat, maxStp){
+    // カメラタイプの取得
+    const selectedType = document.querySelector('input[name="typeButton"]:checked');
+    const labelType = document.querySelector(`label[for="${selectedType.id}"]`).textContent;
+
+    // カメラタイプの取得
+    const selectedRare = document.querySelector('input[name="rareButton"]:checked');
+    const labelRare = document.querySelector(`label[for="${selectedRare.id}"]`).textContent;
+
+     // 実行結果の書き込み
+    const tableBody = document.getElementById('resultTableBody');
+    row = document.createElement('tr');
+    row.innerHTML = 
+        `<td>${labelType}</td>` +
+        `<td>${labelRare}</td>` +
+        `<td>${inEff}</td>` +
+        `<td>${inBat}</td>` +
+        `<td>${maxStp}</td>`;
+    tableBody.appendChild(row);
+}
 
 /* 
  * 入力チェック
@@ -191,21 +218,17 @@ document.getElementById('share-button').addEventListener('click', function () {
     // X投稿用の文章を作成
     var rental = document.getElementById("rentalDetail").value;
     var getSTP = document.getElementById("outputA3-1").value;
-    var bat = document.getElementById("outputB-1").value;
     var cost = document.getElementById("outputC-1").value;
     var margin = document.getElementById("marginB").value;
     var total = document.getElementById('outputD-1').value;
     var text = 
-        `SNPITでカメラの借手を探しています。(貸手${rental}%)\n` +
+        `#SNPIT でカメラの借手を探しています。(貸手${rental}%)\n` +
         `壁撮り1枚当たり、「${total}STP」を想定しています。\n` +
         `■内訳\n` +
-        `獲得STP：${getSTP}\n` +
-        `バッテリー消費：${bat}\n` +
+        `獲得STP：${getSTP}STP\n` +
         `回復コスト：${cost}\n`+
-        `運営手数料：${margin}\n`+
-        `※バッジなし、サブスク未加入の場合\n\n` +
-        `#SNPIT #SNPITカメラ貸したい\n\n` +
-        `■壁撮り計算機はこちら`;
+        `手数料：${margin}\n`+
+        `※バッジなし、サブスク未加入の想定\n\n`;
 
     const xText = encodeURIComponent(text);
 
@@ -223,4 +246,29 @@ function fluctuation(target, val){
     value = Math.max(Math.min(targetVal + val, targetSlider.max), targetSlider.min); // 範囲を制限
     elmTarget.value = targetVal + val; // 修正した値を再設定
     targetSlider.value = targetVal + val;
+}
+
+sliderList = 
+    [[1, 110],
+     [8, 178],
+     [15, 215],
+     [23, 313],
+     [30, 380]
+    ];
+
+const radios = document.getElementsByName('rareButton');
+for (const radio of radios) {
+  radio.addEventListener('change', () => {
+    if (radio.checked) {
+        document.getElementById('eff-slider').min = sliderList[radio.value][0];
+        document.getElementById('eff-slider').max = sliderList[radio.value][1];
+        document.getElementById('bat-slider').min = sliderList[radio.value][0];
+        document.getElementById('bat-slider').max = sliderList[radio.value][1];
+
+        document.getElementById('eff-slider').value = sliderList[radio.value][0];
+        document.getElementById('bat-slider').value = sliderList[radio.value][0];
+        document.getElementById('eff').value = sliderList[radio.value][0];
+        document.getElementById('bat').value = sliderList[radio.value][0];
+    }
+  });
 }
