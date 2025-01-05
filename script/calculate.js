@@ -71,11 +71,13 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     const rentalSection = document.getElementById("rental");
     const labelMarginA = document.getElementById("labelMarginA");
     const valueMarginA = document.getElementById("marginA");
+    const shareButton = document.getElementById("share-button");
     if (inRent > 0) {
         rentalSection.style.display = "block";
         labelMarginA.style.display = "block";
         valueMarginA.style.display = "block";
-     
+        shareButton.style.display = "block";
+
 
         const lenderSubscription = document.getElementById('LenderSubsc').checked ? 0.03 : 0.1;
         const renderSubscription = document.getElementById('renderSubsc').checked ? 0.03 : 0.1;
@@ -101,6 +103,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
         rentalSection.style.display = "none";
         labelMarginA.style.display = "none";
         valueMarginA.style.display = "none";
+        shareButton.style.display = "none";
 
         if (inType === '1') {
             document.getElementById("outputA1").value = maxStp;
@@ -129,7 +132,6 @@ function inputCheck(value, name) {
     }
     return true;
 };
-
 
 /* 
  * STP計算
@@ -175,3 +177,48 @@ batInput.addEventListener("input", () => {
 batSlider.addEventListener("input", () => {
 batInput.value = batSlider.value;
 });
+
+document.getElementById('eff-plus').addEventListener('click', function () {fluctuation("eff", 1);});
+document.getElementById('eff-minus').addEventListener('click', function () {fluctuation("eff", -1);});
+document.getElementById('bat-plus').addEventListener('click', function () {fluctuation("bat", 1);});
+document.getElementById('bat-minus').addEventListener('click', function () {fluctuation("bat", -1);});
+
+
+document.getElementById('share-button').addEventListener('click', function () {
+    const url = encodeURIComponent(window.location.href); // 現在のページURL
+
+    // 投稿文章作成
+    // X投稿用の文章を作成
+    var rental = document.getElementById("rentalDetail").value;
+    var getSTP = document.getElementById("outputA3-1").value;
+    var bat = document.getElementById("outputB-1").value;
+    var cost = document.getElementById("outputC-1").value;
+    var margin = document.getElementById("marginB").value;
+    var total = document.getElementById('outputD-1').value;
+    var text = 
+        `#SNPIT でカメラの借手を探しています。(貸手${rental}%)\n` +
+        `壁撮り1枚当たり、「${total}STP」を想定しています。\n` +
+        `■内訳\n` +
+        `獲得STP：${getSTP}STP\n` +
+        `バッテリー消費：${bat}\n` +
+        `回復コスト：${cost}\n`+
+        `手数料：${margin}\n`+
+        `※バッジなし、サブスク未加入の想定\n\n`;
+
+    const xText = encodeURIComponent(text);
+
+    const shareUrl = `https://twitter.com/intent/tweet?text=${xText}&url=${url}`;
+    window.open(shareUrl, '_blank', 'noopener,noreferrer');
+});
+
+function fluctuation(target, val){
+    var elmTarget = document.getElementById(target);
+    var targetVal = parseInt(elmTarget.value);
+    elmTarget.value = targetVal + val;
+
+    // スライダーの設定
+    var targetSlider = document.getElementById(target + "-slider");
+    value = Math.max(Math.min(targetVal + val, targetSlider.max), targetSlider.min); // 範囲を制限
+    elmTarget.value = targetVal + val; // 修正した値を再設定
+    targetSlider.value = targetVal + val;
+}

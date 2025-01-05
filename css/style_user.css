@@ -52,6 +52,15 @@
 	  font-weight: bold;
 	}
 
+	.buttonPlusminusb{
+		font-weight: bold;
+		margin: 1px 3px 1px 3px;
+		padding: 1px 3px 1px 3px;;
+		font-size: 8px;
+		border-radius: 13px;
+		border-width: 1px;
+	 }
+
     #dialog {
 		width: 250px;
 		padding: 30px 20px;
