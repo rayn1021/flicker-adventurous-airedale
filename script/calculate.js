@@ -196,14 +196,16 @@ document.getElementById('share-button').addEventListener('click', function () {
     var margin = document.getElementById("marginB").value;
     var total = document.getElementById('outputD-1').value;
     var text = 
-        `#SNPIT でカメラの借手を探しています。(貸手${rental}%)\n` +
+        `SNPITでカメラの借手を探しています。(貸手${rental}%)\n` +
         `壁撮り1枚当たり、「${total}STP」を想定しています。\n` +
         `■内訳\n` +
-        `獲得STP：${getSTP}STP\n` +
+        `獲得STP：${getSTP}\n` +
         `バッテリー消費：${bat}\n` +
         `回復コスト：${cost}\n`+
-        `手数料：${margin}\n`+
-        `※バッジなし、サブスク未加入の想定\n\n`;
+        `運営手数料：${margin}\n`+
+        `※バッジなし、サブスク未加入の場合\n\n` +
+        `#SNPIT #SNPITカメラ貸したい\n\n` +
+        `■壁撮り計算機はこちら`;
 
     const xText = encodeURIComponent(text);
 
