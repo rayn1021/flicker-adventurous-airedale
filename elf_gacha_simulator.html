@@ -11,7 +11,7 @@
   <script src="script/global.js"></script>
   <link rel="stylesheet" href="css/effect.css" type="text/css">
   </head>
-<body>
+<body class="bg_image">
   <div id="header"></div>
 
   <h1>スタールーレットシミュレーター</h1>
@@ -39,6 +39,8 @@
   </div>
   <div id="result"></div>
   <h2>結果</h2>
+  <button id="share-button" style="display:none;">Xで共有する</button>
+
   <div>※ダイヤモンドの作物は、600,000円(ELF2.0円)で換算</div>
 
   <table border="1" style="border-collapse: collapse">
@@ -56,7 +58,8 @@
     </tbody>
   </table>
   </br>
-  <div id="history"></div>
+</br>
+<div id="history"></div>
 
   <div>
     ※現在β版です。</br>
@@ -72,7 +75,7 @@
   </div>
   <dialog  id="dialog" name="dialog">
     <image id="raffleImage" src="https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/999.png?v=1735924960465" style='width:100%; max-width:640px'></image>
-  </dialog >  <div id="raffleWindow" style="width:80%;">
+  </dialog >
     <script src="script/elf_gacha_simulator.js"></script>
     <script src="script/raffle.js"></script>
     <script src="script/effect.js"></script>

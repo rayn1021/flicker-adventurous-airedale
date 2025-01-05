@@ -1,3 +1,4 @@
+
 document.getElementById("StartButton").addEventListener("click", async function() {
 	
     const raffleList = 
@@ -56,13 +57,13 @@ document.getElementById("StartButton").addEventListener("click", async function(
     prizeTable.innerHTML = 
         "<tr>" +
             "<td style='background-color: #aaddaa; width:0px; white-space:nowrap; padding:5px 5px 5px 5px;'>支出</td>" +
-            "<td style='padding:5px;'>" + totalBill.toLocaleString() +"円</td>" +
+            "<td style='padding:5px;' id='bill'>" + totalBill.toLocaleString() +"円</td>" +
             "<td style='background-color: #aaddaa; width:0px; white-space:nowrap; padding:5px 5px 5px 5px;;'>収入</td>" +
-            "<td style='padding:5px;'>" + totalPrize.toLocaleString() + "円</td>"+
+            "<td style='padding:5px;' id='prise'>" + totalPrize.toLocaleString() + "円</td>"+
             "<td style='background-color: #aaddaa; width:0px; white-space:nowrap; padding:5px 5px 5px 5px;;'>収支</td>" +
-            "<td style='padding:5px ;'>" + (totalPrize - totalBill).toLocaleString() + "円</td>" +
+            "<td style='padding:5px ;' id='balance'>" + (totalPrize - totalBill).toLocaleString() + "円</td>" +
             "<td style='background-color: #aaddaa; width:0px; white-space:nowrap; padding:5px 5px 5px 5px;;'>回収率</td>" +
-            "<td style='padding:5px ;'>" + (Math.floor(totalPrize / totalBill * 100)).toLocaleString() + "%</td>" +
+            "<td style='padding:5px ;' id='parcent'>" + (Math.floor(totalPrize / totalBill * 100)).toLocaleString() + "%</td>" +
         "</tr>";
 
 
@@ -78,5 +79,35 @@ document.getElementById("StartButton").addEventListener("click", async function(
         tableBody.appendChild(row);
     }
 
+    document.getElementById("share-button").style.display = "block"
+
 });
 
+
+document.getElementById('share-button').addEventListener('click', function () {
+    const url = encodeURIComponent(window.location.href); // 現在のページURL
+    const hashtags = encodeURIComponent("エルフの森");
+
+    // 投稿文章作成
+    // X投稿用の文章を作成
+    var times = document.getElementById("TIMES").value;
+    var prize = document.getElementById("prise").innerHTML;
+    var balance = document.getElementById("balance").innerHTML;
+    var parcent = document.getElementById("parcent").innerHTML;
+    var type=document.getElementById('TYPE');
+    var typeLabel = type.options[type.selectedIndex].label;
+    var text = 
+        `スタールーレットシミュレーション結果！\n` +
+        `実行ガチャ：${typeLabel}` +
+        `実行回数：${times.toLocaleString()}回\n` +
+        `収入：${prize.toLocaleString()}\n` +
+        `収支：${balance.toLocaleString()}\n`+
+        `収益率：${parcent.toLocaleString()}\n`+
+        `#エルフの森\n\n`;
+
+    const xText = encodeURIComponent(text);
+
+    const shareUrl = `https://twitter.com/intent/tweet?text=${xText}&url=${url}`;
+    window.open(shareUrl, '_blank', 'noopener,noreferrer');
+});
+    
