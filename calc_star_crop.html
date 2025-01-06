@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <title>星の作物交換レート計算機</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
+     crossorigin="anonymous">
+  </script>
+  <script src="script/global.js"></script>
+  <link rel="stylesheet" href="css/effect.css" type="text/css">
+  </head>
+<body class="bg_image">
+  <div id="header"></div>
+
+  <h1>星の作物交換レート計算機</h1>
+  
+    <div class="form-group">
+        <label for="RATE">ELFレート</label></td>
+        <input type="number" id="RATE" value="10" style="max-width: 120px;" onchange="calc()">
+    </div>
+  <div id="result"></div>
+  <button id="share-button" style="display:none;">Xで共有する</button>
+
+  <h3>結果</h3>
+  <table border="1" style="width: 100%; max-width: 640px; border-collapse: collapse">
+    <thead class="tableHedder">
+    </thead>
+    <tbody id="resultTableBody">
+      <tr><td>銅の作物</td><td><div id="bronzeWeek" style="text-align:right;"></div></td><td><div id="bronzeDay" style="text-align:right;"></div></td></tr>
+      <tr><td>銀の作物</td><td><div id="silverWeek" style="text-align:right;"></div></td><td><div id="silverDay" style="text-align:right;"></div></td></tr>
+      <tr><td>金の作物</td><td><div id="goldWeek" style="text-align:right;"></div></td><td><div id="goldDay" style="text-align:right;"></div></td></tr>
+    </tbody>
+  </table>
+  </br>
+
+  <div id="history"></div>
+
+  <br><br>
+  <div id="footer"></div>
+  <div style="margin-top:30px; text-align:right;">
+    <!-- FC2カウンター ここから -->
+    <script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=36989980&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=36989980&main=1" /></noscript>
+    <!-- FC2カウンター ここまで -->
+  </div>
+  <dialog  id="dialog" name="dialog">
+    <image id="raffleImage" src="https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/999.png?v=1735924960465" style='width:100%; max-width:640px'></image>
+  </dialog >
+    <script src="script/calc_star_crop.js"></script>
+    <script src="script/common.js"></script>
+</body>
+</html>

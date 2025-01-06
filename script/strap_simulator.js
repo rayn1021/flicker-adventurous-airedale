@@ -77,9 +77,6 @@ document.getElementById("calculateButton").addEventListener("click", function() 
             nowGrade++;
         }
         
-        if (count > 100){
-            endFlg = false;
-        }
         if (nowGrade == inEnd){
             endFlg = false;
         }
