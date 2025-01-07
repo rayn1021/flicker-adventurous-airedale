@@ -55,7 +55,7 @@
 	.buttonPlusminusb{
 		font-weight: bold;
 		margin: 1px 3px 1px 3px;
-		padding: 1px 3px 1px 3px;;
+		padding: 2px 5px 2px 5px;;
 		font-size: 8px;
 		border-radius: 13px;
 		border-width: 1px;
@@ -129,4 +129,13 @@ color: #fff;
 input[type="checkbox"]:checked + .select-button2 {
 background-color: #AAAAFF;
 color: #fff;
+}
+
+.footer {
+	text-align: center;
+}
+
+.highlighte{
+	font-weight:bold;
+	border-bottom:solid 1px
 }

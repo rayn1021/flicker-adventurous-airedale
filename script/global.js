@@ -1,11 +1,35 @@
-fetch("page/header.html")
+fetch("/page/header.html")
   .then((response) => response.text())
-  .then((data) => document.querySelector("#header").innerHTML = data);
+  .then((data) => {
+    const headerElement = document.querySelector("#header");
+    if (headerElement) {
+      headerElement.innerHTML = data;
+    }
+  });
 
-fetch("page/history.html")
+fetch("/page/history.html")
   .then((response) => response.text())
-  .then((data) => document.querySelector("#history").innerHTML = data);
+  .then((data) => {
+    const historyElement = document.querySelector("#history");
+    if (historyElement) {
+      historyElement.innerHTML = data;
+    }
+  });
 
-  fetch("page/footer.html")
+fetch("/page/footer.html")
   .then((response) => response.text())
-  .then((data) => document.querySelector("#footer").innerHTML = data);
+  .then((data) => {
+    const footerElement = document.querySelector("#footer");
+    if (footerElement) {
+      footerElement.innerHTML = data;
+    }
+  });
+
+fetch("/page/policy.html")
+  .then((response) => response.text())
+  .then((data) => {
+    const policyElement = document.querySelector("#policy");
+    if (policyElement) {
+      policyElement.innerHTML = data;
+    }
+  });

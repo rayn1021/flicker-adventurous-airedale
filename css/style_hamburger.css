@@ -78,11 +78,12 @@
 /* メニュー黒ポチを消す */
 .nav_list {
   list-style: none;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 /* アイコンがクリックされたらメニューを表示 */
 #drawer_input:checked ~ .nav_content {
   bottom: 0;
 }
+
 
