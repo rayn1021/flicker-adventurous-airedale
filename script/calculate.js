@@ -72,6 +72,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     const labelMarginA = document.getElementById("labelMarginA");
     const valueMarginA = document.getElementById("marginA");
     const shareButton = document.getElementById("share-button");
+    var getSTP = 0;
     if (inRent > 0) {
         rentalSection.style.display = "block";
         labelMarginA.style.display = "block";
@@ -99,6 +100,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
         document.getElementById("outputC-1").value = cost;
         document.getElementById("marginB").value = marginB;
         document.getElementById("outputD-1").value = roundToDecimal(wkStpB - cost - marginB);
+        getSTP = roundToDecimal(wkStpA - marginA);
 
         outList(inEff, inBat, roundToDecimal(wkStpB - cost - marginB));
     } else {
@@ -113,19 +115,47 @@ document.getElementById("calculateButton").addEventListener("click", function() 
             document.getElementById("outputA3").value = maxTotalStp;
             document.getElementById("outputD").value = roundToDecimal(maxTotalStp - cost);
             outList(inEff, inBat, roundToDecimal(maxTotalStp - cost));
+            getSTP = roundToDecimal(maxTotalStp - cost);
         } else {
             document.getElementById("outputA1").value = `${minStp}～${maxStp}`;
             document.getElementById("outputA2").value = `${minCatStp}～${maxCatStp}`;
             document.getElementById("outputA3").value = `${minTotalStp}～${maxTotalStp}`;
             document.getElementById("outputD").value = `${roundToDecimal(minTotalStp - cost)}～${roundToDecimal(maxTotalStp - cost)}`;
             outList(inEff, inBat, `${roundToDecimal(minTotalStp - cost)}～${roundToDecimal(maxTotalStp - cost)}`);
+            getSTP = roundToDecimal((minTotalStp + maxTotalStp) / 2 - cost);
         }
 
         document.getElementById("outputB").value = bat;
         document.getElementById("outputC").value = cost;
     }
 
+    // メインバトル換算
+    var sumSTP = 0;
+    var battleResult = [0, 1, 3, 6, 18, 36, 72, 216, 432, 864, 2592, 5184];
+    for (let i=0; i < battleResult.length; i++){
+        if (getSTP <= sumSTP + battleResult[i]){
+            let count1 = i - 1;
+            let count2 =  (getSTP - sumSTP) / battleResult[i]
+            document.getElementById("MainBattle").value = roundToDecimal(count1 + count2);
+            break;
+        }
+        sumSTP += battleResult[i];
+    }
 
+    // 期間別収支計算
+    document.getElementById("dayOf2shot").innerHTML = roundToDecimal(getSTP * 2).toLocaleString() + "STP";
+    document.getElementById("dayOf4shot").innerHTML = roundToDecimal(getSTP * 4).toLocaleString() + "STP";
+    document.getElementById("dayOf8shot").innerHTML = roundToDecimal(getSTP * 8).toLocaleString() + "STP";
+    document.getElementById("dayOf16shot").innerHTML = roundToDecimal(getSTP * 16).toLocaleString() + "STP";
+    document.getElementById("weekOf2shot").innerHTML = roundToDecimal(getSTP * 2 * 7).toLocaleString() + "STP";
+    document.getElementById("weekOf4shot").innerHTML = roundToDecimal(getSTP * 4 * 7).toLocaleString() + "STP";
+    document.getElementById("weekOf8shot").innerHTML = roundToDecimal(getSTP * 8 * 7).toLocaleString() + "STP";
+    document.getElementById("weekOf16shot").innerHTML = roundToDecimal(getSTP * 16 * 7).toLocaleString() + "STP";
+    document.getElementById("monthOf2shot").innerHTML = roundToDecimal(getSTP * 2 * 30).toLocaleString() + "STP";
+    document.getElementById("monthOf4shot").innerHTML = roundToDecimal(getSTP * 4 * 30).toLocaleString() + "STP";
+    document.getElementById("monthOf8shot").innerHTML = roundToDecimal(getSTP * 8 * 30).toLocaleString() + "STP";
+    document.getElementById("monthOf16shot").innerHTML = roundToDecimal(getSTP * 16 * 30).toLocaleString() + "STP";
+    
 });
 
 function outList(inEff, inBat, maxStp){
