@@ -23,14 +23,15 @@
     <div class="form-group">
         <label for="TYPE">種類</label></td>
         <select id="TYPE" style="max-width: 120px;">
-            <option value="0">ルーレットコイン</option>
+            <option value="0">ルーレットコイン(キャンペーン)</option>
             <option value="1">星の作物</option>
             <option value="2">星の種</option>
+            <option value="3">ルーレットコイン(ダイヤ有り)</option>
         </select>
     </div>
     <div class="form-group">
       <label for="EffectFlg">演出有無</label>
-      <input type="checkbox" id="EffectFlg" checked>
+      <input type="checkbox" id="EffectFlg" >
     </div>
 
     <br>
@@ -43,7 +44,7 @@
 
   <div>※ダイヤモンドの作物は、600,000円(ELF2.0円)で換算</div>
 
-  <table border="1" style="border-collapse: collapse">
+  <table border="1" style="border-collapse: collapse; display: noneblock;">
     <thead class="tableHedder">
     </thead>
       <tbody id="priceResult">
@@ -73,9 +74,6 @@
     <script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=36989980&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=36989980&main=1" /></noscript>
     <!-- FC2カウンター ここまで -->
   </div>
-  <dialog  id="dialog" name="dialog">
-    <image id="raffleImage" src="https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/999.png?v=1735924960465" style='width:100%; max-width:640px'></image>
-  </dialog >
     <script src="script/elf_gacha_simulator.js"></script>
     <script src="script/raffle.js"></script>
     <script src="script/effect.js"></script>

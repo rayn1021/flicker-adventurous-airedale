@@ -1,21 +1,29 @@
 
 document.getElementById("StartButton").addEventListener("click", async function() {
 	
+//    const raffleList = 
+        // [[0.1,0.2,0.7,0.71395,0.72790, 0.99789, 0.99989, 0.99999, 1],
+        //  [0.1,0.2,0.7,0.71395,0.72790, 0.97790, 0.99790, 0.9999,1],
+        //  [0.3, 0.5, 0.55, 0.75, 0.95, 0.97, 1]];
+
     const raffleList = 
-        [[0.1,0.2,0.7,0.71395,0.72790, 0.99789, 0.99989, 0.99999, 1],
-         [0.1,0.2,0.7,0.71395,0.72790, 0.97790, 0.99790, 0.9999,1],
-         [0.3, 0.5, 0.55, 0.75, 0.95, 0.97, 1]];
-    
+         [[7.5, 7.5, 50, 1.354, 1.354, 30, 2, 0.28, 0.012],
+          [10, 10, 50, 1.395, 1.395, 25, 2, 0.2, 0.01],
+          [30, 20, 5, 20, 20, 2, 3],
+          [10, 10, 50, 1.395, 1.395, 26.999, 0.2, 0.01]];
+ 
     const itemList = 
-        [["ブラック怪獣スーツ(欠片3)", "ブラック怪獣ヘッド(欠片3)", "ガチャチケット", "ブラック怪獣スーツ", "ブラック怪獣ヘッド", "銅の作物×6", "銀の作物×1", "金の作物×1", "ダイヤモンドの作物×1"],
+        [["ブラック怪獣スーツ(欠片3)", "ブラック怪獣ヘッド(欠片3)", "ガチャチケット", "ブラック怪獣スーツ", "ブラック怪獣ヘッド", "銅の作物×6", "銅の作物×10", "銀の作物×1", "金の作物×1"],
          ["ブラック怪獣スーツ(欠片3)", "ブラック怪獣ヘッド(欠片3)", "ガチャチケット", "ブラック怪獣スーツ", "ブラック怪獣ヘッド", "銅の作物×6", "銅の作物×10", "銀の作物×1", "金の作物×1"],
-         ["衣装(欠片1)", "衣装(欠片3)", "衣装(欠片10)", "レンタルチケット", "拡張素材(低位)", "衣装", "拡張素材(上位)"]
-        ];
+         ["衣装(欠片1)", "衣装(欠片3)", "衣装(欠片10)", "レンタルチケット", "拡張素材(低位)", "衣装", "拡張素材(上位)"],
+         ["ブラック怪獣スーツ(欠片3)", "ブラック怪獣ヘッド(欠片3)", "ガチャチケット", "ブラック怪獣スーツ", "ブラック怪獣ヘッド", "銅の作物×6", "銀の作物×1", "金の作物×1", "ダイヤモンドの作物×1"],
+       ];
     
     const prizeList = 
-        [[0, 0, 0, 0, 0, 600, 10000, 100000, 600000],
+        [[0, 0, 0, 0, 0, 600, 1000, 10000, 100000],
          [0, 0, 0, 0, 0, 600, 1000, 10000, 100000],
-         [0, 0, 0, 0, 0, 0, 0]
+         [0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 600, 10000, 100000, 600000]
         ];
 
     const imageList = 
@@ -25,9 +33,9 @@ document.getElementById("StartButton").addEventListener("click", async function(
             "004.png?v=1735924784188",
             "005.png?v=1735924786400",
             "006.png?v=1735924788132",
+            "007.png?v=1735924791333",
             "008.png?v=1735924791741",
-            "009.png?v=1735924793899",
-            "010.png?v=1735924795724"],
+            "009.png?v=1735924793899"],
            ["001.png?v=1735924727347",
             "002.png?v=1735924776466",
             "003.png?v=1735924780977",
@@ -43,7 +51,16 @@ document.getElementById("StartButton").addEventListener("click", async function(
             "999.png?v=1735924960465",
             "999.png?v=1735924960465",
             "999.png?v=1735924960465",
-            "999.png?v=1735924960465"]
+            "999.png?v=1735924960465"],
+           ["001.png?v=1735924727347",
+            "002.png?v=1735924776466",
+            "003.png?v=1735924780977",
+            "004.png?v=1735924784188",
+            "005.png?v=1735924786400",
+            "006.png?v=1735924788132",
+            "008.png?v=1735924791741",
+            "009.png?v=1735924793899",
+            "010.png?v=1735924795724"]
         ]   
 
     var bill = 300;
@@ -86,7 +103,6 @@ document.getElementById("StartButton").addEventListener("click", async function(
 
 document.getElementById('share-button').addEventListener('click', function () {
     const url = encodeURIComponent(window.location.href); // 現在のページURL
-    const hashtags = encodeURIComponent("エルフの森");
 
     // 投稿文章作成
     // X投稿用の文章を作成
@@ -94,7 +110,7 @@ document.getElementById('share-button').addEventListener('click', function () {
     var prize = document.getElementById("prise").innerHTML;
     var balance = document.getElementById("balance").innerHTML;
     var parcent = document.getElementById("parcent").innerHTML;
-    var type=document.getElementById('TYPE');
+    var type = document.getElementById('TYPE');
     var typeLabel = type.options[type.selectedIndex].label;
     var text = 
         `スタールーレットシミュレーション結果！\n` +
