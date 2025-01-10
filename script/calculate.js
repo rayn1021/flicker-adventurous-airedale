@@ -63,6 +63,9 @@ document.getElementById("calculateButton").addEventListener("click", function() 
 
     // バッテリー計算
     var bat = roundToDecimal((inEff - inBat) * 0.04);
+    if ((inEff - inBat * 1.25) <= 0){
+        bat = 0;
+    }
  
     // コスト計算
     let cost = roundToDecimal(bat * shunaBoost);
