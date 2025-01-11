@@ -18,7 +18,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     const shunaLevel = [0.8, 0.78, 0.76, 0.74, 0.72];
     const  inRimuru = parseFloat(document.getElementById("rimuru").value);
     const  inRent = parseFloat(document.getElementById("rentalDetail").value);
-    
+    const  inBooster = parseFloat(document.getElementById("booster").value);
 
     if (!inputCheck(inEff, "効率") || !inputCheck(inBat, "バッテリー") || 
         !inputCheck(inRimuru, "リムル%") || !inputCheck(inRent, "レンタル")) {
@@ -54,6 +54,9 @@ document.getElementById("calculateButton").addEventListener("click", function() 
                 break;
         }
     }
+
+    // ブースターポーションの計算
+    inEff = inEff + (inBooster * 5)
    
     // STP計算
     const rimuruMultiplier = 1 + (rimuruBoost * inRimuru / 100);
