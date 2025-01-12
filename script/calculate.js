@@ -65,7 +65,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     const maxTotalStp = roundToDecimal(maxStp + maxCatStp);
 
     // バッテリー計算
-    var bat = roundToDecimal((inEff - inBat) * 0.04);
+    var bat = roundToDecimal((inEff - inBat * 1.25) * 0.04);
     if ((inEff - inBat * 1.25) <= 0){
         bat = 0;
     }
