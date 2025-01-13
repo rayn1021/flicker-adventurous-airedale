@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <title>ガチャシミュレーター</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
+     crossorigin="anonymous">
+  </script>
+  <script src="/script/common/global.js"></script>
+  </head>
+<body>
+  <image src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/logo_blk_h.png?v=1735034578090' style='width:100%; max-width:640px'></image>
+  <div id="header"></div>
+
+  <h1>ガチャシミュレーター</h1>
+  
+    <div class="form-group">
+        <label for="TIMES">回数</label></td>
+        <input type="number" id="TIMES" value="10" style="max-width: 120px;">
+    </div>
+    <div class="form-group">
+        <label for="TYPE">種類</label></td>
+        <select id="TYPE" style="max-width: 120px;" >
+            <option value="0" selected>STPガチャ</option>
+            <option value="1">メダルガチャ</option>
+            <option value="2">福袋</option>
+        </select>
+    </div>
+    <div class="form-group" style="display: none;">
+      <label for="EffectFlg">演出有無</label>
+      <input type="checkbox" id="EffectFlg" >
+    </div>
+
+    <br>
+  <div class="form-group">
+    <button id="StartButton">シミュレーション開始</button>
+  </div>
+  <div id="result"></div>
+  <h2>結果</h2>
+
+  <table border="1" style="border-collapse: collapse">
+    <thead class="tableHedder">
+    </thead>
+      <tbody id="priceResult">
+    </tbody>
+  </table>
+  </br>
+  
+  <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+    <thead class="tableHedder">
+    </thead>
+      <tbody id="resultTableBody">
+    </tbody>
+  </table>
+  </br>
+  <div id="history"></div>
+
+  <div>
+    ※現在β版です。</br>
+    端数処理等、計算内容に誤りがある可能性がありますので、お気づきの方は以下までご連絡ください。</br>
+    <a href="https://x.com/Rayn73747887" target="_blank">https://x.com/Rayn73747887</a>
+  </div>
+  <br><br>
+  <div id="policy"></div>
+  <div style="margin-top:30px; text-align:right;">
+    <!-- FC2カウンター ここから -->
+    <script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=36989980&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=36989980&main=1" /></noscript>
+    <!-- FC2カウンター ここまで -->
+  </div>
+  <dialog  id="dialog" name="dialog">
+    <image id="raffleImage" src="https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/999.png?v=1735924960465" style='width:100%; max-width:640px'></image>
+  </dialog > 
+    <script src="/script/snpit/snpit_gacha_simulator.js"></script>
+    <script src="/script/common/raffle.js"></script>
+  </body>
+  <footer>
+    <div id="footer"></div>
+  </footer>
+</html>
