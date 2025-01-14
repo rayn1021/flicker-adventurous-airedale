@@ -27,7 +27,7 @@
   <h2>結果</h2>
   <div class="form-group">
     <label>json</label>
-    <textarea  id="json" readonly style="max-width: 800px;"></textarea>
+    <textarea  id="json" readonly style="max-width: 800px; font-size: 8px;"></textarea>
   </div>
 
   <br><br>
@@ -40,8 +40,32 @@
   <dialog  id="dialog" name="dialog">
     <image id="raffleImage" src="https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/999.png?v=1735924960465" style='width:100%; max-width:640px'></image>
   </dialog > 
-    <script type="module" src="/script/snpit_camera_checker.js"></script>
+    <!-- <script type="module" src="/script/snpit_camera_checker.js"></script> -->
   </body>
+  <script>
+    document.getElementById("StartButton").addEventListener("click", async () => {
+      const contractAddress = "0x8703e7509774A13f6C5516a6e60965B7eec68B5D"; // 必要に応じて変更
+      const tokenId = 2001020000026782; // 必要に応じて変更
+  
+      try {
+        // サーバーAPIにリクエストを送信
+        const response = await fetch(
+          `/api/getCameraData?contractAddress=${contractAddress}&tokenId=${tokenId}`
+        );
+        if (!response.ok) {
+          throw new Error(`サーバーエラー: ${response.statusText}`);
+        }
+  
+        const metadata = await response.json();
+  
+        // 結果をHTMLに表示
+        document.getElementById("json").textContent = JSON.stringify(metadata, null, 2);
+      } catch (error) {
+        console.error("エラー:", error);
+        document.getElementById("json").textContent = `エラー: ${error.message}`;
+      }
+    });
+  </script>
   <footer>
     <div id="footer"></div>
   </footer>
