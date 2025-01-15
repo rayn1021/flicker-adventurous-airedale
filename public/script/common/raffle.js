@@ -36,7 +36,7 @@ async function raffle(raffleList, itemList, prizeList, imageList, bill, gachaKbn
     const loadingOverlay = showLoading();
 
     // 抽選処理
-    for (i = 0; i < times; i++) {
+    for (let i = 0; i < times; i++) {
         let ransu = Math.random();
         let itemName = "";
         let itemCount = "";
