@@ -1,4 +1,7 @@
 git手順.txt
 server.bat
-node_modules/*
+node_modules/
 .env
+package-lock.json
+package.json
+*.log
