@@ -16,19 +16,26 @@
   <h1>カメラチェッカー</h1>
   
   <div class="form-group">
-    <label for="CONTRACT_ADDRESS">コントラクトアドレス</label></td>
-      <input type="text" id="CONTRACT_ADDRESS" value="1" style="max-width: 120px;">
+    <label for="CONTRACT_ADDRESS">カメラID</label></td>
+      <input type="text" id="CONTRACT_ADDRESS" style="max-width: 120px;">
   </div>
     <br>
   <div class="form-group">
-    <button id="StartButton">確認</button>
+    <button id="StartButton">カメラデータ取得</button>
+    <button id="share-button" style="display:none;">Xで共有する</button>
   </div>
   <div id="result"></div>
-  <h2>結果</h2>
-  <div class="form-group">
-    <label>json</label>
-    <textarea  id="json" readonly style="max-width: 800px; font-size: 8px;"></textarea>
-  </div>
+  <h3>結果</h3>
+  <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+    <thead class="tableHedder">
+      <tr>
+        <th>KEY</th>
+        <th>VALUE</th>
+      </tr>
+    </thead>
+    <tbody id="resultTableBody">
+    </tbody>
+  </table>
 
   <br><br>
   <div id="policy"></div>
@@ -42,30 +49,8 @@
   </dialog > 
     <!-- <script type="module" src="/script/snpit_camera_checker.js"></script> -->
   </body>
-  <script>
-    document.getElementById("StartButton").addEventListener("click", async () => {
-      const contractAddress = "0x8703e7509774A13f6C5516a6e60965B7eec68B5D"; // 必要に応じて変更
-      const tokenId = 2001020000026782; // 必要に応じて変更
-  
-      try {
-        // サーバーAPIにリクエストを送信
-        const response = await fetch(
-          `/api/getCameraData?contractAddress=${contractAddress}&tokenId=${tokenId}`
-        );
-        if (!response.ok) {
-          throw new Error(`サーバーエラー: ${response.statusText}`);
-        }
-  
-        const metadata = await response.json();
-  
-        // 結果をHTMLに表示
-        document.getElementById("json").textContent = JSON.stringify(metadata, null, 2);
-      } catch (error) {
-        console.error("エラー:", error);
-        document.getElementById("json").textContent = `エラー: ${error.message}`;
-      }
-    });
-  </script>
+  <script src="/script/snpit/snpit_camera_checker.js">
+</script>
   <footer>
     <div id="footer"></div>
   </footer>

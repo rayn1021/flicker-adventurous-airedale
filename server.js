@@ -1,6 +1,6 @@
 // const express = require('express');
 // const path = require('path');
-//const { getCameraData } = require("./utils/getCameraData");  // カメラチェッカー
+// const { getCameraData } = require("./utils/getCameraData");  // カメラチェッカー
 import express from 'express'; // ESモジュールでインポート
 import path from 'path'; // ESモジュールでインポート
 import { fileURLToPath } from 'url'
