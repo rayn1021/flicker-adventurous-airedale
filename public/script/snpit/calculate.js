@@ -162,6 +162,8 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     document.getElementById("monthOf8shot").innerHTML = roundToDecimal(getSTP * 8 * 30).toLocaleString() + "STP";
     document.getElementById("monthOf16shot").innerHTML = roundToDecimal(getSTP * 16 * 30).toLocaleString() + "STP";
     
+    // バッテリー消費
+    outCostList();
 });
 
 function outList(inEff, inBat, maxStp){
@@ -284,12 +286,28 @@ function fluctuation(target, val){
     targetSlider.value = targetVal + val;
 }
 
+function outCostList(){
+    cost = document.getElementById('outputB').value;
+    const tableBody = document.getElementById('costTableBody');
+    let batValue = 100;
+    let i = 1;
+
+    do {
+        batValue -= cost;
+        row = document.createElement('tr');
+        row.innerHTML = `<td>${i}枚目</td><td>${batValue}</td>`;
+        tableBody.appendChild(row);
+        i++;
+    } while (batValue > 80);
+}
+
+
 sliderList = 
     [[1, 110],
-     [8, 178],
-     [15, 215],
-     [23, 313],
-     [30, 380]
+     [1, 178],
+     [1, 215],
+     [1, 313],
+     [1, 380]
     ];
 
 const radios = document.getElementsByName('rareButton');

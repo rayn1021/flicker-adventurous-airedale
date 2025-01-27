@@ -13,3 +13,19 @@ function calc() {
     document.getElementById("goldDay").innerHTML = roundToDecimal(70 * emissionRate / 7) + "個 / 日";
 }
 
+window.addEventListener("load", async () => {
+    try {
+        const response = await fetch(`/api/readRates`);
+        if (!response.ok) {
+            alert('レートを取得できませんでした。');
+            throw new Error(`サーバーエラー: ${response.statusText}`);
+        }
+        const data = await response.json();
+        document.getElementById('RATE').value = data.rates['the-land-elf-crossing'].jpy;
+    } catch (error) {
+        console.error("エラー:", error);
+        document.getElementById("RATE").textContent = `エラー: ${error.message}`;
+    }
+
+    calc();
+});

@@ -23,15 +23,18 @@
         <label for="TYPE">種類</label></td>
         <select id="TYPE" style="max-width: 120px;">
             <option value="0">ルーレットコイン</option>
-            <option value="1">星の作物</option>
-            <option value="2">星の種</option>
-            <option value="3">ルーレットコイン(ダイヤ有り)</option>
-            <option value="0">ルーレットコイン(キャンペーン)</option>
+            <option value="1" selected>ルーレットコイン(2025/01/28～)</option>
+            <option value="2">星の作物</option>
+            <option value="3">星の種</option>
         </select>
     </div>
-    <div class="form-group">
+    <div class="form-group" style="display:none;">
       <label for="EffectFlg">演出有無</label>
       <input type="checkbox" id="EffectFlg" >
+    </div>
+    <div class="form-group">
+      <label for="ElfRate">レート</label>
+      <input type="number" id="ElfRate" style="max-width: 120px;">円
     </div>
 
     <br>
