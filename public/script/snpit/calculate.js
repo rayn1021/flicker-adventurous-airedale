@@ -1,6 +1,7 @@
 document.getElementById("calculateButton").addEventListener("click", function() {
     // 入力項目の値を取得
     const  inType = document.querySelector('input[name="typeButton"]:checked').value;
+    const  inBadge = document.querySelector('input[name="badgeButton"]:checked').value;
     let   inEff = parseFloat(document.getElementById("eff").value);
     let   inBat = parseFloat(document.getElementById("bat").value);
     const inStraps = [
@@ -54,6 +55,10 @@ document.getElementById("calculateButton").addEventListener("click", function() 
                 break;
         }
     }
+
+    // バッジの計算
+    badgeList = [0, 4, 8, 12, 16];
+    inEff = (inEff + badgeList[inBadge]);
 
     // ブースターポーションの計算
     inEff = inEff + (inBooster * 5)
@@ -149,6 +154,14 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     }
 
     // 期間別収支計算
+    calcPeriod(getSTP)
+
+    // バッテリー消費
+    outCostList();
+});
+
+function calcPeriod(getSTP){
+    // 期間別収支計算
     document.getElementById("dayOf2shot").innerHTML = roundToDecimal(getSTP * 2).toLocaleString() + "STP";
     document.getElementById("dayOf4shot").innerHTML = roundToDecimal(getSTP * 4).toLocaleString() + "STP";
     document.getElementById("dayOf8shot").innerHTML = roundToDecimal(getSTP * 8).toLocaleString() + "STP";
@@ -161,10 +174,7 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     document.getElementById("monthOf4shot").innerHTML = roundToDecimal(getSTP * 4 * 30).toLocaleString() + "STP";
     document.getElementById("monthOf8shot").innerHTML = roundToDecimal(getSTP * 8 * 30).toLocaleString() + "STP";
     document.getElementById("monthOf16shot").innerHTML = roundToDecimal(getSTP * 16 * 30).toLocaleString() + "STP";
-    
-    // バッテリー消費
-    outCostList();
-});
+}
 
 function outList(inEff, inBat, maxStp){
     // カメラタイプの取得
@@ -213,42 +223,9 @@ function inputCheck(value, name) {
     return { maxStp, minStp, maxCatStp, minCatStp };
 };
 
-  // 入力フィールドが変更されたとき、スライダーを更新
-const effInput = document.getElementById("eff");
-const effSlider = document.getElementById("eff-slider");
-effInput.addEventListener("input", () => {
-    let value = parseFloat(effInput.value) || 0; // 無効な入力を防ぐ
-    value = Math.max(Math.min(value, effSlider.max), effSlider.min); // 範囲を制限
-    effInput.value = value; // 修正した値を再設定
-    effSlider.value = value;
-});
-
-// スライダーが変更されたとき、入力フィールドを更新
-effSlider.addEventListener("input", () => {
-    effInput.value = effSlider.value;
-});
-
-  // 入力フィールドが変更されたとき、スライダーを更新
-const batInput = document.getElementById("bat");
-const batSlider = document.getElementById("bat-slider");
-batInput.addEventListener("input", () => {
-    let value = parseFloat(batInput.value) || 0; // 無効な入力を防ぐ
-    value = Math.max(Math.min(value, batSlider.max), batSlider.min); // 範囲を制限
-    batInput.value = value; // 修正した値を再設定
-    batSlider.value = value;
-});
-
-// スライダーが変更されたとき、入力フィールドを更新
-batSlider.addEventListener("input", () => {
-batInput.value = batSlider.value;
-});
-
-document.getElementById('eff-plus').addEventListener('click', function () {fluctuation("eff", 1);});
-document.getElementById('eff-minus').addEventListener('click', function () {fluctuation("eff", -1);});
-document.getElementById('bat-plus').addEventListener('click', function () {fluctuation("bat", 1);});
-document.getElementById('bat-minus').addEventListener('click', function () {fluctuation("bat", -1);});
-
-
+/* 
+ * Xに投稿
+ */
 document.getElementById('share-button').addEventListener('click', function () {
     const url = encodeURIComponent(window.location.href); // 現在のページURL
 
@@ -274,18 +251,9 @@ document.getElementById('share-button').addEventListener('click', function () {
     window.open(shareUrl, '_blank', 'noopener,noreferrer');
 });
 
-function fluctuation(target, val){
-    var elmTarget = document.getElementById(target);
-    var targetVal = parseInt(elmTarget.value);
-    elmTarget.value = targetVal + val;
-
-    // スライダーの設定
-    var targetSlider = document.getElementById(target + "-slider");
-    value = Math.max(Math.min(targetVal + val, targetSlider.max), targetSlider.min); // 範囲を制限
-    elmTarget.value = targetVal + val; // 修正した値を再設定
-    targetSlider.value = targetVal + val;
-}
-
+/* 
+ * バッテリー消費出力
+ */
 function outCostList(){
     cost = document.getElementById('outputB').value;
     const tableBody = document.getElementById('costTableBody');
@@ -302,27 +270,91 @@ function outCostList(){
 }
 
 
-sliderList = 
-    [[1, 110],
-     [1, 178],
-     [1, 215],
-     [1, 313],
-     [1, 380]
-    ];
+/* 
+ * カメラデータ取得
+ */
+document.getElementById("getCameraDataButton").addEventListener("click", async () => {
+    const input = document.getElementById('ID').value; // 必要に応じて変更
+//    const fixedPrefix = "200102"; // 左側の固定値
 
-const radios = document.getElementsByName('rareButton');
-for (const radio of radios) {
-  radio.addEventListener('change', () => {
-    if (radio.checked) {
-        document.getElementById('eff-slider').min = sliderList[radio.value][0];
-        document.getElementById('eff-slider').max = sliderList[radio.value][1];
-        document.getElementById('bat-slider').min = sliderList[radio.value][0];
-        document.getElementById('bat-slider').max = sliderList[radio.value][1];
+    let fixedPrefix = "100101"; // 左側の固定値
+    const fullLength = 16; // フルIDの桁数
+    let tokenId;
 
-        document.getElementById('eff-slider').value = sliderList[radio.value][0];
-        document.getElementById('bat-slider').value = sliderList[radio.value][0];
-        document.getElementById('eff').value = sliderList[radio.value][0];
-        document.getElementById('bat').value = sliderList[radio.value][0];
+    // ID情報を編集
+    if (input.length === fullLength) {
+        // 入力がフルIDの場合、そのまま利用
+        tokenId = input;
+    } else {
+        // 後部IDの場合、固定値を追加し、0埋めしてフルIDを生成
+        const uniqueCode = input.padStart(fullLength - fixedPrefix.length, '0'); // 必要な桁数分0埋め
+        tokenId = fixedPrefix + uniqueCode;
     }
-  });
+
+    try {
+        await getMetadata(tokenId);
+    } catch (error) {
+
+        try {
+            let fixedPrefix = "200102";
+            const uniqueCode = input.padStart(fullLength - fixedPrefix.length, '0'); // 必要な桁数分0埋め
+            tokenId = fixedPrefix + uniqueCode;
+            getMetadata(tokenId);
+        } catch(error){
+            console.error("エラー:", error);
+            document.getElementById("json").textContent = `エラー: ${error.message}`;
+        }
+    } 
+
+});
+
+async function getMetadata(tokenId){
+    const contractAddress = "0x8703e7509774A13f6C5516a6e60965B7eec68B5D"; // 必要に応じて変更
+
+    try {
+        // サーバーAPIにリクエストを送信
+        const response = await fetch(
+            `/api/getCameraData?contractAddress=${contractAddress}&tokenId=${tokenId}`
+        );
+        if (!response.ok) {
+            alert('対象のカメラを取得できませんでした。\nカメラIDを確認してください。');
+            throw new Error(`サーバーエラー: ${response.statusText}`);
+        }
+
+        const metadata = await response.json();
+
+        // 取得したjsonファイルより値を設定
+        // タイプの設定
+        if (metadata.attributes.find(attr => attr.trait_type === 'Genesis').value == 'Yes') {
+            document.getElementById('TYPE1').checked = true;
+        } else {
+            document.getElementById('TYPE2').checked = true;
+        }
+        
+        // レアリティの設定
+        const rarity = metadata.attributes.find(attr => attr.trait_type === 'Rarity').value;
+        if (rarity == 'COMMON') {
+            document.getElementById('RARE1').checked = true;
+        } else if(rarity == 'UNCOMMON'){
+            document.getElementById('RARE2').checked = true;
+        } else if(rarity == 'RARE'){
+            document.getElementById('RARE3').checked = true;
+        } else if(rarity == 'EPIC'){
+            document.getElementById('RARE4').checked = true;
+        } else if(rarity == 'LEGENDALY'){
+            document.getElementById('RARE5').checked = true;
+        }
+
+        // 効率の設定
+        document.getElementById('eff').value = metadata.attributes.find(attr => attr.trait_type === 'Current Efficiency').value;
+
+        // 電池の設定
+        document.getElementById('bat').value = metadata.attributes.find(attr => attr.trait_type === 'Current Battery').value;
+
+        setSliderRange()
+
+    } catch (e) {
+        throw e
+    }
 }
+

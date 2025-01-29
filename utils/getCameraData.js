@@ -36,6 +36,7 @@ async function getCameraData(contractAddress, tokenId) {
     const metadataURL = tokenURI.startsWith("ipfs://")
       ? tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/")
       : tokenURI;
+      console.log("tokenURI:", tokenURI);
 
     // メタデータを取得
     const response = await fetch(metadataURL);
