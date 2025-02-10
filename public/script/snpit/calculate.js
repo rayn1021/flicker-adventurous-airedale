@@ -259,6 +259,9 @@ function outCostList(){
     const tableBody = document.getElementById('costTableBody');
     let batValue = 100;
     let i = 1;
+    if (cost <= 0){
+        return;
+    }
 
     do {
         batValue -= cost;
