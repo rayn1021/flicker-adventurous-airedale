@@ -104,3 +104,27 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     
 
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const strapSelect = document.getElementById("STRAP");
+    const tableRows = document.getElementsByName("list");
+
+    function filterTable() {
+        const selectedValue = strapSelect.value; // 選択されたストラップの値（レアリティ）
+        
+        tableRows.forEach(row => {
+            const rarityCell = row.cells[0]; // レアリティ列のセル
+            if (rarityCell) {
+                const rarity = rarityCell.textContent.trim().replace("★", "");
+                if (rarity === selectedValue) {
+                    row.style.display = ""; // 表示
+                } else {
+                    row.style.display = "none"; // 非表示
+                }
+            }
+        });
+    }
+    
+    strapSelect.addEventListener("change", filterTable);
+    filterTable(); // 初回実行
+});
