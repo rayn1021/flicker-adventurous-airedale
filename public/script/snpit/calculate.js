@@ -74,6 +74,11 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     if ((inEff - inBat * 1.25) <= 0){
         bat = 0;
     }
+
+    if (bat > 100){
+        alert(`現在のバッテリー消費は、\"${bat}\"です。\nバッテリー消費が100を超えているため、撮影できません。`);
+        return;
+    }
  
     // コスト計算
     let cost = roundToDecimal(bat * shunaBoost);
