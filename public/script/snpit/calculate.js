@@ -259,23 +259,41 @@ function outCostList(){
     const tableBody = document.getElementById('costTableBody');
     let batValue = 100;
     let i = 1;
+
+    while(tableBody.firstChild){
+        tableBody.removeChild(tableBody.firstChild);
+    }
+
     if (cost <= 0){
         return;
     }
 
+    let bestCost = 1;
+    let bestCostPos = 1;
     do {
         batValue -= cost;
         row = document.createElement('tr');
-        row.innerHTML = `<td>${i}枚目</td><td>${batValue}</td>`;
+        row.id = 'batcost_' + i;
+        row.innerHTML = `<td>${i}枚目</td><td>${Math.floor(batValue * 100) / 100}</td>`;
         tableBody.appendChild(row);
+
+        if (bestCost >= batValue % 1) {
+            bestCost = batValue % 1;
+            bestCostPos = i;
+        }
+
         i++;
     } while (batValue > 80);
+
+    document.getElementById('batcost_' + bestCostPos).style.backgroundColor  = '#ffffcc';
+
 }
 
 
 /* 
  * カメラデータ取得
  */
+/*
 document.getElementById("getCameraDataButton").addEventListener("click", async () => {
     const input = document.getElementById('ID').value; // 必要に応じて変更
 //    const fixedPrefix = "200102"; // 左側の固定値
@@ -360,4 +378,4 @@ async function getMetadata(tokenId){
         throw e
     }
 }
-
+*/
