@@ -178,7 +178,7 @@ document.getElementById("StartButton").addEventListener("click", function() {
   document.getElementById("minsc").value = formatNumber(minsc);
   document.getElementById("mintPriceStp").value = `${mintPrice}STP`;
   document.getElementById("mintPriceYen").value = formatNumber(mintPrice * stpValue);
-  document.getElementById("totalPrice").value = formatNumber(minsc + mintPrice);
+  document.getElementById("totalPrice").value = formatNumber(minsc + (mintPrice * stpValue));
 
   document.getElementById("doubleChance").value = `${doubleChance}%`;
 
