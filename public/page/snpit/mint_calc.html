@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>壁撮り計算機</title>
+  <title>SNPITミント計算機</title>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
      crossorigin="anonymous"></script>
      <script src="/script/common/global.js"></script>
@@ -15,282 +15,255 @@
 
   <h1>ミント計算機</h1>
   <div class="form-group">
-    <label for="ID">カメラID</label>
-    <input type="text" id="ID" value="" style="max-width: 42px;">
-    <button id="getCameraDataButton" class="select-button">カメラ情報取得</button>
-  </div>
-  <div class="form-group">
-    <label for="TYPE">タイプ</label>
-    <input type="radio" id="TYPE1" name="typeButton" value="1" checked>
-    <label for="TYPE1" class="select-button" checked>ジェネシス</label>
-  
-    <input type="radio" id="TYPE2" name="typeButton" value="2">
-    <label for="TYPE2" class="select-button">非ジェネシス</label>
-  </div>
-  <div class="form-group">
-    <label for="RARE">レアリティ</label>
-    <input type="radio" id="RARE1" name="rareButton" value="0" checked>
-    <label for="RARE1" class="select-button" checked>コモン</label>
-  
-    <input type="radio" id="RARE2" name="rareButton" value="1">
-    <label for="RARE2" class="select-button">アンコモン</label>
-  
-    <input type="radio" id="RARE3" name="rareButton" value="2">
-    <label for="RARE3" class="select-button">レア</label>
-  
-    <input type="radio" id="RARE4" name="rareButton" value="3">
-    <label for="RARE4" class="select-button">エピック</label>
-  
-    <input type="radio" id="RARE5" name="rareButton" value="4">
-    <label for="RARE5" class="select-button">レジェンダリ</label>
-  </div>
-  <div class="form-group">
-    <label for="BADGE">バッジ</label>
-    <input type="radio" id="BADGE0" name="badgeButton" value="0" checked>
-    <label for="BADGE0" class="select-button" checked>バッジなし</label>
-  
-    <input type="radio" id="BADGE1" name="badgeButton" value="1">
-    <label for="BADGE1" class="select-button" checked>ブロンズ</label>
-  
-    <input type="radio" id="BADGE2" name="badgeButton" value="2">
-    <label for="BADGE2" class="select-button">シルバー</label>
-  
-    <input type="radio" id="BADGE3" name="-+" value="3">
-    <label for="BADGE3" class="select-button">ゴールド</label>
-  
-    <input type="radio" id="BADGE4" name="badgeButton" value="4">
-    <label for="BADGE4" class="select-button">プラチナ</label>
-  </div>
-  <div class="form-group">
-    <label for="eff">効率</label>
-	<input type="range" id="eff-slider" value="0" min="1" max="110" step="1">
-    <input type="number" id="eff" value="0" style="max-width: 32px;">
-    <button id="eff-minus" class="buttonPlusminusb">－</button>
-    <button id="eff-plus" class="buttonPlusminusb">＋</button>
-  </div>
-  <div class="form-group">
-    <label for="bat">電池</label>
-	  <input type="range" id="bat-slider" value="0" min="1" max="110" step="1">
-    <input type="number" id="bat" value="0" style="max-width: 32px;">
-    <button id="bat-minus" class="buttonPlusminusb">－</button>
-    <button id="bat-plus" class="buttonPlusminusb">＋</button>
- </div>
-  <div class="form-group">
-    <label for="strap1">ストラップ1</label>
-    <select id="strap1" style="max-width: 140px;">
-      <option value="1">なし</option>
-      <option value="2">ブルール(効率+5)</option>
-      <option value="3">レッド（効率+3)</option>
-      <option value="4">マーレ(バッテリー+5)</option>
-      <option value="5">パープル(バッテリー+3)</option>
-      <option value="6">リムル(まれに1.2倍)</option>
-      <option value="7">シュナ(回復20%減)</option>
+    <label for="camera1">1台目</label>
+    <select id="camera1" style="max-width: 74px;">
+      <option value=1>コモン</option>
+      <option value=2>アンコモン</option>
     </select>
-    <select id="grade1" style="margin-left: 15px; max-width: 52px;">
-		<option value="0"></option>
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-	  </select>
-  </select>
-</div>
-  <div class="form-group">
-    <label for="strap2">ストラップ2</label>
-    <select id="strap2" style="max-width: 140px;">
-      <option value="1">なし</option>
-      <option value="2">ブルール(効率+5)</option>
-      <option value="3">レッド（効率+3)</option>
-      <option value="4">マーレ(バッテリー+5)</option>
-      <option value="5">パープル(バッテリー+3)</option>
-      <option value="6">リムル(まれに1.2倍)</option>
-      <option value="7">シュナ(回復20%減)</option>
+    <label for="mint1">ミント回数</label>
+    <select id="mint1" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>0</option>
+      <option value=1>1</option>
+      <option value=2>2</option>
+      <option value=3>3</option>
+      <option value=4>4</option>
+      <option value=5>5</option>
+      <option value=6>6</option>
     </select>
-    <select id="grade2" style="margin-left: 15px; max-width: 52px;">
-		<option value="0"></option>
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-	  </select>
-	</div>
+    <label for="kuroko1" style="width: 74px;">黒子ストラップ</label>
+    <select id="kuroko1" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>なし</option>
+      <option value=1>G0</option>
+      <option value=2>G1</option>
+      <option value=3>G2</option>
+    </select>  </div>
   <div class="form-group">
-    <label for="strap3">ストラップ3</label>
-    <select id="strap3" style="max-width: 140px;">
-      <option value="1">なし</option>
-      <option value="2">ブルール(効率+5)</option>
-      <option value="3">レッド（効率+3)</option>
-      <option value="4">マーレ(バッテリー+5)</option>
-      <option value="5">パープル(バッテリー+3)</option>
-      <option value="6">リムル(まれに1.2倍)</option>
-      <option value="7">シュナ(回復20%減)</option>
+    <label for="camera2">2台目</label>
+    <select id="camera2" style="max-width: 74px;">
+      <option value=1>コモン</option>
+      <option value=2>アンコモン</option>
     </select>
-    <select id="grade3" style="margin-left: 15px; max-width: 52px;">
-		<option value="0"></option>
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-	  </select>
+    <label for="mint2">ミント回数</label>
+    <select id="mint2" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>0</option>
+      <option value=1>1</option>
+      <option value=2>2</option>
+      <option value=3>3</option>
+      <option value=4>4</option>
+      <option value=5>5</option>
+      <option value=6>6</option>
+    </select>
+    <label for="kuroko2" style="width: 74px;">黒子ストラップ</label>
+    <select id="kuroko2" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>なし</option>
+      <option value=1>G0</option>
+      <option value=2>G1</option>
+      <option value=3>G2</option>
+    </select>
   </div>
   <div class="form-group">
-    <label for="rimuru">リムル%</label>
-    <input type="number" id="rimuru" value="0" style="max-width: 120px;">
+    <label for="GEN">ジェネシス</label>
+    <input type="radio" id="GEN0" name="genButton" value="0" checked>
+    <label for="GEN0" class="select-button" checked>含まない</label>
+  
+    <input type="radio" id="GEN1" name="genButton" value="1">
+    <label for="GEN1" class="select-button" checked>含む</label>
   </div>
-  <details>
-    <summary>オプション</summary>
-      <div class="form-group">
-        <label for="booster">ブースター</label>
-        <input type="number" id="booster" value="0" style="max-width: 120px;">
-      </div>
-  </details>
-  <details>
-    <summary>レンタル機能はこちら</summary>
-      <div class="form-group">
-        <label for="rentalDetail">借手割合</label>
-        <input type="number" id="rentalDetail" value="0" style="max-width: 120px;">
-      </div>
-      <div class="form-group">
-        <label for="LenderSubsc">サブスク加入</label>
-        <input type="checkbox" id="LenderSubsc" name="subscButton" >
-        <label for="LenderSubsc" class="select-button2">貸手</label>
-        <input type="checkbox" id="renderSubsc" name="subscButton" >
-        <label for="renderSubsc" class="select-button2">借手</label>
-      </div>
-      <span style="font-size:6px; font-weight:bold">※レンタルの場合、バッジは貸手に依存します。<br>
-      　ステータスはバッジを省いた値を入力してください。</span>
-  </details>
+  <div class="form-group">
+    <button id="StartButton">計算する</button>
+  </div>
+  <HR>
+  <h2>計算結果</h3>
+  <div class="form-group">
+    <label style="text-align: left;  font-weight: bold;">■フロア価格</label><p style="font-size:6px;" id="rateTime"></p>
+  </div>
+  <div class="form-group">
+    <label>コモンカメラ</label>
+    <input type="text" id="commonCamera" disabled style="max-width: 50px; margin-right: 10px; text-align: right;">
+    <label>アンコカメラ</label>
+    <input type="text" id="unCommonCamera" disabled style="max-width: 50px; text-align: right;">
+    <label>レアカメラ</label>
+    <input type="text" id="rareCamera" disabled style="max-width: 50px; text-align: right;">
+  </div>
+  <div class="form-group">
+    <label>コモンミンスク</label>
+    <input type="text" id="commonMintScroll" disabled style="max-width: 50px; margin-right: 10px; text-align: right;">
+    <label>アンコミンスク</label>
+    <input type="text" id="unCommonMintScroll" disabled style="max-width: 50px; text-align: right;">
+  </div>
   <br>
   <div class="form-group">
-    <button id="calculateButton">計算する</button>
-    <button id="share-button" style="display:none;">Xで共有する</button>
-  </div>
-  <h3>計算結果</h3>
-  <div class="form-group">
-    <label>ベースSTP</label>
-    <input type="text" id="outputA1" readonly style="max-width: 50px; margin-right: 10px;">
-    <label>カテゴリSTP</label>
-    <input type="text" id="outputA2" readonly style="max-width: 50px; margin-right: 10px;">
-    <label>獲得STP</label>
-    <input type="text" id="outputA3" readonly style="max-width: 50px;">
+    <label style="text-align: left;  font-weight: bold;">■金額情報</label>
   </div>
   <div class="form-group">
-    <label>バッテリー消費</label>
-    <input type="text" id="outputB" readonly style="max-width: 50px; margin-right: 10px;">
-    <label>回復コスト</label>
-    <input type="text" id="outputC" readonly style="max-width: 50px; margin-right: 10px;">
-    <label id="labelMarginA" style="display:none">運営手数料</label>
-    <input type="text" id="marginA" readonly style="max-width: 50px; display:none">
+    <label for="amm">AMM比率</label>
+    <input type="text" id="ammRate" value="2.6" style="max-width: 42px; text-align: right;"><p style="font-size:6px;">※AMM比率は自動取得できないため、調べて入力してください。</p>
   </div>
   <div class="form-group">
-    <label>獲得期待値</label>
-    <input type="text" id="outputD" readonly style="max-width: 50px;">
+    <label for="amm">SNPT / 円</label>
+    <input type="text" id="snptValue" disabled value="" style="max-width: 42px; text-align: right;">
   </div>
-  </br>
-  <div id="rental" style="display:none">
-    <h3>計算結果(レンタル)</h3>
-    <div class="form-group">
-      <label>獲得STP</label>
-      <input type="text" id="outputA3-1" readonly style="max-width: 50px;">
-    </div>
-    <div class="form-group">
-      <label>バッテリー消費</label>
-      <input type="text" id="outputB-1" readonly style="max-width: 50px; margin-right: 10px;">
-      <label>回復コスト</label>
-      <input type="text" id="outputC-1" readonly style="max-width: 50px; margin-right: 10px;">
-      <label>運営手数料</label>
-      <input type="text" id="marginB" readonly style="max-width: 50px;">
-    </div>
-    <div class="form-group">
-      <label>獲得期待値</label>
-      <input type="text" id="outputD-1" readonly style="max-width: 50px;">
-    </div>
+  <div class="form-group">
+    <label for="amm">STP / 円</label>
+    <input type="text" id="stpValue" disabled value="" style="max-width: 42px; text-align: right;">
   </div>
-  </br>
-  <details>
-    <summary>メインバトル換算</summary>
-      <div class="form-group" style="margin-left: 20px;">
-        獲得STPを稼ぐために必要なメインバトルの勝ち数です。<br>
-        例)2.5の場合、3回中★2を2回、★3を1回取ると同等の稼ぎとなります。
-      </div>
-      <div class="form-group" style="margin-left: 20px;">
-        <label for="MainBattle">メインバトル換算</label>
-        <input type="number" id="MainBattle" readonly style="max-width: 120px;">
-      </div>
-    </details>
-  </br>
-  <details>
-      <summary>期間・フィルム数別収支</summary>
-        <div class="form-group" style="margin-left: 20px;">
-        <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
-          <thead class="tableHedder">
-              <th></th>
-              <th>2枚</th>
-              <th>4枚</th>
-              <th>8枚</th>
-              <th>16枚</th>
-          </thead>
-          <tbody id="periodTableBody" style="text-align: right;">
-            <tr>
-              <td>1日</td>
-              <td><span id="dayOf2shot"></span></td>
-              <td><span id="dayOf4shot"></span></td>
-              <td><span id="dayOf8shot"></span></td>
-              <td><span id="dayOf16shot"></span></td>
-            </tr>
-            <tr>
-              <td>7日</td>
-              <td><span id="weekOf2shot"></span></td>
-              <td><span id="weekOf4shot"></span></td>
-              <td><span id="weekOf8shot"></span></td>
-              <td><span id="weekOf16shot"></span></td>
-          </tr>
-          <tr>
-            <td>30日</td>
-            <td><span id="monthOf2shot"></span></td>
-            <td><span id="monthOf4shot"></span></td>
-            <td><span id="monthOf8shot"></span></td>
-            <td><span id="monthOf16shot"></span></td>
-          </tr>
-
-        </tbody>
-        </table>
-      </div>
-  </details>
-</br>
-  <details>
-    <summary>バッテリー消費</summary>
-      <div class="form-group" style="margin-left: 20px;">
-        <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
-          <thead class="tableHedder">
-              <th>バトル回数</th>
-              <th>残バッテリー</th>
-          </thead>
-          <tbody id="costTableBody" style="text-align: right;">
-          </tbody>
-        </table>
-      </div>
-  </details>
-  </br>
-  
-<table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
-  <thead class="tableHedder">
-      <th>タイプ</th>
-      <th>レアリティ</th>
-      <th>E値</th>
-      <th>B値</th>
-      <th>獲得STP</th>
-  </thead>
-  <tbody id="resultTableBody">
+  <br><hr><br>
+  <div class="form-group">
+    <label style="text-align: left; font-weight: bold;">■ミントコスト</label> 
+  </div>
+  <div class="form-group">
+    <label>ミンスク代金</label>
+    <input type="text" id="minsc" readonly style="max-width: 50px; text-align: right;">
+  </div>
+  <div class="form-group">
+    <label>ミント費用</label>
+    <input type="text" id="mintPriceStp" readonly style="max-width: 50px; text-align: right;">　→　
+    <input type="text" id="mintPriceYen" readonly style="max-width: 50px; text-align: right;">
+  </div>
+  <div class="form-group">
+    <label>合計費用</label>
+    <input type="text" id="totalPrice" readonly style="max-width: 50px; text-align: right;">
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label style="text-align: left; font-weight: bold;">■ミント結果</label>
+  </div>
+  <div class="form-group">
+    <label>ダブルミント確率</label>
+    <input type="text" id="doubleChance" readonly style="max-width: 50px;">
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label style="text-align: left; font-weight: bold;">■シングルミントの期待値</label>
+  </div>
+  <div class="form-group">
+    <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+      <thead class="tableHedder">
+          <th>レアリティ</th>
+          <th>確率</th>
+          <th>期待値</th>
+      </thead>
+      <tbody">
+        <tr>
+          <td>コモン</td>
+          <td><span id="result1_1-2" style=" text-align: right;"></span></td>
+          <td><span id="result1_1-3" style=" text-align: right;"></span></td>
+        </tr>
+        <tr>
+          <td>アンコモン</td>
+          <td><span id="result1_2-2" style=" text-align: right;"></span></td>
+          <td><span id="result1_2-3" style=" text-align: right;"></span></td>
+        </tr>
+        <tr>
+          <td>レア</td>
+          <td><span id="result1_3-2" style=" text-align: right;"></span></td>
+          <td><span id="result1_3-3" style=" text-align: right;"></span></td>
+        </tr>
+        <tr>
+          <td>エピック</td>
+          <td><span id="result1_4-2" style=" text-align: right;"></span></td>
+          <td><span id="result1_4-3" style=" text-align: right;"></span></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<div class="form-group">
+  <label style="width: 28px;">期待値</label>
+  <input type="text" id="expectedValue1" readonly style="max-width: 50px; text-align: right;">
+  <label>損益</label>
+  <input type="text" id="profitAndLoss1" readonly style="max-width: 50px; text-align: right;">
+  <label>利益率</label>
+  <input type="text" id="profitRatio1" readonly style="max-width: 50px; text-align: right;">
+</div>
+<br><br>
+<div class="form-group">
+  <label style="text-align: left; font-weight: bold;">■ダブルミント時の期待値</label>
+</div>
+<div class="form-group">
+  <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+    <thead class="tableHedder">
+        <th>レアリティ</th>
+        <th>確率</th>
+        <th>期待値</th>
+      </thead>
+    <tbody">
+      <tr>
+        <td>コモン</td>
+        <td><span id="result2_1-2" style=" text-align: right;"></span></td>
+        <td><span id="result2_1-3" style=" text-align: right;"></span></td>
+      </tr>
+      <tr>
+        <td>アンコモン</td>
+        <td><span id="result2_2-2" style=" text-align: right;"></span></td>
+        <td><span id="result2_2-3" style=" text-align: right;"></span></td>
+      </tr>
+      <tr>
+        <td>レア</td>
+        <td><span id="result2_3-2" style=" text-align: right;"></span></td>
+        <td><span id="result2_3-3" style=" text-align: right;"></span></td>
+      </tr>
+      <tr>
+        <td>エピック</td>
+        <td><span id="result2_4-2" style=" text-align: right;"></span></td>
+        <td><span id="result2_4-3" style=" text-align: right;"></span></td>
+      </tr>
   </tbody>
-</table>
+  </table>
+</div>
+<div class="form-group">
+  <label style="width: 28px;">期待値</label>
+  <input type="text" id="expectedValue2" readonly style="max-width: 50px; text-align: right;">
+  <label>損益</label>
+  <input type="text" id="profitAndLoss2" readonly style="max-width: 50px; text-align: right;">
+  <label>利益率</label>
+  <input type="text" id="profitRatio2" readonly style="max-width: 50px; text-align: right;">
+</div>
+<br><br>
+<div class="form-group">
+  <label style="text-align: left; font-weight: bold;">■トータルの期待値</label>
+</div>
+<div class="form-group">
+  <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+    <thead class="tableHedder">
+        <th>レアリティ</th>
+        <th>確率</th>
+        <th>期待値</th>
+      </thead>
+    <tbody">
+      <tr>
+        <td>コモン</td>
+        <td><span id="result3_1-2"></span></td>
+        <td><span id="result3_1-3"></span></td>
+      </tr>
+      <tr>
+        <td>アンコモン</td>
+        <td><span id="result3_2-2"></span></td>
+        <td><span id="result3_2-3"></span></td>
+      </tr>
+      <tr>
+        <td>レア</td>
+        <td><span id="result3_3-2"></span></td>
+        <td><span id="result3_3-3"></span></td>
+      </tr>
+      <tr>
+        <td>エピック</td>
+        <td><span id="result3_4-2"></span></td>
+        <td><span id="result3_4-3"></span></td>
+      </tr>
+  </tbody>
+  </table>
+</div>
+<div class="form-group">
+  <label style="width: 28px;">期待値</label>
+  <input type="text" id="expectedValue3" readonly style="max-width: 50px; text-align: right;">
+  <label>損益</label>
+  <input type="text" id="profitAndLoss3" readonly style="max-width: 50px; text-align: right;">
+  <label>利益率</label>
+  <input type="text" id="profitRatio3" readonly style="max-width: 50px; text-align: right;">
+</div>
+<br><br><br><br><br><br>
 
   <div id="history"></div>
-  <div>
-    ※現在β版です。</br>
-    端数処理等、計算内容に誤りがある可能性がありますので、お気づきの方は以下までご連絡ください。</br>
-    <a href="https://x.com/Rayn73747887" target="_blank">https://x.com/Rayn73747887</a>
-  </div>
 
   <br><br>
   <div id="policy"></div>
@@ -301,9 +274,8 @@
     <!-- FC2カウンター ここまで -->
   </div>
 
-  <script src="/script/snpit/calculate.js"></script>
-  <script src="/script/snpit/calculate_slider.js"></script>
   <script src="/script/common/common.js"></script>
+  <script src="/script/snpit/mint_calc.js"></script>
   <footer>
     <div id="footer"></div>
   </footer>

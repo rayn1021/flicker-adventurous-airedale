@@ -2,18 +2,20 @@ import axios from 'axios';
 import fs from 'fs';
 
 // 保存先のファイルパス
-const FILE_PATH = './crypto_rates.json';
+
 
 // 仮想通貨価格を取得する関数
-async function fetchCryptoRates() {
+async function fetchCryptoRates(targetCurrencies = "jpy") {
     try {
+        console.log(`fetchCryptoRates:${targetCurrencies}`);
+        const FILE_PATH = `./crypto_rates_${targetCurrencies}.json`;
         const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
             params: {
-                ids: 'snpit-token,the-land-elf-crossing', // 仮想通貨ID
-                vs_currencies: 'jpy'    // 日本円
+                ids: 'snpit-token,the-land-elf-crossing,usd', // 仮想通貨ID
+                vs_currencies: targetCurrencies    // 日本円
             }
         });
-        console.log(response.data);
+        //console.log(response.data);
 
         const rates = response.data;
         const timestamp = new Date().toISOString();
@@ -33,4 +35,5 @@ async function fetchCryptoRates() {
 }
 
 // 実行
-fetchCryptoRates();
+fetchCryptoRates('usd');
+fetchCryptoRates('jpy');

@@ -33,7 +33,7 @@ async function raffle(raffleList, itemList, prizeList, imageList, bill, gachaKbn
     //dialog.show();
 
      // 実行中ウィンドウを表示
-    const loadingOverlay = showLoading();
+    const loadingOverlay = showLoading("抽選中...");
 
     // 抽選処理
     for (let i = 0; i < times; i++) {
@@ -81,43 +81,3 @@ async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function showLoading() {
-    // オーバーレイを作成
-    const overlay = document.createElement("div");
-    overlay.style.position = "fixed";
-    overlay.style.top = "0";
-    overlay.style.left = "0";
-    overlay.style.width = "100%";
-    overlay.style.height = "100%";
-    overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-    overlay.style.zIndex = "9999"; // 他の要素の上に表示
-    overlay.style.display = "flex";
-    overlay.style.justifyContent = "center";
-    overlay.style.alignItems = "center";
-  
-    // 「実行中」のメッセージを作成
-    const message = document.createElement("div");
-    message.textContent = "抽選中...";
-    message.style.backgroundColor = "white";
-    message.style.padding = "20px 40px";
-    message.style.borderRadius = "10px";
-    message.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
-    message.style.fontSize = "18px";
-    message.style.fontWeight = "bold";
-  
-    // 要素をオーバーレイに追加
-    overlay.appendChild(message);
-  
-    // ドキュメントにオーバーレイを追加
-    document.body.appendChild(overlay);
-  
-    // 戻り値としてオーバーレイ要素を返す（後で削除するため）
-    return overlay;
-  }
-  
-  function hideLoading(overlay) {
-    // オーバーレイを削除
-    if (overlay) {
-      document.body.removeChild(overlay);
-    }
-  }

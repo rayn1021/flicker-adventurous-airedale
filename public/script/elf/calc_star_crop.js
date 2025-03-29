@@ -15,7 +15,7 @@ function calc() {
 
 window.addEventListener("load", async () => {
     try {
-        const response = await fetch(`/api/readRates`);
+        const response = await fetch(`/api/readRates?target=jpy`);
         if (!response.ok) {
             alert('レートを取得できませんでした。');
             throw new Error(`サーバーエラー: ${response.statusText}`);

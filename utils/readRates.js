@@ -1,10 +1,10 @@
 import fs from 'fs'; // ファイル操作モジュール
 
 // 保存先のファイルパス
-const FILE_PATH = './crypto_rates.json';
-
 // ファイルからデータを読み取る関数
-async function readRates() {
+async function readRates(targetCurrencies = "jpy") {
+    const FILE_PATH = `./crypto_rates_${targetCurrencies}.json`;
+
     let rates = "";
     try {
         // ファイルが存在するか確認
