@@ -67,6 +67,7 @@ document.getElementById("StartButton").addEventListener("click", function() {
   let minsc1 = 0;
   let minsc2 = 0;
   let mintPrice = 0;
+  let mintPriceYen = 0;
 
   // BOXの排出率を取得
   switch(true){
@@ -95,6 +96,8 @@ document.getElementById("StartButton").addEventListener("click", function() {
       mintPrice = uPrice[mint1] + uPrice[mint2];
       break;
   } 
+
+  mintPriceYen = mintPrice * stpValue;
 
   // ダブルミントの確率を計算
   let doubleChance = doubleMint[Number(mint1) + Number(mint2)] + document.getElementById("kuroko1").value * 2.5 + document.getElementById("kuroko2").value * 2.5;
@@ -165,19 +168,19 @@ document.getElementById("StartButton").addEventListener("click", function() {
   
   // 合計の設定
   document.getElementById("expectedValue1").value = formatNumber(totalExpected);
-  document.getElementById("profitAndLoss1").value = formatNumber(totalExpected - (minsc + mintPrice));
-  document.getElementById("profitRatio1").value = roundToDecimal(totalExpected / (minsc + mintPrice) * 100, 2) + "%";
+  document.getElementById("profitAndLoss1").value = formatNumber(totalExpected - (minsc + mintPriceYen));
+  document.getElementById("profitRatio1").value = roundToDecimal(totalExpected / (minsc + mintPriceYen) * 100, 2) + "%";
   document.getElementById("expectedValue2").value = formatNumber(totalExpected * 2);
-  document.getElementById("profitAndLoss2").value = formatNumber((totalExpected * 2) - (minsc + mintPrice));
-  document.getElementById("profitRatio2").value = roundToDecimal((totalExpected * 2) / (minsc + mintPrice) * 100, 2) + "%";
+  document.getElementById("profitAndLoss2").value = formatNumber((totalExpected * 2) - (minsc + mintPriceYen));
+  document.getElementById("profitRatio2").value = roundToDecimal((totalExpected * 2) / (minsc + mintPriceYen) * 100, 2) + "%";
   document.getElementById("expectedValue3").value = formatNumber(totalExpected * (1 + doubleChance / 100));
-  document.getElementById("profitAndLoss3").value = formatNumber((totalExpected * (1 + doubleChance / 100)) - (minsc + mintPrice));
-  document.getElementById("profitRatio3").value = roundToDecimal((totalExpected * (1 + doubleChance / 100)) / (minsc + mintPrice) * 100, 2) + "%";
+  document.getElementById("profitAndLoss3").value = formatNumber((totalExpected * (1 + doubleChance / 100)) - (minsc + mintPriceYen));
+  document.getElementById("profitRatio3").value = roundToDecimal((totalExpected * (1 + doubleChance / 100)) / (minsc + mintPriceYen) * 100, 2) + "%";
 
   // コストの設定
   document.getElementById("minsc").value = formatNumber(minsc);
   document.getElementById("mintPriceStp").value = `${mintPrice}STP`;
-  document.getElementById("mintPriceYen").value = formatNumber(mintPrice * stpValue);
+  document.getElementById("mintPriceYen").value = formatNumber(mintPriceYen);
   document.getElementById("totalPrice").value = formatNumber(minsc + (mintPrice * stpValue));
 
   document.getElementById("doubleChance").value = `${doubleChance}%`;
