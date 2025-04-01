@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SNPITミント計算機</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
+     crossorigin="anonymous"></script>
+     <script src="/script/common/global.js"></script>
+</head>
+<body>
+  <image src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/logo_blk_h.png?v=1735034578090' style='width:100%; max-width:640px'></image>
+  <div id="header"></div>
+
+  <h1>ミント計算機</h1>
+  <div class="form-group">
+    <label for="camera1">1台目</label>
+    <select id="camera1" style="max-width: 74px;">
+      <option value=1>コモン</option>
+      <option value=2>アンコモン</option>
+    </select>
+    <label for="mint1">ミント回数</label>
+    <select id="mint1" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>0</option>
+      <option value=1>1</option>
+      <option value=2>2</option>
+      <option value=3>3</option>
+      <option value=4>4</option>
+      <option value=5>5</option>
+      <option value=6>6</option>
+    </select>
+    <label for="kuroko1" style="width: 74px;">黒子ストラップ</label>
+    <select id="kuroko1" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>なし</option>
+      <option value=1>G0</option>
+      <option value=2>G1</option>
+      <option value=3>G2</option>
+    </select>  </div>
+  <div class="form-group">
+    <label for="camera2">2台目</label>
+    <select id="camera2" style="max-width: 74px;">
+      <option value=1>コモン</option>
+      <option value=2>アンコモン</option>
+    </select>
+    <label for="mint2">ミント回数</label>
+    <select id="mint2" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>0</option>
+      <option value=1>1</option>
+      <option value=2>2</option>
+      <option value=3>3</option>
+      <option value=4>4</option>
+      <option value=5>5</option>
+      <option value=6>6</option>
+    </select>
+    <label for="kuroko2" style="width: 74px;">黒子ストラップ</label>
+    <select id="kuroko2" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>なし</option>
+      <option value=1>G0</option>
+      <option value=2>G1</option>
+      <option value=3>G2</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="GEN">ジェネシス</label>
+    <input type="radio" id="GEN0" name="genButton" value="0" checked>
+      <label for="GEN0" class="select-button">含まない</label>
+  
+    <input type="radio" id="GEN1" name="genButton" value="1">
+      <label for="GEN1" class="select-button">含む</label>
+  </div>
+  <br>
+  <details>
+    <summary>オプション</summary>
+      <div class="form-group">
+        <label for="cameraLevel1" style="text-align: left;">カメラレベル</label>
+      </div>
+      <div class="form-group">
+        <label for="cameraLevel1">1台目</label>
+        <input type="number" id="cameraLevel1_1" value="16" style="max-width: 30px;">　～　
+        <input type="number" id="cameraLevel1_2" value="16" style="max-width: 30px;">
+      </div>
+      <div class="form-group">
+        <label for="cameraLevel1">2台目</label>
+        <input type="number" id="cameraLevel2_1" value="16" style="max-width: 30px;">　～　
+        <input type="number" id="cameraLevel2_2" value="16" style="max-width: 30px;">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="commision" style="text-align: left">Rarible手数料</label>
+      </div>
+      <div class="form-group">
+        <label for="commision1">1台目ミンスク</label>
+        <input type="radio" id="commision1_NO"  name="commision1" value="0" checked><label for="commision1_NO"  class="select-button">加味しない</label>
+        <input type="radio" id="commision1_YES" name="commision1" value="1"        ><label for="commision1_YES" class="select-button">加味する</label>
+      </div>
+      <div class="form-group">
+        <label for="commision2">2台目ミンスク</label>
+        <input type="radio" id="commision2_NO"  name="commision2" value="0" checked><label for="commision2_NO"  class="select-button">加味しない</label>
+        <input type="radio" id="commision2_YES" name="commision2" value="1"        ><label for="commision2_YES" class="select-button">加味する</label>
+      </div>
+      <!-- <div class="form-group">
+        <label for="commision2">カメラ販売価格</label>
+        <input type="radio" id="commision3_NO"  name="commision3" value="0"><label for="commision3_NO"  class="select-button">加味しない</label>
+        <input type="radio" id="commision3_YES" name="commision3" value="1" checked><label for="commision3_YES" class="select-button">加味する</label>
+      </div> -->
+  </details>
+  <br>
+  <div class="form-group">
+    <button id="StartButton">計算する</button>
+  </div>
+  <HR>
+  <h2>計算結果</h3>
+  <div class="form-group">
+    <label style="text-align: left;  font-weight: bold;">■フロア価格</label><p style="font-size:6px;" id="rateTime"></p>
+  </div>
+  <div class="form-group">
+    <label>コモンカメラ</label>
+    <input type="text" id="commonCamera" disabled style="max-width: 50px; margin-right: 10px; text-align: right;">
+    <label>アンコカメラ</label>
+    <input type="text" id="unCommonCamera" disabled style="max-width: 50px; text-align: right;">
+    <label>レアカメラ</label>
+    <input type="text" id="rareCamera" disabled style="max-width: 50px; text-align: right;">
+  </div>
+  <div class="form-group">
+    <label>コモンミンスク</label>
+    <input type="text" id="commonMintScroll" disabled style="max-width: 50px; margin-right: 10px; text-align: right;">
+    <label>アンコミンスク</label>
+    <input type="text" id="unCommonMintScroll" disabled style="max-width: 50px; text-align: right;">
+  </div>
+  <br>
+  <div class="form-group">
+    <label style="text-align: left;  font-weight: bold;">■金額情報</label>
+  </div>
+  <div class="form-group">
+    <label for="amm">AMM比率</label>
+    <input type="text" id="ammRate" value="2.6" style="max-width: 42px; text-align: right;"><p style="font-size:6px;">※AMM比率は自動取得できないため、調べて入力してください。</p>
+  </div>
+  <div class="form-group">
+    <label for="amm">SNPT / 円</label>
+    <input type="text" id="snptValue" disabled value="" style="max-width: 42px; text-align: right;">
+  </div>
+  <div class="form-group">
+    <label for="amm">STP / 円</label>
+    <input type="text" id="stpValue" disabled value="" style="max-width: 42px; text-align: right;">
+  </div>
+  <br><hr><br>
+  <div class="form-group">
+    <label style="text-align: left; font-weight: bold;">■ミントコスト</label> 
+  </div>
+  <div class="form-group">
+    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+      <thead class="tableHedder">
+          <th>項目</th>
+          <th>費用</th>
+        </thead>
+      <tbody">
+        <tr>
+          <td><span>ミンスク代金</span></td>
+          <td style="text-align: right;"><span id="minsc"></span></td>
+        </tr>
+        <tr>
+          <td><span>ミント費用(STP)</span></td>
+          <td style="text-align: right;"><span id="mintPriceStp"></span></td>
+        </tr>
+        <tr>
+          <td><span>ミント費用(円)</span></td>
+          <td style="text-align: right;"><span id="mintPriceYen"></span></td>
+        </tr>
+        <tr style="font-weight: bold; border-top: groove;">
+          <td><span>合計費用</span></td>
+          <td style="text-align: right;"><span id="totalPrice" style="font-weight: bold; font-size: 12px;"></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  <br><br>
+  <div class="form-group">
+    <label style="text-align: left; font-weight: bold;">■ミント結果</label>
+  </div>
+  <div class="form-group">
+    <label style="text-align: left; font-weight: bold;">排出率</label>
+  </div>
+  <div class="form-group">
+    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+      <thead class="tableHedder">
+          <th>レアリティ</th>
+          <th>排出確率</th>
+        </thead>
+      <tbody">
+        <tr>
+          <td>コモンカメラ</td>
+          <td style="text-align: right;"><span id="dropRate1"></span></td>
+        </tr>
+        <tr>
+          <td>アンコモンカメラ</td>
+          <td style="text-align: right;"><span id="dropRate2"></span></td>
+        </tr>
+        <tr>
+          <td>レアカメラ</td>
+          <td style="text-align: right;>"<span id="dropRate3"></span></td>
+        </tr>
+        <tr>
+          <td>エピックカメラ</td>
+          <td style="text-align: right;"><span id="dropRate4"></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label>ダブルミント確率</label>
+    <input type="text" id="doubleChance" readonly style="max-width: 50px;">
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label style="text-align: left; font-weight: bold;">期待値</label>
+  </div>
+  <div class="form-group">
+    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+      <thead class="tableHedder">
+          <th></th>
+          <th>期待値</th>
+          <th>利益</th>
+          <th>利益率</th>
+        </thead>
+      <tbody">
+        <tr>
+          <td><span  style="text-align: right;"></span>トータル</td>
+          <td style="text-align: right;"><span id="expectedValue1"></span></td>
+          <td style="text-align: right;"><span id="profitAndLoss1"></span></td>
+          <td style="text-align: right;"><span id="profitRatio1"></span></td>
+        </tr>
+        <tr>
+          <td><span  style="text-align: right;">シングルミント時</span></td>
+          <td style="text-align: right;"><span id="expectedValue2"></span></td>
+          <td style="text-align: right;"><span id="profitAndLoss2"></span></td>
+          <td style="text-align: right;"><span id="profitRatio2"></span></td>
+        </tr>
+        <tr>
+          <td><span  style="text-align: right;">ダブルミント時</span></td>
+          <td style="text-align: right;"><span id="expectedValue3"></span></td>
+          <td style="text-align: right;"><span id="profitAndLoss3"></span></td>
+          <td style="text-align: right;"><span id="profitRatio3"></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  <br><br>
+  <div class="form-group">
+    <label style="text-align: left; font-weight: bold;">各カメラの利益</label>
+  </div>
+  <div class="form-group">
+    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+      <thead class="tableHedder">
+          <th>排出カメラ</th>
+          <th colspan="2">フロア価格</th>
+        </thead>
+      <tbody">
+        <tr>
+          <td>販売価格</td>
+          <td colspan="2">
+            <div class="form-group">
+              <input type="text" id="salePrice" style="max-width: 64px;text-align: right;">
+              <select id="currency" style="margin-left: 2px; max-width: 52px;">
+                <option value=0>円</option>
+                <option value=1>USD</option>
+                <option value=2>SNPT</option>
+                <option value=3>POL</option>
+              </select>
+              <span id="currencyToJpy" style="text-align: right;"></span>
+            </div>
+            <div class="form-group">
+                <input type="radio" id="floor1" name="floorButton" value="0" checked>
+                  <label for="floor1" class="select-button" onclick="setFloorPrice('0')" >コモン</label>
+                <input type="radio" id="floor2" name="floorButton" value="1">
+                  <label for="floor2" class="select-button" onclick="setFloorPrice('1')">アンコモン</label>
+                <input type="radio" id="floor3" name="floorButton" value="2">
+                  <label for="floor3" class="select-button" onclick="setFloorPrice('2')">レア</label>
+                <input type="radio" id="floor4" name="floorButton" value="3">
+                  <label for="floor4" class="select-button" onclick="setFloorPrice('3')">エピック</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>レベルアップコスト</td>
+          <td><span id="levelCost" style="text-align: right;"></span></td>
+          <td rowspan="3"><span id="totalCost" style="text-align: right;"></span></td>
+        </tr>
+        <tr>
+          <td>ミントコスト</td>
+          <td><span id="mintCost" style="text-align: right;"></span></td>
+        </tr>
+        <tr>
+          <td>ミンスクコスト</td>
+          <td><span id="minscCost" style="text-align: right;"></span></td>
+        </tr>
+        <tr style="font-weight: bold; border-top: groove; font-weight: bold; font-size: 12px;">
+          <td>収支</td>
+          <td><span id="income" style="text-align: right;"></span></td>
+          <td><span id="incomeRate" style="text-align: right;"></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  <br><br>
+
+<br><br><br><br>
+
+    <!-- <div id="history"></div> -->
+
+  <br><br>
+  <div id="policy"></div>
+  <br><br><br><br>
+  <div style="margin-top:30px; text-align:right;">
+    <!-- FC2カウンター ここから -->
+    <script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=36989980&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=36989980&main=1" /></noscript>
+    <!-- FC2カウンター ここまで -->
+  </div>
+
+  <script src="/script/common/common.js"></script>
+  <script src="/script/snpit/mint_calc_beta.js"></script>
+  <footer>
+    <div id="footer"></div>
+  </footer>
+</body>
+</html>
