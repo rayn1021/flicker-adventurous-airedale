@@ -11,7 +11,7 @@ async function fetchCryptoRates(targetCurrencies = "jpy") {
         const FILE_PATH = `./crypto_rates_${targetCurrencies}.json`;
         const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
             params: {
-                ids: 'snpit-token,the-land-elf-crossing,usd', // 仮想通貨ID
+                ids: 'snpit-token,the-land-elf-crossing,usd,matic-network', // 仮想通貨ID
                 vs_currencies: targetCurrencies    // 日本円
             }
         });
