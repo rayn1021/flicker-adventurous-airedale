@@ -16,20 +16,7 @@ var ammRate = "";
 var snptValue = "";
 var stpValue = "";
 var usdjpy = "";
-var poljpy = "";
 var rateTimestamp = ""
-
-var minsc = 0;
-var mintPrice = 0;
-var mintPriceYen = 0;
-var mintCost = 0;
-var levelCost = 0;
-
-var commonRate = 0;    // コモンカメラ
-var unCommonRate = 0;  // アンコモンカメラ
-var rareRate = 0;      // レアカメラ
-var epicRate = 0;      // エピックカメラ
-var legendaryRate = 0; // レジェンダリーカメラ
 
 window.addEventListener("load", async () => {
   const loadingOverlay = showLoading("フロア価格読み込み中．．．");
@@ -76,6 +63,12 @@ document.getElementById("StartButton").addEventListener("click", function() {
   // [COMMON, UNCOMMON, RARE]
   let boxChance = [0, 0, 0];
 
+  // ミント費用
+  let minsc = 0;
+  let mintPrice = 0;
+  let mintPriceYen = 0;
+  let mintCost = 0;
+
   // BOXの排出率を取得
   switch(true){
     case camera1 == 1 && camera2 == 1:
@@ -114,22 +107,16 @@ document.getElementById("StartButton").addEventListener("click", function() {
     doubleChance += 5;
   }
 
-  // 各カメラの排出率を計算
-  calcRate(boxChance);
+  calcExpected(1, boxChance, doubleChance, mintCost);    // トータル
+  calcExpected(2, boxChance, 0, mintCost);    // シングルミント時
+  calcExpected(3, boxChance, 100, mintCost);    // ダブルミント時
 
-  // 期待値の算出
-  calcExpected(1, doubleChance)
-  calcExpected(2, 0);    // シングルミント時
-  calcExpected(3, 100);    // ダブルミント時
-
-  // 損益の算出
-  calcIncome();
 
   // コストの設定
-  document.getElementById("minsc").innerText = formatNumber(minsc);
-  document.getElementById("mintPriceStp").innerText = `${mintPrice}STP`;
-  document.getElementById("mintPriceYen").innerText = formatNumber(mintPriceYen);
-  document.getElementById("totalPrice").innerText = formatNumber(mintCost);
+  document.getElementById("minsc").value = formatNumber(minsc);
+  document.getElementById("mintPriceStp").value = `${mintPrice}STP`;
+  document.getElementById("mintPriceYen").value = formatNumber(mintPriceYen);
+  document.getElementById("totalPrice").value = formatNumber(mintCost);
 
   document.getElementById("doubleChance").value = `${doubleChance}%`;
 
@@ -149,7 +136,6 @@ async function getrates(){
         const data = await response.json();
         snptValue = roundToDecimal(data.rates['snpit-token'].jpy, 2);
         usdjpy = roundToDecimal(data.rates['usd'].jpy, 2);
-        poljpy = roundToDecimal(data.rates['matic-network'].jpy, 2);
         rateTimestamp = formatDate(data.timestamp);
       }
 
@@ -234,111 +220,36 @@ function getMinscPrice(minsc1, minsc2){
 }
 
 // 期待値の計算
-function calcRate(boxChance){
+function calcExpected(branch, boxChance, doubleChance, mintCost){
 	// 各ボックスの取得確率を計算
-	commonRate = getPercent(boxChance, 0);    // コモンカメラ
-	unCommonRate = getPercent(boxChance, 1);  // アンコモンカメラ
-	rareRate = getPercent(boxChance, 2);      // レアカメラ
-	epicRate = getPercent(boxChance, 3);      // エピックカメラ
-	legendaryRate = getPercent(boxChance, 4); // レジェンダリーカメラ
+	let commonPercent = getPercent(boxChance, 0);    // コモンカメラ
+	let unCommonPercent = getPercent(boxChance, 1);  // アンコモンカメラ
+	let rarePercent = getPercent(boxChance, 2);      // レアカメラ
+	let epicPercent = getPercent(boxChance, 3);      // エピックカメラ
+	let legendaryPercent = getPercent(boxChance, 4); // レジェンダリーカメラ
+	let doubleCalc = (1 + doubleChance / 100);		 // ダブルミント発生率
 
-	// 排出率
-	document.getElementById("dropRate1").innerText = (commonRate /100) + "%";
-	document.getElementById("dropRate2").innerText = (unCommonRate /100) + "%";
-	document.getElementById("dropRate3").innerText = (rareRate /100) + "%";
-	document.getElementById("dropRate4").innerText = (epicRate /100) + "%";
-}
-
-	
-function calcExpected(branch, doubleChance){
 	// 各カメラ毎の期待値を計算
-	let commonExpected = (commonRate /10000) * commonCamera;
-	let unCommonExpected = (unCommonRate /10000) * unCommonCamera;
-	let rareExpected = (rareRate /10000) * rareCamera;
-	let epicExpected = (epicRate /10000) * epicCamera;
+	let commonExpected = (commonPercent /10000) * commonCamera;
+	let unCommonExpected = (unCommonPercent /10000) * unCommonCamera;
+	let rareExpected = (rarePercent /10000) * rareCamera;
+	let epicExpected = (epicPercent /10000) * epicCamera;
 	let totalExpected = commonExpected + unCommonExpected + rareExpected + epicExpected;
 
-  // 合計の設定
-  let doubleCalc = (1 + doubleChance / 100);		 // ダブルミント発生率
-  document.getElementById("expectedValue" + branch).innerText = formatNumber(totalExpected * doubleCalc) + "円";
-	document.getElementById("profitAndLoss" + branch).innerText = formatNumber((totalExpected * doubleCalc) - mintCost) + "円";
-	document.getElementById("profitRatio" + branch).innerText = roundToDecimal((totalExpected * doubleCalc) / mintCost * 100, 2) + "%";
-
+	// 排出率
+	document.getElementById("result" + branch + "_1-2").innerText = (commonPercent /100) + "%";
+	document.getElementById("result" + branch + "_2-2").innerText = (unCommonPercent /100) + "%";
+	document.getElementById("result" + branch + "_3-2").innerText = (rarePercent /100) + "%";
+	document.getElementById("result" + branch + "_4-2").innerText = (epicPercent /100) + "%";
+	
+	// 収支の設定
+	document.getElementById("result" + branch + "_1-3").innerText = formatNumber(commonExpected * doubleCalc);
+	document.getElementById("result" + branch + "_2-3").innerText = formatNumber(unCommonExpected * doubleCalc);
+	document.getElementById("result" + branch + "_3-3").innerText = formatNumber(rareExpected * doubleCalc);
+	document.getElementById("result" + branch + "_4-3").innerText = formatNumber(epicExpected * doubleCalc);
+	
+	// 合計の設定
+	document.getElementById("expectedValue" + branch).value = formatNumber(totalExpected * doubleCalc);
+	document.getElementById("profitAndLoss" + branch).value = formatNumber((totalExpected * doubleCalc) - mintCost);
+	document.getElementById("profitRatio" + branch).value = roundToDecimal((totalExpected * doubleCalc) / mintCost * 100, 2) + "%";
 }
-
-function calcIncome(){
-
-  document.getElementById("levelCost").innerText = formatNumber(levelCost) + "円";
-  document.getElementById("mintCost").innerText = formatNumber(mintPriceYen) + "円";
-  document.getElementById("minscCost").innerText = formatNumber(minsc) + "円";
-  document.getElementById("totalCost").innerText = formatNumber(levelCost + mintPriceYen + minsc) + "円";
-
-  // 販売価格の設定
-  let floorPrice = setFloorPrice(document.querySelector('input[name="floorButton"]:checked').value);
-}
-
-function setFloorPrice(val){
-  let floorPrice = 0;
-
-  switch(val){
-    case "0":
-      floorPrice = commonCamera;
-      break;
-    case "1":
-      floorPrice = unCommonCamera;
-      break;
-    case "2":
-      floorPrice = rareCamera;
-      break;
-    case "3":
-      floorPrice = epicCamera;
-      break;
-  } 
-
-  let income = floorPrice - mintCost;
-  document.getElementById("currency").value = "0";
-  document.getElementById("salePrice").value = floorPrice;
-  document.getElementById("income").innerText = formatNumber(income) + "円";
-  document.getElementById("incomeRate").innerText = formatNumber(income / mintCost)+ "%";
-
-  return floorPrice;
-}
-
-
-/*
- * 販売価格変更時の処理
- */
-function changeSalePrice(){
-  let salePrice = changeCurrency();
-  let income = salePrice - mintCost;
-  document.getElementById("income").innerText = formatNumber(income) + "円";
-  document.getElementById("incomeRate").innerText = formatNumber(income / mintCost)+ "%";
-}
-document.getElementById("salePrice").addEventListener("change", changeSalePrice);
-
-/*
- * 販売通貨変更時の処理
- */
-function changeCurrency(){
-  let currency = document.getElementById("currency").value
-  let salePrice = document.getElementById("salePrice").value
-  if (currency == "1"){   
-    // USDの場合
-    salePrice = salePrice * usdjpy;
-  } else if(currency == "2"){
-    // SNPTの場合
-    salePrice = salePrice * snptValue;
-  } else if(currency == "3"){
-    // POLの場合
-    salePrice = salePrice * poljpy;
-  }
-
-  if (currency == "1"){   
-    document.getElementById("currencyToJpy").innerHTML = "";
-  } else {
-    document.getElementById("currencyToJpy").innerHTML = " → " + formatNumber(salePrice) + "円";
-  }
-  return salePrice;
-}
-document.getElementById("currency").addEventListener("change", changeSalePrice);
-
