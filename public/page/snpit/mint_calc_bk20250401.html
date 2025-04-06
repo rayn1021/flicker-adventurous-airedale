@@ -30,7 +30,7 @@
       <option value=5>5</option>
       <option value=6>6</option>
     </select>
-    <label for="kuroko1" style="width: 74px;">黒子スキン</label>
+    <label for="kuroko1" style="width: 74px;">黒子ストラップ</label>
     <select id="kuroko1" style="margin-left: 2px; max-width: 52px;">
       <option value=0>なし</option>
       <option value=1>G0</option>
@@ -53,7 +53,7 @@
       <option value=5>5</option>
       <option value=6>6</option>
     </select>
-    <label for="kuroko2" style="width: 74px;">黒子スキン</label>
+    <label for="kuroko2" style="width: 74px;">黒子ストラップ</label>
     <select id="kuroko2" style="margin-left: 2px; max-width: 52px;">
       <option value=0>なし</option>
       <option value=1>G0</option>
@@ -77,13 +77,13 @@
       </div>
       <div class="form-group">
         <label for="cameraLevel1">1台目</label>
-        <input type="radio" id="cameraLevel1_NO"  name="cameraLevel1" value="0" checked><label for="cameraLevel1_NO"  class="select-button">加味しない</label>
-        <input type="radio" id="cameraLevel1_YES" name="cameraLevel1" value="1"        ><label for="cameraLevel1_YES" class="select-button">加味する</label>
+        <input type="number" id="cameraLevel1_1" value="16" style="max-width: 30px;">　～　
+        <input type="number" id="cameraLevel1_2" value="16" style="max-width: 30px;">
       </div>
       <div class="form-group">
-        <label for="cameraLevel2">2台目</label>
-        <input type="radio" id="cameraLevel2_NO"  name="cameraLevel2" value="0" checked><label for="cameraLevel2_NO"  class="select-button">加味しない</label>
-        <input type="radio" id="cameraLevel2_YES" name="cameraLevel2" value="1"        ><label for="cameraLevel2_YES" class="select-button">加味する</label>
+        <label for="cameraLevel1">2台目</label>
+        <input type="number" id="cameraLevel2_1" value="16" style="max-width: 30px;">　～　
+        <input type="number" id="cameraLevel2_2" value="16" style="max-width: 30px;">
       </div>
       <br>
       <div class="form-group">
@@ -149,160 +149,172 @@
     <label style="text-align: left; font-weight: bold;">■ミントコスト</label> 
   </div>
   <div class="form-group">
-    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
-      <thead class="tableHedder">
-          <th>項目</th>
-          <th>費用</th>
-        </thead>
-      <tbody">
-        <tr>
-          <td><span>ミンスク代金</span></td>
-          <td style="text-align: right;"><span id="minsc"></span></td>
-        </tr>
-        <tr>
-          <td><span>ミント費用(STP)</span></td>
-          <td style="text-align: right;"><span id="mintCostStp"></span></td>
-        </tr>
-        <tr>
-          <td><span>ミント費用(円)</span></td>
-          <td style="text-align: right;"><span id="mintCostYen"></span></td>
-        </tr>
-        <tr style="font-weight: bold; border-top: groove;">
-          <td><span>合計費用</span></td>
-          <td style="text-align: right;"><span id="totalMintCost" style="font-weight: bold; font-size: 12px;"></span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>  <br><br>
+    <label>ミンスク代金</label>
+    <input type="text" id="minsc" readonly style="max-width: 50px; text-align: right;">
+  </div>
+  <div class="form-group">
+    <label>ミント費用</label>
+    <input type="text" id="mintPriceStp" readonly style="max-width: 50px; text-align: right;">　→　
+    <input type="text" id="mintPriceYen" readonly style="max-width: 50px; text-align: right;">
+  </div>
+  <div class="form-group">
+    <label>合計費用</label>
+    <input type="text" id="totalPrice" readonly style="max-width: 50px; text-align: right;">
+  </div>
+  <br><br>
   <div class="form-group">
     <label style="text-align: left; font-weight: bold;">■ミント結果</label>
   </div>
-  <div class="form-group">
-    <label style="text-align: left; font-weight: bold;">排出率</label>
-  </div>
-  <div class="form-group">
-    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
-      <thead class="tableHedder">
-          <th>レアリティ</th>
-          <th>排出確率</th>
-        </thead>
-      <tbody">
-        <tr>
-          <td>コモンカメラ</td>
-          <td style="text-align: right;"><span id="dropRate1"></span></td>
-        </tr>
-        <tr>
-          <td>アンコモンカメラ</td>
-          <td style="text-align: right;"><span id="dropRate2"></span></td>
-        </tr>
-        <tr>
-          <td>レアカメラ</td>
-          <td style="text-align: right;>"<span id="dropRate3"></span></td>
-        </tr>
-        <tr>
-          <td>エピックカメラ</td>
-          <td style="text-align: right;"><span id="dropRate4"></span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <br><br>
   <div class="form-group">
     <label>ダブルミント確率</label>
     <input type="text" id="doubleChance" readonly style="max-width: 50px;">
   </div>
   <br><br>
   <div class="form-group">
-    <label style="text-align: left; font-weight: bold;">期待値</label>
+    <label style="text-align: left; font-weight: bold;">■期待値</label>
   </div>
   <div class="form-group">
-    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+    <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
       <thead class="tableHedder">
-          <th></th>
-          <th>期待値</th>
+          <th>レアリティ</th>
+          <th>確率</th>
           <th>利益</th>
           <th>利益率</th>
         </thead>
       <tbody">
         <tr>
-          <td><span  style="text-align: right;"></span>トータル</td>
-          <td style="text-align: right;"><span id="expectedValue1"></span></td>
-          <td style="text-align: right;"><span id="profitAndLoss1"></span></td>
-          <td style="text-align: right;"><span id="profitRatio1"></span></td>
+          <td>コモン</td>
+          <td><span id="result1_1-2"></span></td>
+          <td><span id="result1_1-3"></span></td>
+          <td><span id="result1_1-4"></span></td>
         </tr>
         <tr>
-          <td><span  style="text-align: right;">シングルミント時</span></td>
-          <td style="text-align: right;"><span id="expectedValue2"></span></td>
-          <td style="text-align: right;"><span id="profitAndLoss2"></span></td>
-          <td style="text-align: right;"><span id="profitRatio2"></span></td>
+          <td>アンコモン</td>
+          <td><span id="result1_2-2"></span></td>
+          <td><span id="result1_2-3"></span></td>
+          <td><span id="result1_2-4"></span></td>
         </tr>
         <tr>
-          <td><span  style="text-align: right;">ダブルミント時</span></td>
-          <td style="text-align: right;"><span id="expectedValue3"></span></td>
-          <td style="text-align: right;"><span id="profitAndLoss3"></span></td>
-          <td style="text-align: right;"><span id="profitRatio3"></span></td>
+          <td>レア</td>
+          <td><span id="result1_3-2"></span></td>
+          <td><span id="result1_3-3"></span></td>
+          <td><span id="result1_3-4"></span></td>
         </tr>
-      </tbody>
+        <tr>
+          <td>エピック</td>
+          <td><span id="result1_4-2"></span></td>
+          <td><span id="result1_4-3"></span></td>
+          <td><span id="result1_4-4"></span></td>
+        </tr>
+    </tbody>
     </table>
-  </div>  <br><br>
-  <div class="form-group">
-    <label style="text-align: left; font-weight: bold;">各カメラの利益</label>
   </div>
   <div class="form-group">
-    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+    <label style="width: 28px;">期待値</label>
+    <input type="text" id="expectedValue1" readonly style="max-width: 50px; text-align: right;">
+    <label>損益</label>
+    <input type="text" id="profitAndLoss1" readonly style="max-width: 50px; text-align: right;">
+    <label>利益率</label>
+    <input type="text" id="profitRatio1" readonly style="max-width: 50px; text-align: right;">
+  </div>
+  <br><br>
+  <details>
+    <summary>■シングルミントの期待値</summary>
+    <div class="form-group">
+      <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+        <thead class="tableHedder">
+            <th>レアリティ</th>
+            <th>確率</th>
+            <th>利益</th>
+            <th>利益率</th>
+          </thead>
+        <tbody">
+          <tr>
+            <td>コモン</td>
+            <td><span id="result2_1-2" style=" text-align: right;"></span></td>
+            <td><span id="result2_1-3" style=" text-align: right;"></span></td>
+            <td><span id="result2_1-4" style=" text-align: right;"></span></td>
+          </tr>
+          <tr>
+            <td>アンコモン</td>
+            <td><span id="result2_2-2" style=" text-align: right;"></span></td>
+            <td><span id="result2_2-3" style=" text-align: right;"></span></td>
+            <td><span id="result2_2-4" style=" text-align: right;"></span></td>
+          </tr>
+          <tr>
+            <td>レア</td>
+            <td><span id="result2_3-2" style=" text-align: right;"></span></td>
+            <td><span id="result2_3-3" style=" text-align: right;"></span></td>
+            <td><span id="result2_3-4" style=" text-align: right;"></span></td>
+          </tr>
+          <tr>
+            <td>エピック</td>
+            <td><span id="result2_4-2" style=" text-align: right;"></span></td>
+            <td><span id="result2_4-3" style=" text-align: right;"></span></td>
+            <td><span id="result2_4-4" style=" text-align: right;"></span></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="form-group">
+    <label style="width: 28px;">期待値</label>
+    <input type="text" id="expectedValue2" readonly style="max-width: 50px; text-align: right;">
+    <label>損益</label>
+    <input type="text" id="profitAndLoss2" readonly style="max-width: 50px; text-align: right;">
+    <label>利益率</label>
+    <input type="text" id="profitRatio2" readonly style="max-width: 50px; text-align: right;">
+  </div>
+</details>
+<br><br>
+<details>
+  <summary>■ダブルミント時の期待値</summary>
+  <div class="form-group">
+    <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
       <thead class="tableHedder">
-          <th>排出カメラ</th>
-          <th colspan="2">フロア価格</th>
+          <th>レアリティ</th>
+          <th>確率</th>
+          <th>利益</th>
+          <th>利益率</th>
         </thead>
       <tbody">
         <tr>
-          <td>販売価格</td>
-          <td colspan="2">
-            <div class="form-group">
-              <input type="text" id="salePrice" style="max-width: 64px;text-align: right;">
-              <select id="currency" style="margin-left: 2px; max-width: 52px;">
-                <option value=0>円</option>
-                <option value=1>USD</option>
-                <option value=2>SNPT</option>
-                <option value=3>POL</option>
-              </select>
-              <span id="currencyToJpy" style="text-align: right;"></span>
-            </div>
-            <div class="form-group">
-                <input type="radio" id="floor1" name="floorButton" value="0" checked>
-                  <label for="floor1" class="select-button" onclick="setFloorPrice('0')" >コモン</label>
-                <input type="radio" id="floor2" name="floorButton" value="1">
-                  <label for="floor2" class="select-button" onclick="setFloorPrice('1')">アンコモン</label>
-                <input type="radio" id="floor3" name="floorButton" value="2">
-                  <label for="floor3" class="select-button" onclick="setFloorPrice('2')">レア</label>
-                <input type="radio" id="floor4" name="floorButton" value="3">
-                  <label for="floor4" class="select-button" onclick="setFloorPrice('3')">エピック</label>
-            </div>
-          </td>
+          <td>コモン</td>
+          <td><span id="result3_1-2" style=" text-align: right;"></span></td>
+          <td><span id="result3_1-3" style=" text-align: right;"></span></td>
+          <td><span id="result3_1-4" style=" text-align: right;"></span></td>
         </tr>
         <tr>
-          <td>レベルアップコスト</td>
-          <td><span id="levelCost" style="text-align: right;"></span></td>
-          <td rowspan="3"><span id="totalCost" style="text-align: right;"></span></td>
+          <td>アンコモン</td>
+          <td><span id="result3_2-2" style=" text-align: right;"></span></td>
+          <td><span id="result3_2-3" style=" text-align: right;"></span></td>
+          <td><span id="result3_2-4" style=" text-align: right;"></span></td>
         </tr>
         <tr>
-          <td>ミントコスト</td>
-          <td><span id="mintCost" style="text-align: right;"></span></td>
+          <td>レア</td>
+          <td><span id="result3_3-2" style=" text-align: right;"></span></td>
+          <td><span id="result3_3-3" style=" text-align: right;"></span></td>
+          <td><span id="result3_3-4" style=" text-align: right;"></span></td>
         </tr>
         <tr>
-          <td>ミンスクコスト</td>
-          <td><span id="minscCost" style="text-align: right;"></span></td>
+          <td>エピック</td>
+          <td><span id="result3_4-2" style=" text-align: right;"></span></td>
+          <td><span id="result3_4-3" style=" text-align: right;"></span></td>
+          <td><span id="result3_4-4" style=" text-align: right;"></span></td>
         </tr>
-        <tr style="font-weight: bold; border-top: groove; font-weight: bold; font-size: 12px;">
-          <td>収支</td>
-          <td><span id="income" style="text-align: right;"></span></td>
-          <td><span id="incomeRate" style="text-align: right;"></span></td>
-        </tr>
-      </tbody>
+    </tbody>
     </table>
-  </div>  <br><br>
-
-<br><br><br><br>
+  </div>
+  <div class="form-group">
+    <label style="width: 28px;">期待値</label>
+    <input type="text" id="expectedValue3" readonly style="max-width: 50px; text-align: right;">
+    <label>損益</label>
+    <input type="text" id="profitAndLoss3" readonly style="max-width: 50px; text-align: right;">
+    <label>利益率</label>
+    <input type="text" id="profitRatio3" readonly style="max-width: 50px; text-align: right;">
+  </div>
+</details>
+<br><br>
+<br><br><br><br><br><br>
 
     <!-- <div id="history"></div> -->
 

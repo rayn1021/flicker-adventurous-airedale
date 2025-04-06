@@ -21,7 +21,7 @@ function formatNumber(value) {
         maximumFractionDigits: 2
     }).format(value);
 
-    return `${formatted}円`;
+    return `${formatted}`;
 }
 
 function formatDate(dateString) {

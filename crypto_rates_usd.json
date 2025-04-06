@@ -1,14 +1,17 @@
 {
-  "timestamp": "2025-03-29T15:14:28.146Z",
+  "timestamp": "2025-04-01T14:21:23.536Z",
   "rates": {
+    "matic-network": {
+      "usd": 0.202624
+    },
     "snpit-token": {
-      "usd": 0.00896938
+      "usd": 0.00833906
     },
     "the-land-elf-crossing": {
-      "usd": 0.00485051
+      "usd": 0.00613585
     },
     "usd": {
-      "usd": 0.999545
+      "usd": 0.999297
     }
   }
 }
