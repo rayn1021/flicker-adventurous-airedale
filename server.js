@@ -60,7 +60,7 @@ app.get("/api/readRates", async (req, res) => {
   }
 });
 
-// 「レートの設定」のAPIエンドポイントを作成
+// 「レートの取得」のAPIエンドポイントを作成
 app.get("/api/getAmmRate", async (req, res) => {
   try {
     const ammRate = await readAmmRate();
@@ -78,7 +78,7 @@ app.get("/api/getAmmRate", async (req, res) => {
 app.post("/api/setAmmRate", async (req, res) => {
   try {
     const { ammRate  } = req.body;
-    const rate = await writeAmmRate(ammRate );
+    const rate = await writeAmmRate(ammRate);
     console.log("AMMレート：",rate)
     res.json(rate);
   } catch (error) {
@@ -135,11 +135,15 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// その他のリクエストに対して静的ファイルを提供
-app.get('*', (req, res) => {
-  console.log(`その他`);
+// その他のリクエストに対して静的ファイルを提供（ただしAPIは除く）
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api/')) {
+    // APIリクエストなら次のミドルウェアへ
+    return next();
+  }
+  // それ以外ならファイルを返す
   let filePath = path.join(__dirname, 'public', req.url);
-    res.sendFile(filePath);
+  res.sendFile(filePath);
 });
 
 // 404ページをカスタマイズ
