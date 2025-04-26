@@ -76,3 +76,77 @@ function showLoading(messageText) {
       document.body.removeChild(overlay);
     }
   }
+
+
+  function convertCurrency(inCurrency, outCurrency, price){
+        
+    let rtnPrice = 0;
+    inCurrency = inCurrency.toLowerCase();
+    outCurrency = outCurrency.toLowerCase();
+
+    if (inCurrency == outCurrency){
+        return price;
+    }
+
+    switch(true){
+        case inCurrency == "jpy" && outCurrency == "pol":
+            rtnPrice = price / polJpy;
+            break;
+        case inCurrency == "pol" && outCurrency == "jpy":
+            rtnPrice = price * polJpy;
+            break;
+        case inCurrency == "jpy" && outCurrency == "snpt":
+            rtnPrice = price / snptJpy;
+            break;
+        case inCurrency == "snpt" && outCurrency == "jpy":
+            rtnPrice = price * snptJpy;
+            break;
+        case inCurrency == "jpy" && outCurrency == "usd":
+            rtnPrice = price / usdJpy;
+            break;
+        case inCurrency == "usd" && outCurrency == "jpy":
+            rtnPrice = price * usdJpy;
+            break;
+        case inCurrency == "jpy" && outCurrency == "usdt":
+            rtnPrice = price / usdJpy;
+            break;
+        case inCurrency == "usdt" && outCurrency == "jpy":
+            rtnPrice = price * usdJpy;
+            break;
+            case inCurrency == "jpy" && outCurrency == "stp":
+            document.getElementById("ammRate").value * snptJpy
+            rtnPrice = price / (document.getElementById("ammRate").value * snptJpy);
+            break;
+        case inCurrency == "stp" && outCurrency == "jpy":
+            rtnPrice = price * document.getElementById("ammRate").value * snptJpy;
+            break;
+        default:
+            return 'err';
+
+    }
+
+    return rtnPrice;
+}
+
+
+function calcStp(gen, eff, bat){
+
+    let income = 0;
+    let rate = 0.09 + 0.03;
+    if (gen){
+        rate = 0.15;
+    }
+
+    income = (eff * rate) - ((eff - bat * 1.25) * 0.04 );
+    return income; 
+
+}
+
+function allowEmptyNumberInput(inElm){
+    // 例えば、フォーカスが外れたときに値が空ならそのまま空に保つ
+    input.addEventListener("blur", () => {
+        if (input.value === "") {
+        input.value = ""; // 明示的に空に設定（再描画防止）
+        }
+    });
+}

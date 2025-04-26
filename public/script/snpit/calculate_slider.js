@@ -1,7 +1,7 @@
 // 入力フィールドが変更されたとき、スライダーを更新
 const effInput = document.getElementById("eff");
 const effSlider = document.getElementById("eff-slider");
-effInput.addEventListener("input", () => {
+effInput.addEventListener("change", () => {
     setEffSlider();
 });
 
@@ -13,7 +13,7 @@ effSlider.addEventListener("input", () => {
   // 入力フィールドが変更されたとき、スライダーを更新
 const batInput = document.getElementById("bat");
 const batSlider = document.getElementById("bat-slider");
-batInput.addEventListener("input", () => {
+batInput.addEventListener("change", () => {
     setBatSlider();
 });
 
@@ -40,11 +40,11 @@ function fluctuation(target, val){
 }
 
 sliderList = 
-    [[1, 110],
-     [1, 178],
-     [1, 215],
-     [1, 313],
-     [1, 380]
+    [[0, 150],
+     [0, 230],
+     [0, 260],
+     [0, 380],
+     [0, 130]
     ];
 
 const radios = document.getElementsByName('rareButton');

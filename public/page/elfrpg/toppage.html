@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RPG Prototype</title>
+  <style>
+    body {
+      font-family: 'MS Gothic', sans-serif;
+      background: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .game-container {
+      width: 640px;
+      margin: 20px auto;
+      background: #101010;
+      border: 4px solid #fff;
+      padding: 10px;
+    }
+    .character-area, .boss-area, .command-area, .log-window {
+      background: #181818;
+      border: 2px solid #888;
+      margin: 10px 0;
+      padding: 10px;
+    }
+    .character-status {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    .character {
+      width: 30%;
+      text-align: center;
+    }
+    .character img {
+      width: 80px;
+      height: auto;
+      display: block;
+      margin: 5px auto;
+    }
+    .boss {
+      text-align: center;
+    }
+    .boss img {
+      width: 120px;
+      height: auto;
+    }
+    .command-window button {
+      display: block;
+      width: 100%;
+      margin: 4px 0;
+      padding: 8px;
+      font-size: 16px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #555;
+      cursor: pointer;
+      text-align: left;
+    }
+    .command-window button:hover {
+      background: #444;
+    }
+    .log-window {
+      height: 160px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <div class="character-area" id="party"></div>
+    <div class="boss-area">
+      <div class="boss">
+        <img src="https://i.imgur.com/EsUMQfM.png" alt="Dragon">
+        <div><strong id="boss-name">Dragon</strong></div>
+        <div>HP: <span id="boss-hp">9999</span></div>
+      </div>
+    </div>
+    <div class="command-area command-window" id="commands"></div>
+    <div class="log-window" id="log"></div>
+  </div>
+
+  <script>
+    const party = [
+      { name: "Warrior", hp: 100, mp: 30, atk: 20, def: 10, skills: ["Slash", "Guard"], image: "https://i.imgur.com/T3gNzPv.png" },
+      { name: "Mage", hp: 60, mp: 80, atk: 10, def: 5, skills: ["Fireball", "Heal"], image: "https://i.imgur.com/w1URM63.png" },
+      { name: "Assassin", hp: 80, mp: 40, atk: 25, def: 7, skills: ["Stab", "Dodge"], image: "https://i.imgur.com/T3gNzPv.png" }
+    ];
+
+    const boss = { name: "Dragon", hp: 9999, atk: 25, def: 15 };
+
+    const logDiv = document.getElementById("log");
+    const bossHp = document.getElementById("boss-hp");
+    const commandDiv = document.getElementById("commands");
+    const partyDiv = document.getElementById("party");
+
+    let currentChar = 0;
+
+    function log(text) {
+      logDiv.innerHTML += `<div>> ${text}</div>`;
+      logDiv.scrollTop = logDiv.scrollHeight;
+    }
+
+    function updatePartyUI() {
+      partyDiv.innerHTML = '<div class="character-status">';
+      party.forEach(char => {
+        partyDiv.innerHTML += `
+          <div class="character">
+            <div>${char.name}</div>
+            <img src="${char.image}" alt="${char.name}" />
+            <div>HP：${char.hp}</div>
+            <div>MP：${char.mp}</div>
+          </div>`;
+      });
+      partyDiv.innerHTML += '</div>';
+    }
+
+    function updateCommands() {
+      commandDiv.innerHTML = "";
+      const char = party[currentChar];
+      commandDiv.innerHTML = `<div><strong>${char.name} の行動を選んでください</strong></div>`;
+
+      const attackBtn = document.createElement("button");
+      attackBtn.textContent = "こうげき >";
+      attackBtn.onclick = () => {
+        const damage = Math.max(0, char.atk - boss.def);
+        boss.hp -= damage;
+        log(`${char.name} のこうげき！ ${damage}のダメージをあたえた！`);
+        bossHp.textContent = boss.hp;
+        nextTurn();
+      };
+      commandDiv.appendChild(attackBtn);
+
+      char.skills.forEach(skill => {
+        const skillBtn = document.createElement("button");
+        skillBtn.textContent = `スキル > ${skill}`;
+        skillBtn.onclick = () => {
+          log(`${char.name} は ${skill} をとなえた！`);
+          nextTurn();
+        };
+        commandDiv.appendChild(skillBtn);
+      });
+    }
+
+    function nextTurn() {
+      currentChar++;
+      if (currentChar >= party.length) {
+        const target = party[Math.floor(Math.random() * party.length)];
+        const damage = Math.max(0, boss.atk - target.def);
+        target.hp -= damage;
+        log(`${boss.name} のこうげき！ ${target.name} に ${damage}のダメージ！`);
+        currentChar = 0;
+      }
+      updatePartyUI();
+      updateCommands();
+    }
+
+    updatePartyUI();
+    updateCommands();
+  </script>
+</body>
+</html>

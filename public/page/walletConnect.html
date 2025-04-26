@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ウォレット認証 & NFT一覧取得</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider/dist/umd/index.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 5px; }
+        #result { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h2>ウォレット認証 & NFT一覧取得</h2>
+    <p>以下のボタンをクリックしてウォレットを接続してください。</p>
+
+    <button onclick="connectWallet()">ウォレット接続</button>
+    <div id="walletAddress"></div>
+    <div id="nftList"></div>
+    <button onclick="sendTransferRequest()">選択NFTを運営へ転送</button>
+
+    <script>
+        let provider, signer, walletAddress;
+
+        async function connectWallet() {
+            if (window.ethereum) {
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                await provider.send("eth_requestAccounts", []);
+                signer = provider.getSigner();
+                walletAddress = await signer.getAddress();
+                document.getElementById("walletAddress").innerText = "接続済: " + walletAddress;
+
+                const res = await fetch(`/api/get-nfts/${walletAddress}`);
+                const data = await res.json();
+                displayNFTList(data.result);
+            } else {
+                alert("MetaMaskをインストールしてください。");
+            }
+        }
+
+        function displayNFTList(nfts) {
+            const container = document.getElementById("nftList");
+            container.innerHTML = "";
+            nfts.forEach(nft => {
+                const item = document.createElement('div');
+                item.innerHTML = `
+                    <label>
+                        <input type="checkbox" value="${nft.contractAddress},${nft.tokenId}" />
+                        ${nft.name || 'NFT'} TokenID: ${nft.tokenId}
+                    </label>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        async function sendTransferRequest() {
+            const checked = Array.from(document.querySelectorAll('#nftList input:checked'))
+                .map(input => input.value);
+
+            const message = `NFT Transfer Request:\n${checked.join("\n")}\nTime:${Date.now()}`;
+            const signature = await signer.signMessage(message);
+
+            const response = await fetch('/api/transfer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    address: walletAddress,
+                    signature,
+                    message,
+                    nfts: checked
+                })
+            });
+
+            const result = await response.json();
+            alert(result.success ? "転送完了!" : `エラー: ${result.error}`);
+        }    
+    </script>
+
+</body>
+</html>
