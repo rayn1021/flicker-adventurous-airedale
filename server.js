@@ -3,11 +3,15 @@
 // const { getCameraData } = require("./utils/getCameraData");  // カメラチェッカー
 import express from 'express'; // ESモジュールでインポート
 import path from 'path'; // ESモジュールでインポート
+import cors from "cors";
 import { fileURLToPath } from 'url'
 import { getCameraData } from './utils/getCameraData.js'; // 関数をインポート
 import { readRates } from './utils/readRates.js';         // 関数をインポート
 import { getFloorPrice } from './utils/getFloorPrice.js';         // 関数をインポート
-
+import getNftsHandler from './utils/getNfts.js';
+import transferNftHandler from './utils/transferNft.js';
+import { writeAmmRate } from './utils/ammRateInfo.js';
+import { readAmmRate } from './utils/ammRateInfo.js';
 const app = express();
 
 // __dirnameを使用するための代替方法
@@ -16,6 +20,9 @@ const __dirname = path.dirname(__filename);
 
 // 静的ファイルを提供するディレクトリを設定
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.json());
+app.use(cors());
 
 // 「カメラデータの取得」のAPIエンドポイントを作成
 app.get("/api/getCameraData", async (req, res) => {
@@ -53,6 +60,36 @@ app.get("/api/readRates", async (req, res) => {
   }
 });
 
+// 「レートの設定」のAPIエンドポイントを作成
+app.get("/api/getAmmRate", async (req, res) => {
+  try {
+    const ammRate = await readAmmRate();
+    res.json(ammRate);
+  } catch (error) {
+      // エラーをコンソールに出力
+      console.error("エラーが発生しました:", error.message, error.stack);
+
+      // エラー詳細をレスポンスとして返す (開発用)
+      res.status(500).json({ error: error.message, stack: error.stack });    
+  }
+});
+
+// 「レートの設定」のAPIエンドポイントを作成
+app.post("/api/setAmmRate", async (req, res) => {
+  try {
+    const { ammRate  } = req.body;
+    const rate = await writeAmmRate(ammRate );
+    console.log("AMMレート：",rate)
+    res.json(rate);
+  } catch (error) {
+      // エラーをコンソールに出力
+      console.error("エラーが発生しました:", error.message, error.stack);
+
+      // エラー詳細をレスポンスとして返す (開発用)
+      res.status(500).json({ error: error.message, stack: error.stack });    
+  }
+});
+
 // 「フロア価格取得」のAPIエンドポイントを作成
 app.get("/api/getFloorPrice", async (req, res) => {
   const { target } = req.query;
@@ -78,6 +115,21 @@ app.get("/api/getFloorPrice", async (req, res) => {
   }
 });
 
+// 「NFT」転送のAPIエンドポイントを作成
+app.post('/api/transfer', async (req, res) => {
+  const { address, signature, message, nfts } = req.body;
+  try {
+      const result = await transferNFTs(address, signature, message, nfts);
+      res.json(result);
+  } catch (err) {
+      res.json({ success: false, error: err.message });
+  }
+});
+
+// APIルート
+app.post('/api/getNFTs', getNftsHandler);
+app.post('/api/transferNFT', transferNftHandler);
+
 // ルートエンドポイントでindex.htmlを提供
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
@@ -85,7 +137,8 @@ app.get('/', (req, res) => {
 
 // その他のリクエストに対して静的ファイルを提供
 app.get('*', (req, res) => {
-    let filePath = path.join(__dirname, 'public', req.url);
+  console.log(`その他`);
+  let filePath = path.join(__dirname, 'public', req.url);
     res.sendFile(filePath);
 });
 

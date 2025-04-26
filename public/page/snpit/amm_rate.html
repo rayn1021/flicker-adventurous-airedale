@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>通貨レート表示</title>
+</head>
+<body>
+<h1>通貨レートを編集</h1>
+<input type="number" id="rateInput">
+<button onclick="updateRate()">更新</button>
+  
+<p id="rateOutput" step="0.01">
+<button onclick="getRate()">取得</button>
+<p id="message"></p>
+<script src="/script/common/common.js"></script>
+
+  <script>
+    async function updateRate() {
+      const newRate = parseFloat(document.getElementById('rateInput').value);
+      fetch('/api/setAmmRate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ammRate: newRate })
+      })
+      .then(res => res.json())
+      .then(result => {
+        document.getElementById('message').textContent = result.message || result.error;
+      });
+
+      const response = await fetch(`/api/getAmmRate`);
+        if (!response.ok) {
+            alert('レートを取得できませんでした。');
+            throw new Error(`サーバーエラー: ${response.statusText}`);
+        }
+        const data = await response.json();
+        document.getElementById("rateOutput").innerText = roundToDecimal(data.rates, 2);
+
+    }
+
+    async function getRate(){
+    }      
+  </script>
+</body>
+</html>

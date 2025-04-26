@@ -15,7 +15,7 @@ var cMinscPrice = "";
 var ucMinscPrice = "";
 var ammRate = "";
 var snptJpy = "";
-var stmJpy = "";
+var stpJpy = "";
 var usdJpy = "";
 var polJpy = "";
 var rateTimestamp = ""
@@ -38,6 +38,9 @@ window.addEventListener("load", async () => {
     // レートの取得
     await getrates();
 
+    // AMMレートを取得
+    await getAmmRate();
+
     //カメラ/ミンスクのフロア価格の取得
     await getFloorPrices();
 
@@ -55,8 +58,8 @@ window.addEventListener("load", async () => {
     document.getElementById("ammRate").value = ammRate;
     document.getElementById('snptValue').value = formatNumber(snptJpy);
 
-    stmJpy = roundToDecimal(document.getElementById("ammRate").value * snptJpy, 4);
-    document.getElementById("stpValue").value = formatNumber(stmJpy);
+    stpJpy = roundToDecimal(document.getElementById("ammRate").value * snptJpy, 4);
+    document.getElementById("stpValue").value = formatNumber(stpJpy);
     document.getElementById("rateTime").innerText = "(" + rateTimestamp + "時点)";
 
  } catch (error) {
@@ -106,7 +109,7 @@ document.getElementById("StartButton").addEventListener("click", function() {
   } 
 
   // ミント費用を円に変換
-  mintCostYen = mintCost * stmJpy;
+  mintCostYen = mintCost * stpJpy;
   levelCost = calcLevelCost(camera1, camera2);
   totalMintCost = minscCost + mintCostYen + levelCost;
 
@@ -156,6 +159,20 @@ async function getrates(){
 }
 
 /*
+ * AMMレートの取得
+ */
+async function getAmmRate(){
+  const response = await fetch(`/api/getAmmRate`);
+  if (!response.ok) {
+      alert('レートを取得できませんでした。');
+      throw new Error(`サーバーエラー: ${response.statusText}`);
+  }
+  const data = await response.json();
+  ammRate = data.rates;
+  document.getElementById("ammRate").value = roundToDecimal(ammRate, 2);
+}
+
+/*
  * カメラ/ミンスクのフロア価格の取得
  */
 async function getFloorPrices(){
@@ -190,8 +207,6 @@ async function getFloorPrices(){
   }
 }
 
-
-
 /*
  * AMM比率変更時
  */
@@ -201,10 +216,11 @@ function changeAmmRate(){
     wkAmmRate = ammRate;
   }
 
+  stpJpy = document.getElementById("ammRate").value * snptJpy
   document.getElementById("ammRate").value = wkAmmRate;
-  document.getElementById("stpValue").value = Math.floor(document.getElementById("ammRate").value * snptJpy * 10000) / 10000;
+  document.getElementById("stpValue").value = Math.floor(stpJpy * 10000) / 10000;
 }
-document.getElementById("ammRate").addEventListener("input", changeAmmRate);
+document.getElementById("ammRate").addEventListener("change", changeAmmRate);
 
 /*
  * 手数料を加味したミンスクのコストを計算
@@ -230,10 +246,10 @@ function calcLevelCost(camera1, camera2){
   let levelCost1 = 0;
   let levelCost2 = 0;
   if (document.querySelector('input[name="cameraLevel1"]:checked').value == "1"){
-    levelCost1 += levelUpCost[camera1] * stmJpy;
+    levelCost1 += levelUpCost[camera1] * stpJpy;
   }
   if (document.querySelector('input[name="cameraLevel2"]:checked').value == "1"){
-    levelCost2 += levelUpCost[camera2] * stmJpy;
+    levelCost2 += levelUpCost[camera2] * stpJpy;
   }
 
   return levelCost1 + levelCost2;

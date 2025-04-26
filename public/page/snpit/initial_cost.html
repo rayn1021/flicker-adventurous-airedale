@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>初期投資計算機</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
+     crossorigin="anonymous"></script>
+     <script src="/script/common/global.js"></script>
+</head>
+<body>
+  <image src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/logo_blk_h.png?v=1735034578090' style='width:100%; max-width:640px'></image>
+  <div id="header"></div>
+
+  <h1>初期投資計算機</h1>
+  <h2>■購入台数</h2>
+  <div class="form-group">
+      <input type="radio" id="UNITS1" name="unitsButton" value=1>
+      <label for="UNITS1" class="select-button">1台</label>
+      <input type="radio" id="UNITS2" name="unitsButton" value=3>
+      <label for="UNITS2" class="select-button">3台</label>
+      <input type="radio" id="UNITS3" name="unitsButton" value=8>
+      <label for="UNITS3" class="select-button">8台</label>
+      <input type="radio" id="UNITS4" name="unitsButton" value=15 checked>
+      <label for="UNITS4" class="select-button">15台</label>
+  </div><br>
+  <h2>■E特化カメラ</h2>
+  <!-- E特化カメラ有無 -->
+  <div class="form-group">
+    <label style="width: 62px;">E特化有無</label>
+    <input type="radio" id="eCameraUmu1" name="eCameraUmuButton" value=1 checked>
+    <label for="eCameraUmu1" class="select-button">有り</label>
+    <input type="radio" id="eCameraUmu2" name="eCameraUmuButton" value=0>
+    <label for="eCameraUmu2" class="select-button">無し</label>
+  </div>
+
+  <!-- E特化カメラタイプ -->
+  <div class="form-group">
+    <label style="width: 62px;">カメラタイプ</label>
+    <input type="radio" id="eCameraType1" name="eCameraTypeButton" value="0" checked>
+    <label for="eCameraType1" class="select-button" style="width: 84px;">ジェネシスコモン</label>
+    <input type="radio" id="eCameraType2" name="eCameraTypeButton" value="1">
+    <label for="eCameraType2" class="select-button" style="width: 84px;">非ジェネシスコモン</label>
+    <input type="radio" id="eCameraType3" name="eCameraTypeButton" value="2">
+    <label for="eCameraType3" class="select-button" style="width: 84px;">ジェネシスアンコ</label>
+    <input type="radio" id="eCameraType4" name="eCameraTypeButton" value="3">
+    <label for="eCameraType4" class="select-button" style="width: 84px;">非ジェネシスアンコ</label>
+  </div>
+  <!-- E特化カメラ初期レベル -->
+  <div class="form-group">
+    <label for="eCameraLevel" style="width: 62px;">レベル</label>
+    <input type="number" id="eCameraLevelFrom" value=1 style="max-width: 42px; text-align: right;"> ～
+    <input type="number" id="eCameraLevelTo" value=31 style="max-width: 42px; text-align: right;">
+  </div>
+  <!-- E特化カメラ金額 -->
+  <div class="form-group">
+    <label for="eCameraPrice" style="width: 62px;">金額</label>
+    <input type="text" id="eCameraPrice" value="0" style="max-width: 42px; text-align: right;">
+    <select id="eCameraCurrency" style="margin-left: 2px; max-width: 52px;">
+      <option value='jpy'>円</option>
+      <option value='usd' selected>USD</option>
+      <option value='snpt'>SNPT</option>
+      <option value='pol'>POL</option>
+    </select>
+  </div><br>
+  <h2>■Q特化カメラ</h2>
+  <!-- Q特化カメラ有無 -->
+  <div class="form-group">
+    <label style="width: 62px;">E特化有無</label>
+    <input type="radio" id="qCameraUmu1" name="qCameraUmuButton" value=1 checked>
+    <label for="qCameraUmu1" class="select-button">有り</label>
+    <input type="radio" id="qCameraUmu2" name="qCameraUmuButton" value=0>
+    <label for="qCameraUmu2" class="select-button">無し</label>
+  </div>
+
+  <!-- Q特化カメラタイプ -->
+  <div class="form-group">
+    <label style="width: 62px;">カメラタイプ</label>
+    <input type="radio" id="qCameraType1" name="qCameraTypeButton" value="0">
+    <label for="qCameraType1" class="select-button" style="width: 84px;">ジェネシスコモン</label>
+    <input type="radio" id="qCameraType2" name="qCameraTypeButton" value="1" checked>
+    <label for="qCameraType2" class="select-button" style="width: 84px;">非ジェネシスコモン</label>
+    <input type="radio" id="qCameraType3" name="qCameraTypeButton" value="2">
+    <label for="qCameraType3" class="select-button" style="width: 84px;">ジェネシスアンコ</label>
+    <input type="radio" id="qCameraType4" name="qCameraTypeButton" value="3">
+    <label for="qCameraType4" class="select-button" style="width: 84px;">非ジェネシスアンコ</label>
+  </div>
+  <div class="form-group">
+    <label for="qCameraLevel" style="width: 62px;">初期レベル</label>
+    <input type="number" id="qCameraLevelFrom" value=1 style="max-width: 42px; text-align: right;"> ～
+    <input type="number" id="qCameraLevelTo" value=31 style="max-width: 42px; text-align: right;">
+  </div>
+  <!-- Q特化カメラ金額 -->
+  <div class="form-group">
+    <label for="qCameraPrice" style="width: 62px;">金額</label>
+    <input type="text" id="qCameraPrice" value="0" style="max-width: 42px; text-align: right;">
+    <select id="qCameraCurrency" style="margin-left: 2px; max-width: 52px;">
+      <option value='jpy'>円</option>
+      <option value='usd' selected>USD</option>
+      <option value='snpt'>SNPT</option>
+      <option value='pol'>POL</option>
+    </select>
+  </div>
+  <h2>■AMMレート</h2>
+  <div class="form-group">
+    <label for="ammRate" style="width: 62px;">STP → SNTP</label>
+    <input type="text" id="ammRate" value="0" style="max-width: 42px; text-align: right;">
+  </div>
+  <br><br>
+  <div class="form-group">
+    <button id="StartButton">計算する</button>
+  </div>
+  <HR>
+  <h2>計算結果</h3>
+    <h2>■コスト</h2>
+    <div class="form-group">
+    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+      <thead class="tableHedder">
+          <th>項目</th>
+          <th>費用</th>
+        </thead>
+      <tbody">
+        <tr>
+          <td><span>E特化購入費用</span></td>
+          <td style="text-align: right;"><span id="ePurchaseCost"></span></td>
+        </tr>
+        <tr>
+          <td><span>E特化レベル上げ費用</span></td>
+          <td style="text-align: right;"><span id="eLevelCost"></span></td>
+        </tr>
+        <tr>
+          <td><span>Q特化購入費用</span></td>
+          <td style="text-align: right;"><span id="qPurchaseCost"></span></td>
+        </tr>
+        <tr>
+          <td><span>Q特化レベル上げ費用</span></td>
+          <td style="text-align: right;"><span id="qLevelCost"></span></td>
+        </tr>
+        <tr>
+          <td><span>その他カメラ購入費用</span></td>
+          <td style="text-align: right;"><span id="oPurchaseCost"></span></td>
+        </tr>
+        <tr>
+          <td><span>合計</span></td>
+          <td style="text-align: right;"><span id="totalCost"></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h2>■想定収入</h2>
+  <div class="form-group">
+    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+      <thead class="tableHedder">
+        <th>フィルム数</th>
+        <th>効率</th>
+        <th>電池</th>
+        <th>獲得量(STP/枚)</th>
+        <th>獲得量(円/枚)</th>
+      </thead>
+      <tbody">
+        <tr>
+          <td style="text-align: right;"><span id="film"></span></td>
+          <td style="text-align: right;"><span id="effency">0</span></td>
+          <td style="text-align: right;"><span id="battery">0</span></td>
+          <td style="text-align: right;"><span id="incomeStp"></span></td>
+          <td style="text-align: right;"><span id="incomeJpy"></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="form-group">
+    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+    <thead class="tableHedder">
+        <th>日数</th>
+        <th>獲得量(STP)</th>
+        <th>獲得量(円)</th>
+      </thead>
+    <tbody">
+      <tr>
+        <td><span>1日</span></td>
+        <td style="text-align: right;"><span id="incomeStp1"></span></td>
+        <td style="text-align: right;"><span id="incomeJpy1"></span></td>
+      </tr>
+      <tr>
+        <td><span>7日</span></td>
+        <td style="text-align: right;"><span id="incomeStp2"></span></td>
+        <td style="text-align: right;"><span id="incomeJpy2"></span></td>
+      </tr>
+      <tr>
+        <td><span>30日</span></td>
+        <td style="text-align: right;"><span id="incomeStp3"></span></td>
+        <td style="text-align: right;"><span id="incomeJpy3"></span></td>
+      </tr>
+      <tr>
+        <td><span id="requiredDays">X日</span></td>
+        <td style="text-align: right;"><span id="incomeStp4"></span></td>
+        <td style="text-align: right;"><span id="incomeJpy4"></span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br><br><br><br>
+
+    <!-- <div id="history"></div> -->
+
+  <br><br>
+  <div id="policy"></div>
+  <br><br><br><br>
+  <div style="margin-top:30px; text-align:right;">
+    <!-- FC2カウンター ここから -->
+    <script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=36989980&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=36989980&main=1" /></noscript>
+    <!-- FC2カウンター ここまで -->
+  </div>
+
+  <script src="/script/common/common.js"></script>
+  <script src="/script/snpit/initial_cost.js"></script>
+  <footer>
+    <div id="footer"></div>
+  </footer>
+</body>
+</html>

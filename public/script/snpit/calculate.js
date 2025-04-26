@@ -1,3 +1,7 @@
+// 数値項目初期化時に初期値が入力されるのを防ぐ
+allowEmptyNumberInput(document.getElementById("eff"));
+allowEmptyNumberInput(document.getElementById("bat"));
+
 document.getElementById("calculateButton").addEventListener("click", function() {
     // 入力項目の値を取得
     const  inType = document.querySelector('input[name="typeButton"]:checked').value;

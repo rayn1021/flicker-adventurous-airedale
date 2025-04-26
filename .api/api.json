@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "rarible",
+      "source": "@rarible/v1.1#rrlsv10m85vtjc2",
+      "integrity": "sha512-T0g5fuFm3noH03MxDisWiNFO/qQwN8udd2SopqoB6WujVXcfW6JXsm1yRnwVlIXHW8FEjNcykRyWbkJ331/hWw==",
+      "installerVersion": "6.1.3"
+    }
+  ]
+}

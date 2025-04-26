@@ -61,13 +61,9 @@ async function getFloorPrice(collectionAddress, blockchain = "POLYGON") {
         }
 
         const data = await response.json();
-        //console.log("item:", data);
 
         const rarityPrices = {};
         data.items.forEach(item => {
-            // console.log("item:", item);
-            // console.log("makePrice:", item.bestSellOrder.makePrice);
-            // console.log("makePriceUsd:", item.bestSellOrder.makePriceUsd);
 
             let rarity = "";
             let genesis = "";
