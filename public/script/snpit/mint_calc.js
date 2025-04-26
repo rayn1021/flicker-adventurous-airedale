@@ -47,7 +47,7 @@ window.addEventListener("load", async () => {
     // AMM比率を取得
     ammRate = document.getElementById("ammRate").value;
     if (!isNumeric(ammRate)){
-     ammRate = 2.6
+     ammRate = 3.4
     }
 
     document.getElementById("commonCamera").value = formatNumber(cCameraPrice);
@@ -162,13 +162,14 @@ async function getrates(){
  * AMMレートの取得
  */
 async function getAmmRate(){
-  const response = await fetch(`/api/getAmmRate`);
-  if (!response.ok) {
-      alert('レートを取得できませんでした。');
-      throw new Error(`サーバーエラー: ${response.statusText}`);
-  }
-  const data = await response.json();
-  ammRate = data.rates;
+  // const response = await fetch(`/api/getAmmRate`);
+  // if (!response.ok) {
+  //     alert('レートを取得できませんでした。');
+  //     throw new Error(`サーバーエラー: ${response.statusText}`);
+  // }
+  // const data = await response.json();
+  // ammRate = data.rates;
+  ammRate = 3.4;
   document.getElementById("ammRate").value = roundToDecimal(ammRate, 2);
 }
 
