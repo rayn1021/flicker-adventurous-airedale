@@ -18,9 +18,6 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 静的ファイルを提供するディレクトリを設定
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.json());
 app.use(cors());
 
@@ -156,4 +153,7 @@ const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+// 静的ファイルを提供するディレクトリを設定
+app.use(express.static(path.join(__dirname, 'public')));
 
