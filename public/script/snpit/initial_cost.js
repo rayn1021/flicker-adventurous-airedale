@@ -109,14 +109,13 @@ async function getFloorPrices(){
 }
 
 async function getAmmRate(){
-    // const response = await fetch(`/api/getAmmRate`);
-    // if (!response.ok) {
-    //     alert('レートを取得できませんでした。');
-    //     throw new Error(`サーバーエラー: ${response.statusText}`);
-    // }
-    // const data = await response.json();
-    // ammRate = data.rates;
-    ammRate = 3.4;
+    const response = await fetch(`/api/getAmmRate`);
+    if (!response.ok) {
+        alert('レートを取得できませんでした。');
+        throw new Error(`サーバーエラー: ${response.statusText}`);
+    }
+    const data = await response.json();
+    ammRate = data.rates;
     document.getElementById("ammRate").value = roundToDecimal(ammRate, 2);
 }
 
