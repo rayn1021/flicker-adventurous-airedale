@@ -142,11 +142,16 @@ function calcStp(gen, eff, bat){
 
 }
 
-function allowEmptyNumberInput(inElm){
-    // 例えば、フォーカスが外れたときに値が空ならそのまま空に保つ
-    input.addEventListener("blur", () => {
-        if (input.value === "") {
-        input.value = ""; // 明示的に空に設定（再描画防止）
-        }
-    });
+function allowEmptyNumberInput(input){
+    try{
+        // 例えば、フォーカスが外れたときに値が空ならそのまま空に保つ
+        var inElm = document.getElementById(input);
+        inElm.addEventListener("blur", () => {
+            if (inElm.value === "") {
+                inElm.value = ""; // 明示的に空に設定（再描画防止）
+            }
+        });
+    } catch(error){
+        
+    }
 }

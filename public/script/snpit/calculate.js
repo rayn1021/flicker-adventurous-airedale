@@ -1,6 +1,6 @@
 // 数値項目初期化時に初期値が入力されるのを防ぐ
-allowEmptyNumberInput(document.getElementById("eff"));
-allowEmptyNumberInput(document.getElementById("bat"));
+allowEmptyNumberInput("eff");
+allowEmptyNumberInput("bat");
 
 document.getElementById("calculateButton").addEventListener("click", function() {
     // 入力項目の値を取得
@@ -150,17 +150,17 @@ document.getElementById("calculateButton").addEventListener("click", function() 
     }
 
     // メインバトル換算
-    var sumSTP = 0;
-    var battleResult = [0, 1, 3, 6, 18, 36, 72, 216, 432, 864, 2592, 5184];
-    for (let i=0; i < battleResult.length; i++){
-        if (getSTP <= sumSTP + battleResult[i]){
-            let count1 = i - 1;
-            let count2 =  (getSTP - sumSTP) / battleResult[i]
-            document.getElementById("MainBattle").value = roundToDecimal(count1 + count2);
-            break;
-        }
-        sumSTP += battleResult[i];
-    }
+    // var sumSTP = 0;
+    // var battleResult = [0, 1, 3, 6, 18, 36, 72, 216, 432, 864, 2592, 5184];
+    // for (let i=0; i < battleResult.length; i++){
+    //     if (getSTP <= sumSTP + battleResult[i]){
+    //         let count1 = i - 1;
+    //         let count2 =  (getSTP - sumSTP) / battleResult[i]
+    //         document.getElementById("MainBattle").value = roundToDecimal(count1 + count2);
+    //         break;
+    //     }
+    //     sumSTP += battleResult[i];
+    // }
 
     // 期間別収支計算
     calcPeriod(getSTP)
