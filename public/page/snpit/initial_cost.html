@@ -39,13 +39,13 @@
   <div class="form-group">
     <label style="width: 62px;">カメラタイプ</label>
     <input type="radio" id="eCameraType1" name="eCameraTypeButton" value="0" checked>
-    <label for="eCameraType1" class="select-button" style="width: 84px;">ジェネシスコモン</label>
+    <label for="eCameraType1" class="select-button" style="width: 64px;">ジェネシスコモン</label>
     <input type="radio" id="eCameraType2" name="eCameraTypeButton" value="1">
-    <label for="eCameraType2" class="select-button" style="width: 84px;">非ジェネシスコモン</label>
+    <label for="eCameraType2" class="select-button" style="width: 64px;">非ジェネシスコモン</label>
     <input type="radio" id="eCameraType3" name="eCameraTypeButton" value="2">
-    <label for="eCameraType3" class="select-button" style="width: 84px;">ジェネシスアンコ</label>
+    <label for="eCameraType3" class="select-button" style="width: 64px;">ジェネシスアンコ</label>
     <input type="radio" id="eCameraType4" name="eCameraTypeButton" value="3">
-    <label for="eCameraType4" class="select-button" style="width: 84px;">非ジェネシスアンコ</label>
+    <label for="eCameraType4" class="select-button" style="width: 64px;">非ジェネシスアンコ</label>
   </div>
   <!-- E特化カメラ初期レベル -->
   <div class="form-group">
@@ -78,13 +78,13 @@
   <div class="form-group">
     <label style="width: 62px;">カメラタイプ</label>
     <input type="radio" id="qCameraType1" name="qCameraTypeButton" value="0">
-    <label for="qCameraType1" class="select-button" style="width: 84px;">ジェネシスコモン</label>
+    <label for="qCameraType1" class="select-button" style="width: 64px;">ジェネシスコモン</label>
     <input type="radio" id="qCameraType2" name="qCameraTypeButton" value="1" checked>
-    <label for="qCameraType2" class="select-button" style="width: 84px;">非ジェネシスコモン</label>
+    <label for="qCameraType2" class="select-button" style="width: 64px;">非ジェネシスコモン</label>
     <input type="radio" id="qCameraType3" name="qCameraTypeButton" value="2">
-    <label for="qCameraType3" class="select-button" style="width: 84px;">ジェネシスアンコ</label>
+    <label for="qCameraType3" class="select-button" style="width: 64px;">ジェネシスアンコ</label>
     <input type="radio" id="qCameraType4" name="qCameraTypeButton" value="3">
-    <label for="qCameraType4" class="select-button" style="width: 84px;">非ジェネシスアンコ</label>
+    <label for="qCameraType4" class="select-button" style="width: 64px;">非ジェネシスアンコ</label>
   </div>
   <div class="form-group">
     <label for="qCameraLevel" style="width: 62px;">初期レベル</label>
@@ -102,12 +102,37 @@
       <option value='pol'>POL</option>
     </select>
   </div>
-  <h2>■AMMレート</h2>
+  <h2>■各種レート</h2>
   <div class="form-group">
-    <label for="ammRate" style="width: 62px;">STP → SNTP</label>
+    <label for="ammRate" style="width: 90px;">AMMレート(STP→SNPT)</label>
     <input type="text" id="ammRate" value="0" style="max-width: 42px; text-align: right;">
   </div>
-  <br><br>
+  <table border="1" style="width:240px; max-width: 640px;border-collapse: collapse">
+    <thead class="tableHedder">
+        <th>通貨</th>
+        <th>レート</th>
+      </thead>
+    <tbody">
+      <tr>
+        <td><span>USD/JPY</span></td>
+        <td style="text-align: right;"><span id="rateUsdJPy"></span></td>
+      </tr>
+      <tr>
+        <td><span>POL/JPY</span></td>
+        <td style="text-align: right;"><span id="ratePolJPy"></span></td>
+      </tr>
+      <tr>
+        <td><span>STP/JPY</span></td>
+        <td style="text-align: right;"><span id="rateStpJpy"></span></td>
+      </tr>
+      <tr>
+        <td><span>SNPT/JPY</span></td>
+        <td style="text-align: right;"><span id="rateSnptJpy"></span></td>
+      </tr>
+    </tbody>
+  </table>
+  
+<br><br>
   <div class="form-group">
     <button id="StartButton">計算する</button>
   </div>
@@ -115,42 +140,47 @@
   <h2>計算結果</h3>
     <h2>■コスト</h2>
     <div class="form-group">
-    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+    <table border="1" style="width:240px; max-width: 640px;border-collapse: collapse">
       <thead class="tableHedder">
           <th>項目</th>
-          <th>費用</th>
+          <th colspan="2">費用</th>
         </thead>
       <tbody">
         <tr>
           <td><span>E特化購入費用</span></td>
           <td style="text-align: right;"><span id="ePurchaseCost"></span></td>
+          <td style="text-align: right;"><span id="ePurchaseCostJpy"></span></td>
         </tr>
         <tr>
           <td><span>E特化レベル上げ費用</span></td>
           <td style="text-align: right;"><span id="eLevelCost"></span></td>
+          <td style="text-align: right;"><span id="eLevelCostJpy"></span></td>
         </tr>
         <tr>
           <td><span>Q特化購入費用</span></td>
           <td style="text-align: right;"><span id="qPurchaseCost"></span></td>
+          <td style="text-align: right;"><span id="qPurchaseCostJpy"></span></td>
         </tr>
         <tr>
           <td><span>Q特化レベル上げ費用</span></td>
           <td style="text-align: right;"><span id="qLevelCost"></span></td>
+          <td style="text-align: right;"><span id="qLevelCostJpy"></span></td>
         </tr>
         <tr>
           <td><span>その他カメラ購入費用</span></td>
           <td style="text-align: right;"><span id="oPurchaseCost"></span></td>
+          <td style="text-align: right;"><span id="oPurchaseCostJpy"></span></td>
         </tr>
         <tr>
-          <td><span>合計</span></td>
-          <td style="text-align: right;"><span id="totalCost"></span></td>
+          <td><span style = "font-weight: bold;">合計</span></td>
+          <td style="text-align: right; font-weight: bold;" colspan="2"><span id="totalCost"></span></td>
         </tr>
       </tbody>
     </table>
   </div>
   <h2>■想定収入</h2>
   <div class="form-group">
-    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+    <table border="1" style="width:270px; max-width: 640px;border-collapse: collapse">
       <thead class="tableHedder">
         <th>フィルム数</th>
         <th>効率</th>
@@ -170,7 +200,7 @@
     </table>
   </div>
   <div class="form-group">
-    <table border="1" style="width:360px; max-width: 640px;border-collapse: collapse">
+    <table border="1" style="width:270px; max-width: 640px;border-collapse: collapse">
     <thead class="tableHedder">
         <th>日数</th>
         <th>獲得量(STP)</th>
@@ -200,7 +230,16 @@
     </tbody>
   </table>
 </div>
-<br><br><br><br>
+<br><br>
+<p style="font-weight: bold;"> 
+※本システムは以下の前提にて計算しています。<br>
+・壁撮りのみを行った場合の前提となり、投票やバトル報酬は加味しません。<br>
+・バッジ、ストラップは加味しません。<br>
+・レベル上げにかかる日数は加味しません。<br>
+・仮想通貨及びAMMのレートは変動するため、表記のレートでの計算となります。<br>
+・フロア価格はRaribleを参照しており、NFTTは参照していません。
+</p>
+<br><br>
 
     <!-- <div id="history"></div> -->
 

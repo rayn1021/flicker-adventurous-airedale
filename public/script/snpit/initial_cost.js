@@ -19,18 +19,24 @@ var levelCostArr =
 window.addEventListener("load", async () => {
     const loadingOverlay = showLoading("フロア価格読み込み中．．．");
     try {
+  
+      // AMMレートを取得
+      await getAmmRate();
+
       // レートの取得
       await getrates();
   
       //カメラ/ミンスクのフロア価格の取得
       await getFloorPrices();
-  
-      // AMMレートを取得
-      await getAmmRate();
 
       document.getElementById("eCameraPrice").value = cgCameraPrice;
       document.getElementById("qCameraPrice").value = cCameraPrice;
       document.getElementById("ammRate").value = ammRate;
+
+      document.getElementById("rateUsdJPy").innerText = usdJpy;
+      document.getElementById("ratePolJPy").innerText = polJpy;
+      document.getElementById("rateStpJpy").innerText = stpJpy;
+      document.getElementById("rateSnptJpy").innerText = snptJpy;
 
     } catch (error) {
         console.error(error);
@@ -124,10 +130,14 @@ document.getElementById("StartButton").addEventListener("click", function() {
     let totalCost = 0;
 
     // 初期化
-    document.getElementById("ePurchaseCost").innerText = "0円";
-    document.getElementById("eLevelCost").innerText = "0円";
-    document.getElementById("qPurchaseCost").innerText = "0円";
-    document.getElementById("qLevelCost").innerText = "0円";
+    document.getElementById("ePurchaseCost").innerText = "0USD";
+    document.getElementById("ePurchaseCostJpy").innerText = "0円";
+    document.getElementById("eLevelCost").innerText = "0STP";
+    document.getElementById("eLevelCostJpy").innerText = "0円";
+    document.getElementById("qPurchaseCost").innerText = "0USD";
+    document.getElementById("qPurchaseCostJpy").innerText = "0円";
+    document.getElementById("qLevelCost").innerText = "0STP";
+    document.getElementById("qLevelCostJpy").innerText = "0円";
     document.getElementById("film").innerText = "";
     document.getElementById("effency").innerText = "0";
     document.getElementById("battery").innerText = "0";
@@ -147,6 +157,7 @@ document.getElementById("StartButton").addEventListener("click", function() {
         // E特化カメラ有の場合
         let eCameraUmu = document.querySelector('input[name="eCameraUmuButton"]:checked').value;
         let eCameraType = cameraType = document.querySelector('input[name="eCameraTypeButton"]:checked').value
+        let cameraUnits = document.querySelector('input[name="unitsButton"]:checked').value;
 
         if (eCameraUmu == 1) {
             let cameraType = document.querySelector('input[name="eCameraTypeButton"]:checked').value;
@@ -157,13 +168,19 @@ document.getElementById("StartButton").addEventListener("click", function() {
             let cameraCurrency = document.getElementById("eCameraCurrency").value;
             let CameraLevelCost = calcLevelCost(eCameraType, cameraLevelFrom, cameraLevelTo);
             
-            document.getElementById("ePurchaseCost").innerText = formatNumber(convertCurrency(cameraCurrency, "jpy", CameraCost))  + "円";
-            document.getElementById("eLevelCost").innerText = formatNumber(convertCurrency('stp', 'jpy', CameraLevelCost)) + "円";
+            document.getElementById("ePurchaseCost").innerText = formatNumber(CameraCost)  + cameraCurrency;
+            document.getElementById("ePurchaseCostJpy").innerText = formatNumber(convertCurrency(cameraCurrency, "jpy", CameraCost))  + "円";
+            document.getElementById("eLevelCost").innerText = formatNumber(CameraLevelCost) + "STP";
+            document.getElementById("eLevelCostJpy").innerText = formatNumber(convertCurrency('stp', 'jpy', CameraLevelCost)) + "円";
             totalCost = totalCost + convertCurrency(cameraCurrency, "jpy", CameraCost) + convertCurrency('stp', 'jpy', CameraLevelCost);
         }
 
         // E特化カメラ有の場合
         let qCameraUmu = document.querySelector('input[name="qCameraUmuButton"]:checked').value;
+        if (cameraUnits == "1"){
+            qCameraUmu = 0
+        }
+
         if (qCameraUmu == 1) {
             let cameraType = document.querySelector('input[name="qCameraTypeButton"]:checked').value;
             let cameraLevelFrom = document.getElementById("qCameraLevelFrom").value;
@@ -173,16 +190,18 @@ document.getElementById("StartButton").addEventListener("click", function() {
             let cameraCurrency = document.getElementById("qCameraCurrency").value;
             let CameraLevelCost = calcLevelCost(cameraType, cameraLevelFrom, cameraLevelTo);
             
-            document.getElementById("qPurchaseCost").innerText = formatNumber(convertCurrency(cameraCurrency, "jpy", CameraCost))  + "円";
-            document.getElementById("qLevelCost").innerText = formatNumber(convertCurrency('stp', 'jpy', CameraLevelCost)) + "円";
+            document.getElementById("qPurchaseCost").innerText = formatNumber(CameraCost)  + cameraCurrency;
+            document.getElementById("qPurchaseCostJpy").innerText = formatNumber(convertCurrency(cameraCurrency, "jpy", CameraCost))  + "円";
+            document.getElementById("qLevelCost").innerText = formatNumber(CameraLevelCost) + "STP";
+            document.getElementById("qLevelCostJpy").innerText = formatNumber(convertCurrency('stp', 'jpy', CameraLevelCost)) + "円";
             totalCost = totalCost + convertCurrency(cameraCurrency, "jpy", CameraCost) + convertCurrency('stp', 'jpy', CameraLevelCost);
         }
 
         // その他数合わせカメラの計算
-        let cameraUnits = document.querySelector('input[name="unitsButton"]:checked').value;
         let otherCameraUnits = cameraUnits - eCameraUmu - qCameraUmu;
         let oCameraCost = otherCameraUnits * cCameraPrice * (1 + commission);
-        document.getElementById("oPurchaseCost").innerText = formatNumber(convertCurrency('usd', "jpy", oCameraCost))  + "円";
+        document.getElementById("oPurchaseCost").innerText = formatNumber(oCameraCost)  + "USD";
+        document.getElementById("oPurchaseCostJpy").innerText = formatNumber(convertCurrency('usd', "jpy", oCameraCost))  + "円";
         totalCost = totalCost + convertCurrency('usd', "jpy", oCameraCost);
 
         // 合計金額の計算
@@ -219,12 +238,16 @@ document.getElementById("StartButton").addEventListener("click", function() {
         switch(cameraUnits){
             case "1": 
                 film = 2;
+                break;
             case "3":
                 film = 4;
+                break;
             case "8":
                 film = 8;
+                break;
             case "15":
                 film = 16;
+                break;
         }
 
         // 計算結果の出力
@@ -261,3 +284,7 @@ function calcLevelCost(type, levelFrom, levelTo){
     return levelCost;
 }
 
+document.getElementById("ammRate").addEventListener("change", function() {
+    stpJpy = roundToDecimal(document.getElementById("ammRate").value * snptJpy, 4);
+    document.getElementById("rateStpJpy").innerText = stpJpy;
+});
