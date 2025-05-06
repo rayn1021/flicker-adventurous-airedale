@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SNPITミント計算機</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
+     crossorigin="anonymous"></script>
+     <script src="/script/common/global.js"></script>
+</head>
+<body>
+  <image src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/logo_blk_h.png?v=1735034578090' style='width:100%; max-width:640px'></image>
+  <div id="header"></div>
+
+  <h1>ミント計算機</h1>
+  <div class="form-group">
+    <label for="camera1">1台目</label>
+    <select id="camera1" style="max-width: 74px;">
+      <option value=1>コモン</option>
+      <option value=2>アンコモン</option>
+    </select>
+    <label for="mint1">ミント回数</label>
+    <select id="mint1" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>0</option>
+      <option value=1>1</option>
+      <option value=2>2</option>
+      <option value=3>3</option>
+      <option value=4>4</option>
+      <option value=5>5</option>
+      <option value=6>6</option>
+    </select>
+    <label for="kuroko1" style="width: 74px;">黒子ストラップ</label>
+    <select id="kuroko1" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>なし</option>
+      <option value=1>G0</option>
+      <option value=2>G1</option>
+      <option value=3>G2</option>
+    </select>  </div>
+  <div class="form-group">
+    <label for="camera2">2台目</label>
+    <select id="camera2" style="max-width: 74px;">
+      <option value=1>コモン</option>
+      <option value=2>アンコモン</option>
+    </select>
+    <label for="mint2">ミント回数</label>
+    <select id="mint2" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>0</option>
+      <option value=1>1</option>
+      <option value=2>2</option>
+      <option value=3>3</option>
+      <option value=4>4</option>
+      <option value=5>5</option>
+      <option value=6>6</option>
+    </select>
+    <label for="kuroko2" style="width: 74px;">黒子ストラップ</label>
+    <select id="kuroko2" style="margin-left: 2px; max-width: 52px;">
+      <option value=0>なし</option>
+      <option value=1>G0</option>
+      <option value=2>G1</option>
+      <option value=3>G2</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="GEN">ジェネシス</label>
+    <input type="radio" id="GEN0" name="genButton" value="0" checked>
+      <label for="GEN0" class="select-button">含まない</label>
+  
+    <input type="radio" id="GEN1" name="genButton" value="1">
+      <label for="GEN1" class="select-button">含む</label>
+  </div>
+  <br>
+  <details>
+    <summary>オプション</summary>
+      <div class="form-group">
+        <label for="cameraLevel1" style="text-align: left;">カメラレベル</label>
+      </div>
+      <div class="form-group">
+        <label for="cameraLevel1">1台目</label>
+        <input type="number" id="cameraLevel1_1" value="16" style="max-width: 30px;">　～　
+        <input type="number" id="cameraLevel1_2" value="16" style="max-width: 30px;">
+      </div>
+      <div class="form-group">
+        <label for="cameraLevel1">2台目</label>
+        <input type="number" id="cameraLevel2_1" value="16" style="max-width: 30px;">　～　
+        <input type="number" id="cameraLevel2_2" value="16" style="max-width: 30px;">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="commision" style="text-align: left">Rarible手数料</label>
+      </div>
+      <div class="form-group">
+        <label for="commision1">1台目ミンスク</label>
+        <input type="radio" id="commision1_NO"  name="commision1" value="0" checked><label for="commision1_NO"  class="select-button">加味しない</label>
+        <input type="radio" id="commision1_YES" name="commision1" value="1"        ><label for="commision1_YES" class="select-button">加味する</label>
+      </div>
+      <div class="form-group">
+        <label for="commision2">2台目ミンスク</label>
+        <input type="radio" id="commision2_NO"  name="commision2" value="0" checked><label for="commision2_NO"  class="select-button">加味しない</label>
+        <input type="radio" id="commision2_YES" name="commision2" value="1"        ><label for="commision2_YES" class="select-button">加味する</label>
+      </div>
+      <!-- <div class="form-group">
+        <label for="commision2">カメラ販売価格</label>
+        <input type="radio" id="commision3_NO"  name="commision3" value="0"><label for="commision3_NO"  class="select-button">加味しない</label>
+        <input type="radio" id="commision3_YES" name="commision3" value="1" checked><label for="commision3_YES" class="select-button">加味する</label>
+      </div> -->
+  </details>
+  <br>
+  <div class="form-group">
+    <button id="StartButton">計算する</button>
+  </div>
+  <HR>
+  <h2>計算結果</h3>
+  <div class="form-group">
+    <label style="text-align: left;  font-weight: bold;">■フロア価格</label><p style="font-size:6px;" id="rateTime"></p>
+  </div>
+  <div class="form-group">
+    <label>コモンカメラ</label>
+    <input type="text" id="commonCamera" disabled style="max-width: 50px; margin-right: 10px; text-align: right;">
+    <label>アンコカメラ</label>
+    <input type="text" id="unCommonCamera" disabled style="max-width: 50px; text-align: right;">
+    <label>レアカメラ</label>
+    <input type="text" id="rareCamera" disabled style="max-width: 50px; text-align: right;">
+  </div>
+  <div class="form-group">
+    <label>コモンミンスク</label>
+    <input type="text" id="commonMintScroll" disabled style="max-width: 50px; margin-right: 10px; text-align: right;">
+    <label>アンコミンスク</label>
+    <input type="text" id="unCommonMintScroll" disabled style="max-width: 50px; text-align: right;">
+  </div>
+  <br>
+  <div class="form-group">
+    <label style="text-align: left;  font-weight: bold;">■金額情報</label>
+  </div>
+  <div class="form-group">
+    <label for="amm">AMM比率</label>
+    <input type="text" id="ammRate" value="2.6" style="max-width: 42px; text-align: right;"><p style="font-size:6px;">※AMM比率は自動取得できないため、調べて入力してください。</p>
+  </div>
+  <div class="form-group">
+    <label for="amm">SNPT / 円</label>
+    <input type="text" id="snptValue" disabled value="" style="max-width: 42px; text-align: right;">
+  </div>
+  <div class="form-group">
+    <label for="amm">STP / 円</label>
+    <input type="text" id="stpValue" disabled value="" style="max-width: 42px; text-align: right;">
+  </div>
+  <br><hr><br>
+  <div class="form-group">
+    <label style="text-align: left; font-weight: bold;">■ミントコスト</label> 
+  </div>
+  <div class="form-group">
+    <label>ミンスク代金</label>
+    <input type="text" id="minsc" readonly style="max-width: 50px; text-align: right;">
+  </div>
+  <div class="form-group">
+    <label>ミント費用</label>
+    <input type="text" id="mintPriceStp" readonly style="max-width: 50px; text-align: right;">　→　
+    <input type="text" id="mintPriceYen" readonly style="max-width: 50px; text-align: right;">
+  </div>
+  <div class="form-group">
+    <label>合計費用</label>
+    <input type="text" id="totalPrice" readonly style="max-width: 50px; text-align: right;">
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label style="text-align: left; font-weight: bold;">■ミント結果</label>
+  </div>
+  <div class="form-group">
+    <label>ダブルミント確率</label>
+    <input type="text" id="doubleChance" readonly style="max-width: 50px;">
+  </div>
+  <br><br>
+  <div class="form-group">
+    <label style="text-align: left; font-weight: bold;">■期待値</label>
+  </div>
+  <div class="form-group">
+    <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+      <thead class="tableHedder">
+          <th>レアリティ</th>
+          <th>確率</th>
+          <th>利益</th>
+          <th>利益率</th>
+        </thead>
+      <tbody">
+        <tr>
+          <td>コモン</td>
+          <td><span id="result1_1-2"></span></td>
+          <td><span id="result1_1-3"></span></td>
+          <td><span id="result1_1-4"></span></td>
+        </tr>
+        <tr>
+          <td>アンコモン</td>
+          <td><span id="result1_2-2"></span></td>
+          <td><span id="result1_2-3"></span></td>
+          <td><span id="result1_2-4"></span></td>
+        </tr>
+        <tr>
+          <td>レア</td>
+          <td><span id="result1_3-2"></span></td>
+          <td><span id="result1_3-3"></span></td>
+          <td><span id="result1_3-4"></span></td>
+        </tr>
+        <tr>
+          <td>エピック</td>
+          <td><span id="result1_4-2"></span></td>
+          <td><span id="result1_4-3"></span></td>
+          <td><span id="result1_4-4"></span></td>
+        </tr>
+    </tbody>
+    </table>
+  </div>
+  <div class="form-group">
+    <label style="width: 28px;">期待値</label>
+    <input type="text" id="expectedValue1" readonly style="max-width: 50px; text-align: right;">
+    <label>損益</label>
+    <input type="text" id="profitAndLoss1" readonly style="max-width: 50px; text-align: right;">
+    <label>利益率</label>
+    <input type="text" id="profitRatio1" readonly style="max-width: 50px; text-align: right;">
+  </div>
+  <br><br>
+  <details>
+    <summary>■シングルミントの期待値</summary>
+    <div class="form-group">
+      <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+        <thead class="tableHedder">
+            <th>レアリティ</th>
+            <th>確率</th>
+            <th>利益</th>
+            <th>利益率</th>
+          </thead>
+        <tbody">
+          <tr>
+            <td>コモン</td>
+            <td><span id="result2_1-2" style=" text-align: right;"></span></td>
+            <td><span id="result2_1-3" style=" text-align: right;"></span></td>
+            <td><span id="result2_1-4" style=" text-align: right;"></span></td>
+          </tr>
+          <tr>
+            <td>アンコモン</td>
+            <td><span id="result2_2-2" style=" text-align: right;"></span></td>
+            <td><span id="result2_2-3" style=" text-align: right;"></span></td>
+            <td><span id="result2_2-4" style=" text-align: right;"></span></td>
+          </tr>
+          <tr>
+            <td>レア</td>
+            <td><span id="result2_3-2" style=" text-align: right;"></span></td>
+            <td><span id="result2_3-3" style=" text-align: right;"></span></td>
+            <td><span id="result2_3-4" style=" text-align: right;"></span></td>
+          </tr>
+          <tr>
+            <td>エピック</td>
+            <td><span id="result2_4-2" style=" text-align: right;"></span></td>
+            <td><span id="result2_4-3" style=" text-align: right;"></span></td>
+            <td><span id="result2_4-4" style=" text-align: right;"></span></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="form-group">
+    <label style="width: 28px;">期待値</label>
+    <input type="text" id="expectedValue2" readonly style="max-width: 50px; text-align: right;">
+    <label>損益</label>
+    <input type="text" id="profitAndLoss2" readonly style="max-width: 50px; text-align: right;">
+    <label>利益率</label>
+    <input type="text" id="profitRatio2" readonly style="max-width: 50px; text-align: right;">
+  </div>
+</details>
+<br><br>
+<details>
+  <summary>■ダブルミント時の期待値</summary>
+  <div class="form-group">
+    <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
+      <thead class="tableHedder">
+          <th>レアリティ</th>
+          <th>確率</th>
+          <th>利益</th>
+          <th>利益率</th>
+        </thead>
+      <tbody">
+        <tr>
+          <td>コモン</td>
+          <td><span id="result3_1-2" style=" text-align: right;"></span></td>
+          <td><span id="result3_1-3" style=" text-align: right;"></span></td>
+          <td><span id="result3_1-4" style=" text-align: right;"></span></td>
+        </tr>
+        <tr>
+          <td>アンコモン</td>
+          <td><span id="result3_2-2" style=" text-align: right;"></span></td>
+          <td><span id="result3_2-3" style=" text-align: right;"></span></td>
+          <td><span id="result3_2-4" style=" text-align: right;"></span></td>
+        </tr>
+        <tr>
+          <td>レア</td>
+          <td><span id="result3_3-2" style=" text-align: right;"></span></td>
+          <td><span id="result3_3-3" style=" text-align: right;"></span></td>
+          <td><span id="result3_3-4" style=" text-align: right;"></span></td>
+        </tr>
+        <tr>
+          <td>エピック</td>
+          <td><span id="result3_4-2" style=" text-align: right;"></span></td>
+          <td><span id="result3_4-3" style=" text-align: right;"></span></td>
+          <td><span id="result3_4-4" style=" text-align: right;"></span></td>
+        </tr>
+    </tbody>
+    </table>
+  </div>
+  <div class="form-group">
+    <label style="width: 28px;">期待値</label>
+    <input type="text" id="expectedValue3" readonly style="max-width: 50px; text-align: right;">
+    <label>損益</label>
+    <input type="text" id="profitAndLoss3" readonly style="max-width: 50px; text-align: right;">
+    <label>利益率</label>
+    <input type="text" id="profitRatio3" readonly style="max-width: 50px; text-align: right;">
+  </div>
+</details>
+<br><br>
+<br><br><br><br><br><br>
+
+    <!-- <div id="history"></div> -->
+
+  <br><br>
+  <div id="policy"></div>
+  <br><br><br><br>
+  <div style="margin-top:30px; text-align:right;">
+    <!-- FC2カウンター ここから -->
+    <script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=36989980&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=36989980&main=1" /></noscript>
+    <!-- FC2カウンター ここまで -->
+  </div>
+
+  <script src="/script/common/common.js"></script>
+  <script src="/script/snpit/mint_calc.js"></script>
+  <footer>
+    <div id="footer"></div>
+  </footer>
+</body>
+</html>

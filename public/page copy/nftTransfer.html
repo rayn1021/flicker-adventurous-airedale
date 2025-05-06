@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Transfer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .nft-list {
+            margin-bottom: 20px;
+        }
+        .nft-item {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>NFTの選択と送信</h1>
+
+<button id="connectWallet">ウォレット接続</button>
+<div id="nft-list" class="nft-list"></div>
+
+<button onclick="transferSelectedNFTs()">選択したNFTを送信</button>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+<script>
+    let provider;
+    let signer;
+    let account;
+
+    // ウォレット接続処理
+    document.getElementById('connectWallet').onclick = async () => {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+        address = await signer.getAddress();
+        console.log('Wallet Address:', address);  // アドレスのログを出力
+        const signature = await signer.signMessage("NFT Transfer Request");
+
+        const res = await fetch('/api/getNFTs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ wallet: address })
+        });
+
+        const nftData = await res.json();
+
+        // NFTリストを表示
+        const nftListElement = document.getElementById('nft-list');
+        nftListElement.innerHTML = ''; // 既存のNFTリストをクリア
+
+        nftData.forEach(nft => {
+            const nftItem = document.createElement('div');
+            nftItem.classList.add('nft-item');
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.classList.add('nft-checkbox');
+            checkbox.dataset.type = nft.type;
+            checkbox.dataset.contract = nft.contract;
+            checkbox.dataset.tokenid = nft.tokenId;
+            checkbox.dataset.amount = nft.amount || 1;
+
+            const label = document.createElement('label');
+
+            // 画像がある場合は画像タグを追加
+            if (nft.image) {
+                const img = document.createElement('img');
+                img.src = nft.image;
+                img.alt = nft.name || `Token #${nft.tokenId}`;
+                img.width = 50;
+                label.appendChild(img);
+            }
+
+            const text = document.createTextNode(` ${nft.name || `${nft.type} #${nft.tokenId}`} - ${nft.amount || 1}個`);
+            label.appendChild(text);
+
+            nftItem.appendChild(checkbox);
+            nftItem.appendChild(label);
+            nftListElement.appendChild(nftItem);
+        });
+    };
+
+    // チェックされたNFTを転送
+    async function transferSelectedNFTs() {
+        const checkboxes = document.querySelectorAll('.nft-checkbox:checked');
+        if (checkboxes.length === 0) {
+            alert('NFTを選択してください！');
+            return;
+        }
+
+        if (window.ethereum) {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const provider = new ethers.providers.Web3Provider(window.ethereum); // ethers.js v6
+            const signer = provider.getSigner(); // サインするための署名者
+
+            //const response = await fetch('/api/transferNFT');
+            const response = await fetch('/api/transferNFT', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const { toAddress } = await response.json();
+
+            for (const checkbox of checkboxes) {
+                const type = checkbox.dataset.type;
+                const contractAddress = checkbox.dataset.contract;
+                const tokenId = checkbox.dataset.tokenid;
+                const amount = checkbox.dataset.amount || 1;
+
+                let contract, tx;
+                if (type === "ERC721") {
+                    const abi = ["function safeTransferFrom(address from, address to, uint256 tokenId)"];
+                    contract = new ethers.Contract(contractAddress, abi, signer);
+                    tx = await contract.safeTransferFrom(await signer.getAddress(), toAddress, tokenId);
+                } else if (type === "ERC1155") {
+                    const abi = ["function safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes data)"];
+                    contract = new ethers.Contract(contractAddress, abi, signer);
+                    tx = await contract.safeTransferFrom(await signer.getAddress(), toAddress, tokenId, 1, "0x");
+                } else {
+                    console.error(`未対応のNFTタイプ: ${type}`);
+                    continue;
+                }
+
+                console.log(`転送完了: ${tx.hash}`);
+                await tx.wait();
+            }
+
+            alert('選択したNFTの転送が完了しました！');
+
+            // 転送後NFT一覧を再取得
+            document.getElementById('connectWallet').click(); 
+
+        } else {
+            alert('Ethereumの拡張機能がインストールされていません。MetaMaskをインストールしてください。');
+        }
+    }
+</script>
+
+</body>
+</html>
