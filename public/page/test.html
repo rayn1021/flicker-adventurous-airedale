@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>通貨レート表示</title>
+</head>
+<body>
+<h1>通貨レートを編集</h1>
+<input type="number" id="rateInput">
+<button onclick="updateRate()">更新</button>
+  
+<p id="rateOutput" step="0.01">
+<button onclick="getRate()">取得</button>
+<p id="message"></p>
+<script src="/script/common/common.js"></script>
+
+  <script>
+    async function updateRate() {
+      const newRate = parseFloat(document.getElementById('rateInput').value);
+      fetch('/api/setAmmRate', {
+        const url = 'https://gbqw8m1yt2.execute-api.ap-northeast-1.amazonaws.com/prod/crypto-rate?currency=jpy';
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => console.log("受け取ったレート:", data))
+        .catch(err => console.error("エラー:", err));
+    }      
+  </script>
+</body>
+</html>

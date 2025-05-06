@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <title>ランキング計算機</title>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
+     crossorigin="anonymous">
+  </script>
+  <script src="/script/common/global.js"></script>
+  </head>
+<body class="bg_image">
+    <div id="header"></div>
+
+    <h1>ランキング計算機</h1>
+    <div class="form-group">
+        <label for="target1">対象品1</label>
+        <select id="target1" style="max-width: 140px;">
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="target2">対象品2</label>
+        <select id="target2" style="max-width: 140px;">
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="target3">対象品3</label>
+        <select id="target3" style="max-width: 140px;">
+        </select>
+    </div>
+    <div class="form-group">
+        <button id="calculateButton">計算する</button>
+        <button id="share-button" style="display:none;">Xで共有する</button>
+    </div>
+
+  <h3>結果</h3>
+  <table border="1" style="width: 100%; max-width: 640px; border-collapse: collapse">
+    <thead>
+        <tr>
+        <th>対象生産品</th>
+        <th>作成時間</th>
+        <th>材料1</th>
+        <th>材料2</th>
+        <th>材料3</th>
+        <th>PT/時</th>
+        <th>PT/時(属性有)</th>
+        </tr>
+    </thead>
+    <tbody id="resultTableBody">
+        <tr><td id="item1"></td><td id="createTime1"></td><td id="material1_1"></td><td id="material2_1"></td><td id="material3_1"></td><td id="PT1_1"></td><td id="PT2_1"></td>/tr>
+        <tr><td id="item2"></td><td id="createTime2"></td><td id="material1_2"></td><td id="material2_2"></td><td id="material3_2"></td><td id="PT1_2"></td><td id="PT2_2"></td>/tr>
+        <tr><td id="item3"></td><td id="createTime3"></td><td id="material1_3"></td><td id="material2_3"></td><td id="material3_3"></td><td id="PT1_3"></td><td id="PT2_3"></td>/tr>
+    </tbody>
+  </table>
+  </br>
+
+    <!-- <div id="history"></div> -->
+
+  <br><br>
+  <div id="policy"></div>
+  <div style="margin-top:30px; text-align:right;">
+    <!-- FC2カウンター ここから -->
+    <script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=36989980&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=36989980&main=1" /></noscript>
+    <!-- FC2カウンター ここまで -->
+  </div>
+  <dialog  id="dialog" name="dialog">
+    <image id="raffleImage" src="https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/999.png?v=1735924960465" style='width:100%; max-width:640px'></image>
+  </dialog >
+    <script src="/script/elf/calc_star_crop.js"></script>
+    <script src="/script/common/common.js"></script>
+    <script>calc();</script>
+    <footer>
+      <div id="footer"></div>
+    </footer>
+  </body>
+</html>
