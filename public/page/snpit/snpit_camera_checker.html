@@ -11,47 +11,13 @@
   <script src="/script/common/global.js"></script>
   </head>
 <body>
-  <image src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/logo_blk_h.png?v=1735034578090' style='width:100%; max-width:640px'></image>
-  <div id="header"></div>
-
-  <h1>カメラチェッカー</h1>
-  
-  <div class="form-group">
-    <label for="CONTRACT_ADDRESS">カメラID</label></td>
-      <input type="text" id="CONTRACT_ADDRESS" style="max-width: 120px;">
-  </div>
-    <br>
-  <div class="form-group">
-    <button id="StartButton">カメラデータ取得</button>
-    <button id="share-button" style="display:none;">Xで共有する</button>
-  </div>
-  <div id="result"></div>
-  <h3>結果</h3>
-  <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
-    <thead class="tableHedder">
-      <tr>
-        <th>KEY</th>
-        <th>VALUE</th>
-      </tr>
-    </thead>
-    <tbody id="resultTableBody">
-    </tbody>
-  </table>
-
-  <br><br>
-  <div id="policy"></div>
-  <div style="margin-top:30px; text-align:right;">
-    <!-- FC2カウンター ここから -->
-    <script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=36989980&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=36989980&main=1" /></noscript>
-    <!-- FC2カウンター ここまで -->
-  </div>
-  <dialog  id="dialog" name="dialog">
-    <image id="raffleImage" src="https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/999.png?v=1735924960465" style='width:100%; max-width:640px'></image>
-  </dialog > 
-    <!-- <script type="module" src="/script/snpit_camera_checker.js"></script> -->
-  </body>
-  <script type="module" src="/script/snpit/snpit_camera_checker.js"></script>
-  <footer>
-    <div id="footer"></div>
-  </footer>
-</html>
+  <h1>サイト移転のお知らせ</h1>
+  <p>このページは移転しました。</p>
+  <p>5秒後に自動で新しいサイトへ移動します。</p>
+  <p>自動で移動しない場合は、<a href="https://chima-kom-land.s3.ap-northeast-1.amazonaws.com/page/snpit/snpit_camera_checker.html">こちらをクリック</a>してください。</p>
+  <script>
+    setTimeout(() => {
+      window.location.href = "https://chima-kom-land.s3.ap-northeast-1.amazonaws.com/page/snpit/snpit_camera_checker.html";
+    }, 5000);
+  </script>
+  </html>

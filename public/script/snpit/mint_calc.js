@@ -144,16 +144,19 @@ document.getElementById("StartButton").addEventListener("click", function() {
  */
 async function getrates(){
       if (document.getElementById("snptValue").value == ""){
-        const response = await fetch(`/api/readRates?target=jpy`);
+        //const response = await fetch(`/api/readRates?target=jpy`);
+        const apiUrl = `https://gbqw8m1yt2.execute-api.ap-northeast-1.amazonaws.com/prod/crypto-rate?currency`;
+        const response = await fetch(`${apiUrl}=jpy`)
         if (!response.ok) {
             alert('レートを取得できませんでした。');
             throw new Error(`サーバーエラー: ${response.statusText}`);
         }
         const data = await response.json();
-        snptJpy = roundToDecimal(data.rates['snpit-token'].jpy, 2);
-        usdJpy = roundToDecimal(data.rates['usd'].jpy, 2);
-        polJpy = roundToDecimal(data.rates['matic-network'].jpy, 2);
-        rateTimestamp = formatDate(data.timestamp);
+        const body = JSON.parse(data.body); 
+        snptJpy = roundToDecimal(body.rates['snpit-token'].jpy, 2);
+        usdJpy = roundToDecimal(body.rates['usd'].jpy, 2);
+        polJpy = roundToDecimal(body.rates['matic-network'].jpy, 2);
+        rateTimestamp = formatDate(body.timestamp);
       }
 
 }

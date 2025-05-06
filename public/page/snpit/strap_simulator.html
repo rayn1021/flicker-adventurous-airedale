@@ -10,124 +10,13 @@
      <script src="/script/common/global.js"></script>
     </head>
 <body>
-  <image src='https://cdn.glitch.global/7d43b8f5-2de2-444f-b615-ec73b3fc0e82/logo_blk_h.png?v=1735034578090' style='width:100%; max-width:640px'></image>
-  <div id="header"></div>
-
-  <h1>ストラップ合成シミュレーター</h1>
-  
-  <table style="width: 100%; max-width: 640px;">
-    <tr>
-      <td><label for="STRAP">ストラップ</label></td>
-      <td>
-        <select id="STRAP">
-          <option value="2">★2 イチカ(Q+5)</option>
-          <option value="2">★2 ブルール(E+5)</option>
-          <option value="2">★2 ナッチ(L+5)</option>
-          <option value="2">★2 マーレ(B+5)</option>
-          <option value="2">★2 SNPIT黄(Q+3/Q+5)</option>
-          <option value="2">★2 SNPIT赤(E+3/E+5)</option>
-          <option value="2">★2 SNPIT緑(L+3/L+5)</option>
-          <option value="2">★2 SNPIT紫(B+3/B+5)</option>
-          <option value="2">★2 リムル(稀に撮影STP1.2倍)</option>
-          <option value="2">★2 ミリム(2倍ズーム)</option>
-          <option value="2">★2 ヴェルドラ(稀にバトルSTP1.2倍)</option>
-          <option value="2">★2 ソウエイ(全ステータス+1)</option>
-          <option value="2">★2 シュナ(バッテリーチャージ20%オフ)</option>
-          <option value="3">★3 SNPIT茶(L+20)</option>
-          <option value="3">★3 Tシャツリタロウ(フォーカス)</option>
-          <option value="3">★3 リタロウ(L+20)</option>
-          <option value="4">★4 リムルスキン(アクセ枠+1)</option>
-          <option value="4">★4 ミリムスキン(MB獲得2倍)</option>
-        </select>
-      </td>
-    </tr>
-    <!--<tr> 
-      <td><label for="eff">グレード</label></td>
-      <td>
-        <input type="number" id="GradeStart" value="0" readonly>
-        <DIV>&nbsp;↓&nbsp;</DIV>
-        <input type="number" id="GradeEnd" value="1">
-      </td>
-    </tr>-->
-  </table><br>
-  <h3>合成確率一覧</h3>
-  <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
-    <thead class="tableHedder">
-      <th>レアリティ</th>
-      <th>GRADE</th>
-      <th>成功率</th>
-      <th>コスト</th>
-    </thead>
-    <tbody>
-      <tr name="list">
-        <td>★4</td><td>G0 ⇒ G1</td><td>10%</td><td>100STP</td>
-      </tr>
-      <tr name="list">
-        <td>★4</td><td>G1 ⇒ G2</td><td>3%</td><td>100STP</td>
-      </tr>
-      <tr name="list">
-        <td>★3</td><td>G0 ⇒ G1</td><td>50%</td><td>40STP</td>
-      </tr>
-      <tr name="list">
-        <td>★3</td><td>G1 ⇒ G2</td><td>20%</td><td>40STP</td>
-      </tr>
-      <tr name="list">
-        <td>★3</td><td>G2 ⇒ G3</td><td>10%</td><td>40STP</td>
-      </tr>
-      <tr name="list">
-        <td>★3</td><td>G3 ⇒ G4</td><td>3%</td><td>40STP</td>
-      </tr>
-      <tr name="list">
-        <td>★2</td><td>G0 ⇒ G1</td><td>50%</td><td>30STP</td>
-      </tr>
-      <tr name="list">
-        <td>★2</td><td>G1 ⇒ G2</td><td>20%</td><td>30STP</td>
-      </tr>
-      <tr name="list">
-        <td>★2</td><td>G2 ⇒ G3</td><td>10%</td><td>30STP</td>
-      </tr>
-      <tr name="list">
-        <td>★2</td><td>G3 ⇒ G4</td><td>3%</td><td>30STP</td>
-      </tr>
-    </tbody>
-  </table>
-  <br>
-  <div class="form-group">
-    <button id="calculateButton">シミュレーション開始</button>
-  </div>
-  <div id="result"></div>
-  <h3>結果</h3>
-  <table border="1" style="width: 100%; max-width: 640px;border-collapse: collapse">
-    <thead class="tableHedder">
-      <tr>
-        <th>ランク</th>
-        <th>試行回数</th>
-        <th>使用STP</th>
-      </tr>
-    </thead>
-    <tbody id="resultTableBody">
-    </tbody>
-  </table>
-  </br>
-
-    <!-- <div id="history"></div> -->
-
-  <div>
-    ※現在β版です。</br>
-    端数処理等、計算内容に誤りがある可能性がありますので、お気づきの方は以下までご連絡ください。</br>
-    <a href="https://x.com/Rayn73747887" target="_blank">https://x.com/Rayn73747887</a>
-  </div>
-  <br><br>
-  <div id="policy"></div>
-  <br><br><br><br>
-  <div style="margin-top:30px; text-align:right;">
-    <!-- FC2カウンター ここから -->
-    <script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=36989980&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=36989980&main=1" /></noscript>
-    <!-- FC2カウンター ここまで -->
-  </div>
-  <script src="/script/snpit/strap_simulator.js"></script>
-  <footer>
-    <div id="footer"></div>
-  </footer>
-  </body>
+  <h1>サイト移転のお知らせ</h1>
+  <p>このページは移転しました。</p>
+  <p>5秒後に自動で新しいサイトへ移動します。</p>
+  <p>自動で移動しない場合は、<a href="https://chima-kom-land.s3.ap-northeast-1.amazonaws.com/page/snpit/strap_simulator.html">こちらをクリック</a>してください。</p>
+  <script>
+    setTimeout(() => {
+      window.location.href = "https://chima-kom-land.s3.ap-northeast-1.amazonaws.com/page/snpit/strap_simulator.html";
+    }, 5000);
+  </script>  </body>
 </html>
