@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- 
+      This is an HTML comment
+      You can write text in a comment and the content won't be visible in the page
+    -->
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+
+    <!--
+      This is the page head - it contains info the browser uses
+      Like the title, which appears on the browser tab but not inside the page
+      Further down you'll see the content that displays in the page
+    -->
+    <title>便利ツール置き場</title>
+
+    <!-- The website stylesheet -->
+    <link rel="stylesheet" href="/style_user.css" />
+
+    <!-- The website JavaScript file -->
+    <script src="/script.js" defer></script>
+    <script src="script/global.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103998688707267"
+     crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1>サイト移転のお知らせ</h1>
+  <p>このページは移転しました。</p>
+  <p>5秒後に自動で新しいサイトへ移動します。</p>
+  <p>自動で移動しない場合は、<a href="https://chima-kom-land.s3.ap-northeast-1.amazonaws.com/index.html">こちらをクリック</a>してください。</p>
+  <script>
+    setTimeout(() => {
+      window.location.href = "https://chima-kom-land.s3.ap-northeast-1.amazonaws.com/index.html";
+    }, 5000);
+  </script>        </body>
+</html>
